@@ -9,7 +9,27 @@ module.exports = async (req, res) => {
             'https://api.openai.com/v1/chat/completions',
             {
                 model: "gpt-3.5-turbo",  // Change to the specific chat model you are using
-                messages: [{role: "user", content: `Process this query for local recommendations: ${query}`}],
+                messages: [{role: "user", content: `You modify this url so it will help people search for places. Change the query to how you think it will help the user find unique local and cozy places. Try to add max 2 extra filters. If someone enters a street, try to change it to the area or even the city.
+
+                Example 1 query: "canal saint-martin vegetarian dinner"
+                  
+                Paris+végétarien+Dîner+indépendant
+                
+                Example 2 query:"koffie funenpark"
+                
+                amsterdam-oost+koffie+havermelk+gezellig
+                
+                Example 3: "petit dejeuner berlijn"
+                
+                fruhstuck+berlin+hipster+klein
+                
+                Example 4: "go out in tbilisi"
+                
+                tbilisi+nightclub+local+unique
+                
+                Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, repond with "INVALID" If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
+                
+                You can do it! The query is: ${query}`}],
                 temperature: 0.7  // Adjust temperature if necessary for randomness in response
             },
             { 
