@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TychoMaps Query Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+        #results {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to TychoMaps</h1>
+        <p>Enter your query to find local gems:</p>
+        <input type="text" id="query" placeholder="Type here...">
+        <button onclick="sendQuery()">Search</button>
+        <div id="results">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function sendQuery() {
+            var query = document.getElementById('query').value;
+            document.getElementById('results').innerHTML = '<p>Searching for: ' + query + '</p>';
+            // AJAX request to your backend server would go here
+        }
+    </script>
+</body>
+</html>
