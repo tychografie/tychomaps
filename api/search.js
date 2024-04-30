@@ -4,7 +4,7 @@ const axios = require('axios');
 module.exports = async (req, res) => {
     const { query } = req.body;
     try {
-        // Updated OpenAI API Call using the chat model
+        // Updated OpenAI API Call using the chat model. Test.
         const aiResponse = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
