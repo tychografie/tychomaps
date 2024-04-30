@@ -12,7 +12,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             background: white;
             padding: 20px;
@@ -28,11 +28,57 @@
         #results {
             margin-top: 20px;
         }
+        .result-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .result-item img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
     </style>
+    <script>
+        function sendQuery() {
+            var query = document.getElementById('query').value;
+            document.getElementById('results').innerHTML = '<p>Searching for: ' + query + '</p>';
+
+            // AJAX request to your backend server would go here
+            fetch('/api/search', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: query })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('results').innerHTML = '';
+                data.results.forEach(result => {
+                    var resultHtml = '<div class="result-item">';
+                    resultHtml += '<h2>' + result.name + '</h2>';
+                    resultHtml += '<p><strong>Address:</strong> ' + result.formatted_address + '</p>';
+                    resultHtml += '<p><strong>Rating:</strong> ' + result.rating + '</p>';
+                    resultHtml += '<p><strong>Open Now:</strong> ' + (result.opening_hours && result.opening_hours.open_now ? 'Yes' : 'No') + '</p>';
+                    if (result.photos && result.photos.length > 0) {
+                        resultHtml += '<img src="' + result.photos[0].photo_reference + '" alt="' + result.name + '">';
+                    }
+                    resultHtml += '</div>';
+                    document.getElementById('results').innerHTML += resultHtml;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('results').innerHTML = '<p>An error occurred</p>';
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to TychoMaps</h1>
+        <h1>Welcome to TychoMaps 2</h1>
         <p>Enter your query to find local gems:</p>
         <input type="text" id="query" placeholder="Type here...">
         <button onclick="sendQuery()">Search</button>
@@ -40,13 +86,5 @@
             <!-- Results will be displayed here -->
         </div>
     </div>
-
-    <script>
-        function sendQuery() {
-            var query = document.getElementById('query').value;
-            document.getElementById('results').innerHTML = '<p>Searching for: ' + query + '</p>';
-            // AJAX request to your backend server would go here
-        }
-    </script>
 </body>
 </html>
