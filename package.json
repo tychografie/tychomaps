@@ -5,7 +5,9 @@
   "name": "tychomaps",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

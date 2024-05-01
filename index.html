@@ -1,51 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TychoMaps Query Interface</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            display: inline-block;
-            box-sizing: border-box;
-        }
-        #results {
-            margin-top: 20px;
-        }
-        .result-item {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .result-item img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 10px;
-        }
-    </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tychomaps Query Interface</title>
+        <link href="/src/output.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
+    </head>
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
+        '1-Dedaena-Bar-in-Tblisi.jpg',
+        '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
+        '3-Latei-in-Amsterdam.jpg',
+        '4-La-Recyclerie-in-Paris.jpg',
+        '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
+        '5-Zawya-arthouse-cinema-in-Cairo.jpg',
+        '6-Restaurant-Pof-in-Amsterdam.jpg',
+        '7-Trattoria-la-Madonnina.jpg'
+    ]; // Updated list of image filenames
+            const imagePath = '/places/';
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            const imageName = formatImageName(randomImage);
+        
+            const imageContainer = document.querySelector('.sidebar-image');
+            imageContainer.src = imagePath + randomImage;
+            imageContainer.alt = imageName;
+        
+            const imageCaption = document.querySelector('.imagetext');
+            imageCaption.textContent = imageName; // Update the caption dynamically
+        
+            // Listen for keydown event on the input field
+            document.getElementById('query').addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    sendQuery(); // Call sendQuery when Enter is pressed
+                }
+            });
+        });
+        
+        function formatImageName(filename) {
+            return filename
+                .replace(/^\d+-/, '') // Remove the leading number and dash
+                .replace(/-/g, ' ') // Replace all dashes with spaces
+                .replace('.jpg', '') // Remove the .jpg extension
+                .replace('.jpeg', ''); // Remove the .jpg extension
+
+        }
+        
         function sendQuery() {
             var query = document.getElementById('query').value;
-            document.getElementById('results').innerHTML = '<p>Searching for: ' + query + '</p>';
-
-            // AJAX request to your backend server would go here
+            // Assuming you have an API endpoint that handles search
             fetch('/api/search', {
                 method: 'POST',
                 headers: {
@@ -55,18 +61,24 @@
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('results').innerHTML = '';
-                data.results.forEach(result => {
-                    var resultHtml = '<div class="result-item">';
-                    resultHtml += '<h2>' + result.name + '</h2>';
-                    resultHtml += '<p><strong>Address:</strong> ' + result.formatted_address + '</p>';
-                    resultHtml += '<p><strong>Rating:</strong> ' + result.rating + '</p>';
-                    resultHtml += '<p><strong>Open Now:</strong> ' + (result.opening_hours && result.opening_hours.open_now ? 'Yes' : 'No') + '</p>';
-                    if (result.photos && result.photos.length > 0) {
-                        resultHtml += '<img src="' + result.photos[0].photo_reference + '" alt="' + result.name + '">';
-                    }
-                    resultHtml += '</div>';
-                    document.getElementById('results').innerHTML += resultHtml;
+                const resultsContainer = document.getElementById('results');
+                resultsContainer.innerHTML = '';
+                data.results.forEach((result, index) => {
+                    setTimeout(() => {
+                        const resultItem = document.createElement('div');
+                        resultItem.className = 'result-item';
+                        resultItem.innerHTML = `
+                            <div class="top-row">
+                                <span class="place-name">${result.name}</span>
+                                <span class="rating">${result.rating}</span>
+                                ${result.opening_hours && result.opening_hours.open_now ? '<span class="open-status">Open Now</span>' : ''}
+                            </div>
+                        `;
+                        resultItem.onclick = function() {
+                            window.location.href = result.url; // Use the actual URL provided by the API
+                        };
+                        resultsContainer.appendChild(resultItem);
+                    }, 100 * index);
                 });
             })
             .catch(error => {
@@ -74,17 +86,38 @@
                 document.getElementById('results').innerHTML = '<p>An error occurred</p>';
             });
         }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to TychoMaps 0.1</h1>
-        <p>Enter your query to find local gems:</p>
-        <input type="text" id="query" placeholder="Type here...">
-        <button onclick="sendQuery()">Search</button>
-        <div id="results">
-            <!-- Results will be displayed here -->
+        </script>
+        
+    <body class="bg-gray-100 text-fuchsia-950 flex justify-center items-center min-h-screen" >
+        <div class=" rounded-xl max-w-xl mx-auto bg-f8e3bf p-5 relative text-543158 search-container">
+            <div class="flex w-5/5  justify-between">
+                <div class="w-3/5">
+                    <h1 class="text-2xl font-medium">Tychomaps</h1>
+                    <p class="text-lg mt-1">Enjoy your time at high-rated, small, hidden gems. Available world-wide.</p>
+                    <div class="mt-4 w-4/5 mb-10 relative">
+                        <input type="text" id="query" placeholder="Café in Paris..." 
+                            class="placeholder-fuchsia-950 shadow-sm w-full pl-12 pr-12 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" 
+                            style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;">
+                            <!--<button onclick="sendQuery()">Search</button>-->
+                        </div>
+                </div>
+                <div class="relative mx-auto w-2/5 max-h-44">
+
+                    <img src="places/sample-image.jpg" alt="No image" class="object-cover rounded-md sidebar-image w-full h-full ">
+                    
+                    <div class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2">
+                        <p class="imagetext opacity-90">Placeholder text</p>
+                    </div>
+                    
+                </div>
+                </div>
+            <div id="results" class="flex flex-col gap-2 mt-5">
+                <!-- Results will be displayed here -->
+            </div>
         </div>
-    </div>
-</body>
-</html>
+        </div>
+        <script src="js/sendQuery.js"></script>
+        <script src="js/placeholderTexts.js"></script>
+    </body>
+    </html>
+       

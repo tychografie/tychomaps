@@ -1,0 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.search-container {
+    background-color: #F8E3BF;
+}
+
+@font-face {
+    font-family: 'Favorit';
+    src: url('/fonts/Favorit-Medium.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Medium.woff') format('woff');   /* Legacy Browsers */
+    font-weight: 500; /* Medium font weight */
+    font-style: normal;
+}
+
+body {
+    font-family: 'Favorit', sans-serif; /* Fallback to sans-serif if Favorit is not available */
+    font-weight: 500; /* Ensure the medium weight is applied */
+}
