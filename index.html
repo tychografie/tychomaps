@@ -95,14 +95,10 @@
             ⁠ <div class="w-3/5">
                 <h1 class="text-2xl font-medium">Tychomaps</h1>
                 <p class="text-lg mt-1">Enjoy your time at high-rated, small, hidden gems. Available world-wide.</p>
-                <div class="mt-4 relative flex items-center gap-2 pr-4">
-                    <input type="text" id="query" placeholder="Jazzbar in Paris"
-                        class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full p-4 px-5 rounded-full focus:outline-none focus:border-gray-400 text-lg"
-                        style="">
-                    <button type="submit"
-                        class="flexjustify-center bg-white rounded-full text-sm font-semibold transition-all duration-100 leading-6 text-white shadow-sm hover:bg-fuchsia-950/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-950 p-7"
-                        style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;"></button>
-                </div>
+                <div class="mt-4 w-full relative">
+                    <input type="text" id="query" placeholder="Barber in Nijmegen" class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;">
+                        <button class="rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
+                    </div>
             </div>
             <div class="relative mx-auto w-2/5 min-h-full ml-10">
 
