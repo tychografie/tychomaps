@@ -50,7 +50,8 @@
         }
         
         function sendQuery() {
-            var query = document.getElementById('query').value;
+            var query = document.getElementById('query').value.trim();
+            if(query.length < 1) return
             // Assuming you have an API endpoint that handles search
             fetch('/api/search', {
                 method: 'POST',
