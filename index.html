@@ -1,64 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tychomaps Query Interface</title>
+    <link href="/src/output.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tychomaps Query Interface</title>
-        <link href="/src/output.css" rel="stylesheet">
-        <link href="/css/style.css" rel="stylesheet">
-    </head>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const images = [
-        '1-Dedaena-Bar-in-Tblisi.jpg',
-        '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
-        '3-Latei-in-Amsterdam.jpg',
-        '4-La-Recyclerie-in-Paris.jpg',
-        '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
-        '5-Zawya-arthouse-cinema-in-Cairo.jpg',
-        '6-Restaurant-Pof-in-Amsterdam.jpg',
-        '7-Trattoria-la-Madonnina.jpg'
-    ]; // Updated list of image filenames
-            const imagePath = '/places/';
-            const randomImage = images[Math.floor(Math.random() * images.length)];
-            const imageName = formatImageName(randomImage);
-        
-            const imageContainer = document.querySelector('.sidebar-image');
-            imageContainer.src = imagePath + randomImage;
-            imageContainer.alt = imageName;
-        
-            const imageCaption = document.querySelector('.imagetext');
-            imageCaption.textContent = imageName; // Update the caption dynamically
-        
-            // Listen for keydown event on the input field
-            document.getElementById('query').addEventListener('keydown', function(event) {
-                if (event.key === 'Enter') {
-                    sendQuery(); // Call sendQuery when Enter is pressed
-                }
-            });
-        });
-        
-        function formatImageName(filename) {
-            return filename
-                .replace(/^\d+-/, '') // Remove the leading number and dash
-                .replace(/-/g, ' ') // Replace all dashes with spaces
-                .replace('.jpg', '') // Remove the .jpg extension
-                .replace('.jpeg', ''); // Remove the .jpg extension
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const images = [
+            '1-Dedaena-Bar-in-Tblisi.jpg',
+            '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
+            '3-Latei-in-Amsterdam.jpg',
+            '4-La-Recyclerie-in-Paris.jpg',
+            '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
+            '5-Zawya-arthouse-cinema-in-Cairo.jpg',
+            '6-Restaurant-Pof-in-Amsterdam.jpg',
+            '7-Trattoria-la-Madonnina.jpg'
+        ]; // Updated list of image filenames
+        const imagePath = '/places/';
+        const randomImage = images[Math.floor(Math.random() * images.length)];
+        const imageName = formatImageName(randomImage);
 
-        }
-        
-        function sendQuery() {
-            var query = document.getElementById('query').value;
-            // Assuming you have an API endpoint that handles search
-            fetch('/api/search', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ query: query })
-            })
+        const imageContainer = document.querySelector('.sidebar-image');
+        imageContainer.src = imagePath + randomImage;
+        imageContainer.alt = imageName;
+
+        const imageCaption = document.querySelector('.imagetext');
+        imageCaption.textContent = imageName; // Update the caption dynamically
+
+        // Listen for keydown event on the input field
+        document.getElementById('query').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                sendQuery(); // Call sendQuery when Enter is pressed
+            }
+        });
+    });
+
+    function formatImageName(filename) {
+        return filename
+            .replace(/^\d+-/, '') // Remove the leading number and dash
+            .replace(/-/g, ' ') // Replace all dashes with spaces
+            .replace('.jpg', '') // Remove the .jpg extension
+            .replace('.jpeg', ''); // Remove the .jpg extension
+
+    }
+
+
+    function sendQuery() {
+        var query = document.getElementById('query').value.trim();
+        if (query.length < 1) return
+        // Assuming you have an API endpoint that handles search
+        fetch('/api/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ query: query })
+        })
             .then(response => response.json())
             .then(data => {
                 const resultsContainer = document.getElementById('results');
@@ -74,7 +76,7 @@
                                 ${result.opening_hours && result.opening_hours.open_now ? '<span class="open-status">Open Now</span>' : ''}
                             </div>
                         `;
-                        resultItem.onclick = function() {
+                        resultItem.onclick = function  () {
                             window.location.href = result.url; // Use the actual URL provided by the API
                         };
                         resultsContainer.appendChild(resultItem);
@@ -85,39 +87,42 @@
                 console.error('Error:', error);
                 document.getElementById('results').innerHTML = '<p>An error occurred</p>';
             });
-        }
-        </script>
-        
-    <body class="bg-gray-100 text-fuchsia-950 flex justify-center items-center min-h-screen" >
-        <div class=" rounded-xl max-w-xl mx-auto bg-f8e3bf p-5 relative text-543158 search-container">
-            <div class="flex w-5/5  justify-between">
-                <div class="w-3/5">
-                    <h1 class="text-2xl font-medium">Tychomaps</h1>
-                    <p class="text-lg mt-1">Enjoy your time at high-rated, small, hidden gems. Available world-wide.</p>
-                    <div class="mt-4 w-full relative">
-                        <input type="text" id="query" placeholder="Café in Paris..." 
-                            class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" 
-                            style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;">
-                            <button class="rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
-                        </div>
+    }
+</script>
+<body class="bg-gray-100 text-fuchsia-950 flex justify-center items-center min-h-screen">
+    <div class=" rounded-xl max-w-xl mx-auto bg-f8e3bf p-5 relative text-543158 search-container">
+        <div class="flex w-5/5  justify-between">
+            ⁠ <div class="w-3/5">
+                <h1 class="text-2xl font-medium">Tychomaps</h1>
+                <p class="text-lg mt-1">Enjoy your time at high-rated, small, hidden gems. Available world-wide.</p>
+                <div class="mt-4 relative flex items-center gap-2 pr-4">
+                    <input type="text" id="query" placeholder="Jazzbar in Paris"
+                        class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full p-4 px-5 rounded-full focus:outline-none focus:border-gray-400 text-lg"
+                        style="">
+                    <button type="submit"
+                        class="flexjustify-center bg-white rounded-full text-sm font-semibold transition-all duration-100 leading-6 text-white shadow-sm hover:bg-fuchsia-950/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fuchsia-950 p-7"
+                        style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;"></button>
                 </div>
-                <div class="relative mx-auto w-2/5 min-h-full ml-10">
+            </div>
+            <div class="relative mx-auto w-2/5 min-h-full ml-10">
 
-                    <img src="places/sample-image.jpg" alt="No image" class="object-cover rounded-md sidebar-image w-full h-full ">
-                    
-                    <div class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
-                        <p class="imagetext opacity-90">Placeholder text</p>
-                    </div>
-                    
+                <img src="places/sample-image.jpg" alt="No image"
+                    class="object-cover rounded-md sidebar-image w-full h-full ">
+
+                <div
+                    class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
+                    <p class="imagetext opacity-90">Placeholder text</p>
                 </div>
-                </div>
-            <div id="results" class="flex flex-col gap-2 mt-5">
-                <!-- Results will be displayed here -->
+
             </div>
         </div>
+        <div id="results" class="flex flex-col gap-2 mt-5">
+            <!-- Results will be displayed here -->
         </div>
-        <script src="js/sendQuery.js"></script>
-        <script src="js/placeholderTexts.js"></script>
-    </body>
-    </html>
-       
+    </div>
+    </div>
+    <script src="js/sendQuery.js"></script>
+    <script src="js/placeholderTexts.js"></script>
+</body>
+
+</html>
