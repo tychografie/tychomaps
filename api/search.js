@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
                     
                     tbilisi+nightclub+local+unique
                     
-                    Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, repond with "INVALID" If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
+                    Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, respond with "INVALID" If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
                     
                     You can do it! The query is: ${query}`
                 }],
@@ -61,7 +61,13 @@ module.exports = async (req, res) => {
                 }
             );
 
-            res.status(200).json(mapsResponse.data);
+            if (mapsResponse.data && mapsResponse.data.places) {
+                // Sort by rating high to low and limit to top 10 results
+                const sortedPlaces = mapsResponse.data.places.sort((a, b) => b.rating - a.rating).slice(0, 5);
+                res.status(200).json({ places: sortedPlaces });
+            } else {
+                res.status(404).json({ error: 'No places found' });
+            }
         } else {
             res.status(500).json({ error: 'No valid response from AI' });
         }

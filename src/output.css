@@ -561,6 +561,21 @@ video {
 @font-face {
   font-family: 'Favorit';
 
+  src: url('/fonts/Favorit-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Regular.woff') format('woff');
+
+  /* Legacy Browsers */
+
+  font-weight: 400;
+
+  /* Regular font weight */
+
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Favorit';
+
   src: url('/fonts/Favorit-Medium.woff2') format('woff2'), /* Modern Browsers */
          url('/fonts/Favorit-Medium.woff') format('woff');
 
@@ -573,9 +588,7 @@ video {
   font-style: normal;
 }
 
-body {
-  font-family: 'Favorit', sans-serif;
-  /* Fallback to sans-serif if Favorit is not available */
-  font-weight: 500;
-  /* Ensure the medium weight is applied */
+html, body, body * {
+  font-family: 'Favorit', sans-serif !important;
+  /* Use !important to enforce this style */
 }
