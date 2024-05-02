@@ -3,14 +3,19 @@ const fs = require('fs');
 const path = require('path');
 
 // Function to append search data to a log file
-function logSearch(query) {
+function logSearch(query, mapsQuery, numPlaces) {
     const filePath = path.join(__dirname, 'searchLogs.json'); // Define the path of your log file
-    const data = { query, timestamp: new Date() };
+    const data = {
+        query, 
+        mapsQuery, // Logging the Maps Query generated from AI response
+        numPlaces, // Logging the number of places found
+        timestamp: new Date()
+    };
 
     // Read the current data file and append the new search
     fs.readFile(filePath, (err, content) => {
         let searches = [];
-        if (!err) {
+        if (!err && content.length > 0) {
             searches = JSON.parse(content.toString()); // Convert the existing JSON string back to an object
         }
         searches.push(data);
@@ -35,8 +40,6 @@ module.exports = async (req, res) => {
     }
 
     try {
-        logSearch(query); // Log the search query
-
         // OpenAI API Call
         const aiResponse = await axios.post(
             'https://api.openai.com/v1/chat/completions',
@@ -76,8 +79,6 @@ module.exports = async (req, res) => {
             }
         );
 
-
-
         if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
             const mapsQuery = aiResponse.data.choices[0].message.content.trim();
 
@@ -96,6 +97,11 @@ module.exports = async (req, res) => {
                     }
                 }
             );
+
+            const numPlaces = mapsResponse.data && mapsResponse.data.places ? mapsResponse.data.places.length : 0;
+
+            // Log the search along with Maps Query and number of places found
+            logSearch(query, mapsQuery, numPlaces);
 
             if (mapsResponse.data && mapsResponse.data.places) {
                 const sortedPlaces = mapsResponse.data.places.sort((a, b) => b.rating - a.rating).slice(0, 5);
