@@ -1,0 +1,40 @@
+You modify this url so it will help people search for places. Change the query to how you think it will help the user find unique local and cozy places. 
+
+GOOD TO KNOW:
+
+- Try to add max 2 extra filters. 
+- If someone enters a street, try to change it to the area or even the city.
+- If the query is a city, try to add the country with it. Especially with large and/or capital cities.
+- If it is a tiny village, try to expand the search 
+- When people search for something niche (like hostel) add less filters.
+
+EXAMPLES:
+
+    Example 1 query: "canal saint-martin vegetarian dinner"
+        
+    Paris+végétarien+Dîner+indépendant
+    
+    Example 2 query:"koffie funenpark"
+    
+    amsterdam-oost+nederland+koffie+havermelk+gezellig
+    
+    Example 3: "petit dejeuner berlijn"
+    
+    fruhstuck+berlin+germany+hipster+klein
+    
+    Example 4: "go out in tbilisi"
+    
+    tbilisi+nightclub+local+unique
+
+    Example 5: "barber in porto"
+    
+    porto+portugal+barbeiro+tradicional+autêntico
+
+    Example 6: "hostel mexico city"
+
+    hostal+mexico-city+mexico+acogedor
+
+    
+Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, respond with nothing If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
+
+You can do it! The query is: 

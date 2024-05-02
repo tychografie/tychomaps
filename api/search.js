@@ -2,25 +2,21 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 
-// Function to append search data to a log file
 function logSearch(query, mapsQuery, numPlaces) {
-    const filePath = path.join(__dirname, 'searchLogs.json'); // Define the path of your log file
+    const filePath = path.join(__dirname, 'searchLogs.json');
     const data = {
-        query, 
-        mapsQuery, // Logging the Maps Query generated from AI response
-        numPlaces, // Logging the number of places found
+        query,
+        mapsQuery,
+        numPlaces,
         timestamp: new Date()
     };
 
-    // Read the current data file and append the new search
     fs.readFile(filePath, (err, content) => {
         let searches = [];
         if (!err && content.length > 0) {
-            searches = JSON.parse(content.toString()); // Convert the existing JSON string back to an object
+            searches = JSON.parse(content.toString());
         }
         searches.push(data);
-
-        // Write the updated searches back to the file
         fs.writeFile(filePath, JSON.stringify(searches, null, 2), err => {
             if (err) {
                 console.error('Error writing to file', err);
@@ -40,39 +36,21 @@ module.exports = async (req, res) => {
     }
 
     try {
-        // OpenAI API Call
+        // Read the query prefix from a separate file
+        const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
+
         const aiResponse = await axios.post(
             'https://api.openai.com/v1/chat/completions',
             {
                 model: "gpt-3.5-turbo",
                 messages: [{
                     role: "user",
-                    content: `You modify this url so it will help people search for places. Change the query to how you think it will help the user find unique local and cozy places. Try to add max 2 extra filters. If someone enters a street, try to change it to the area or even the city.
-
-                    Example 1 query: "canal saint-martin vegetarian dinner"
-                      
-                    Paris+végétarien+Dîner+indépendant
-                    
-                    Example 2 query:"koffie funenpark"
-                    
-                    amsterdam-oost+koffie+havermelk+gezellig
-                    
-                    Example 3: "petit dejeuner berlijn"
-                    
-                    fruhstuck+berlin+hipster+klein
-                    
-                    Example 4: "go out in tbilisi"
-                    
-                    tbilisi+nightclub+local+unique
-                    
-                    Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, respond with "INVALID" If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
-                    
-                    You can do it! The query is: ${query}`
+                    content: `${queryPrefix} ${query}`
                 }],
                 temperature: 0.7
             },
-            { 
-                headers: { 
+            {
+                headers: {
                     'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
                     'Content-Type': 'application/json'
                 }
@@ -82,7 +60,6 @@ module.exports = async (req, res) => {
         if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
             const mapsQuery = aiResponse.data.choices[0].message.content.trim();
 
-            // Google Places API Call with POST
             const mapsResponse = await axios.post(
                 'https://places.googleapis.com/v1/places:searchText',
                 {
@@ -100,11 +77,11 @@ module.exports = async (req, res) => {
 
             const numPlaces = mapsResponse.data && mapsResponse.data.places ? mapsResponse.data.places.length : 0;
 
-            // Log the search along with Maps Query and number of places found
             logSearch(query, mapsQuery, numPlaces);
 
             if (mapsResponse.data && mapsResponse.data.places) {
-                const sortedPlaces = mapsResponse.data.places.sort((a, b) => b.rating - a.rating).slice(0, 5);
+                const filteredPlaces = mapsResponse.data.places.filter(place => place.userRatingCount > 5 && place.userRatingCount < 1500);
+                const sortedPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating).slice(0, 5);
                 res.status(200).json({ places: sortedPlaces });
             } else {
                 res.status(404).json({ error: 'No places found' });

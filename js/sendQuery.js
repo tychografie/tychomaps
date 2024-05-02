@@ -34,7 +34,7 @@ function sendQuery() {
                 }, 100 * index);
             });
         } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query.</p>';
+            resultsContainer.innerHTML = '<p>No results found or invalid query. 😰</p>';
         }
     })
     .catch(error => {

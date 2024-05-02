@@ -126,7 +126,7 @@ function adjustStickyBarPosition() {
     }
 </script>
 <body class="bg-gray-100 text-fuchsia-950 flex flex-col justify-center items-center min-h-screen">
-    <header class="w-full flex justify-between items-center px-4 py-2 bg-white shadow-md">
+    <header class="w-full flex z-10 justify-between items-center px-4 py-2 bg-white shadow-md">
         <img src="/img/logo.svg" id="logoImage" alt="Logo" class="logo max-h-8">
         <nav>
             <ul class="flex space-x-4">
@@ -137,11 +137,11 @@ function adjustStickyBarPosition() {
     </header>
 
     <div class="flex flex-col justify-center items-center w-full" style="flex: 1;">
-        <div class="md:hidden -z-10 flex items-center justify-center h-2/3 w-full absolute inset-0 z-10">
+        <div class="md:hidden -z-10 flex items-center justify-center h-2/3 w-full absolute inset-0 ">
             <img src="/img/tychomapsman.png" class="w-1/6">
         </div>
         
-        <div class="md:top-auto md:static z-10 sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
+        <div class="md:top-auto md:static sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
             <!-- Flexbox for responsive layout -->
             <div class="flex flex-col md:flex-row">
                 <div class="relative md:block hidden max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
