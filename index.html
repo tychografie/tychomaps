@@ -10,6 +10,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <script>
+    window.addEventListener('resize', function() {
+    adjustStickyBarPosition();
+});
+
+function adjustStickyBarPosition() {
+    const bottomBar = document.querySelector('.search-container');
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    bottomBar.style.top = `calc(100vh - env(safe-area-inset-bottom))`;
+}
+
     document.addEventListener('DOMContentLoaded', function () {
         const images = [
             '1-Dedaena-Bar-in-Tblisi.jpg',
