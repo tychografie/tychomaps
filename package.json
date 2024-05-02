@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "axios": "^1.6.8",
-    "mongodb": "^6.5.0"
+    "lowdb": "^7.0.1"
   },
   "name": "tychomaps",
   "version": "1.0.0",
@@ -16,4 +16,6 @@
   "author": "",
   "license": "ISC",
   "description": ""
+  
 }
+
