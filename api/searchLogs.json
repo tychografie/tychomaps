@@ -46,5 +46,21 @@
   {
     "query": "milan food",
     "timestamp": "2024-05-02T09:29:46.810Z"
+  },
+  {
+    "query": "food in istanbul",
+    "timestamp": "2024-05-02T09:55:34.132Z"
+  },
+  {
+    "query": "food in cairo",
+    "timestamp": "2024-05-02T10:51:16.512Z"
+  },
+  {
+    "query": "dinner in cairo",
+    "timestamp": "2024-05-02T10:51:49.560Z"
+  },
+  {
+    "query": "dinner in utrecht",
+    "timestamp": "2024-05-02T10:51:56.835Z"
   }
 ]

@@ -89,19 +89,22 @@
             });
     }
 </script>
+<body class="bg-gray-100 text-fuchsia-950 flex flex-col justify-end md:justify-center items-center min-h-screen">
 
-<body class="bg-gray-100 text-fuchsia-950 flex justify-center md:items-center items-end min-h-screen">
-    <div class="md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl bg-f8e3bf p-5 relative text-543158 search-container">
+    <div class="md:hidden -z-10 flex items-center justify-center h-2/3 w-full absolute inset-0 z-10">
+        <img src="/img/tychomapsman.png" class="w-1/6">
+    </div>
+    
+    <div class="md:top-auto md:static z-10 sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
         <div class="flex flex-col md:flex-row">
             
-            <div class="relative md:block hidden  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
+            <div class="relative md:block hidden max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
 
                 <img src="places/1-Dedaena-Bar-in-Tblisi.jpg" alt="No image"
                     class="object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full h-40">
 
-                <div
-                    class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
-                    <p class="imagetext uppercase opacity-70 text- text-xs tracking-wider font-semibold">An amazing place</p>
+                <div class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
+                    <p class="imagetext uppercase opacity-70 text-xs tracking-wider font-semibold">An amazing place</p>
                 </div>
 
             </div>
@@ -111,15 +114,14 @@
                 <p class="text-lg mt-1 md:block hidden">Enjoy your time at high-rated, small, hidden gems. Available world-wide.</p>
                 <div class="mt-4 w-full relative">
                     <input type="text" id="query" placeholder="Barber in Nijmegen" class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;">
-                        <button class="rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
-                    </div>
+                    <button class="md:block hidden rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
+                </div>
             </div>
 
         </div>
         <div id="results" class="flex flex-col gap-2 mt-5">
             <!-- Results will be displayed here -->
         </div>
-    </div>
     </div>
     <script src="js/sendQuery.js"></script>
     <script src="js/placeholderTexts.js"></script>
