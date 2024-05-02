@@ -1,6 +1,6 @@
 
 .search-container {
-    background-color: #F8E3BF;
+    background-color: #fcce6d;
     position: sticky;
     top: calc(100vh - env(safe-area-inset-bottom));
     width: 100%;
