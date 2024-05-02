@@ -34,7 +34,7 @@ function sendQuery() {
                 }, 100 * index);
             });
         } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query. 😰</p>';
+            resultsContainer.innerHTML = '<p>No results found or invalid query. <a href="/support">Help me out! 😰</a></p>';
         }
     })
     .catch(error => {

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>My Tailwind Page</title>
+    <style>
+        .center-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+        }
+        .box {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-box">
+        <div class="box mx-auto md:w-3/5 md:mx-4">
+            <h1 class="text-2xl font-bold">No results?</h1>
+            <p class="mt-2">There we go. You received zero results 😰
+
+                Great – at least for me. You can let me know your query and I'll start a full on investigation 🙌
+
+                But I understand nobody likes to wait. So here is some background info on how the site works and how you can fix it.
+
+                <div class="mt-4 p-4 bg-blue-200 rounded-lg">
+                    <h2 class="text-lg font-semibold">Tips:</h2>
+                    <ul class="list-disc ml-6">
+                        <li>💌 Just try it again... another (but similar) query will be generated, really!</li>
+                        <li>🎭 Define a larger (or smaller) region! Search for a province instead of a village?</li>
+                        <li>😰 I often see that people add what the tool is already doing to the request... Never send "hidden gems in Italy" for example, since it already does that when you just search "Italy"</li>
+                        <li>😇 You can force a request by litterally sending everything after this: <i>The query is "food utrecht"</i></li>
+                        <li>🧑‍🏫 Send me a mail at tycho@prototypefactory.co</li>
+                    </ul>
+                </div>
+            </p>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
