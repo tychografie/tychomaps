@@ -47,33 +47,39 @@ function adjustStickyBarPosition() {
 
 
     document.addEventListener('DOMContentLoaded', function () {
-        const images = [
-            '1-Dedaena-Bar-in-Tblisi.jpg',
-            '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
-            '3-Latei-in-Amsterdam.jpg',
-            '4-La-Recyclerie-in-Paris.jpg',
-            '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
-            '5-Zawya-arthouse-cinema-in-Cairo.jpg',
-            '6-Restaurant-Pof-in-Amsterdam.jpg',
-            '7-Trattoria-la-Madonnina.jpg'
-        ]; // Updated list of image filenames
-        const imagePath = '/places/';
-        const randomImage = images[Math.floor(Math.random() * images.length)];
-        const imageName = formatImageName(randomImage);
+        // const images = [
+        //     '1-Dedaena-Bar-in-Tblisi.jpg',
+        //     // '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
+        //     // '3-Latei-in-Amsterdam.jpg',
+        //     // '4-La-Recyclerie-in-Paris.jpg',
+        //     // '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
+        //     // '5-Zawya-arthouse-cinema-in-Cairo.jpg',
+        //     // '6-Restaurant-Pof-in-Amsterdam.jpg',
+        //     // '7-Trattoria-la-Madonnina.jpg'
+        // ]; // Updated list of image filenames
 
-        const imageContainer = document.querySelector('.sidebar-image');
-        imageContainer.src = imagePath + randomImage;
-        imageContainer.alt = imageName;
+        fetch("/api/images").then(function(data){
+            data.json().then(function(images){
+                const imagePath = '/places/';
+                const randomImage = images[Math.floor(Math.random() * images.length)];
+                const imageName = formatImageName(randomImage);
+                
+                const imageContainer = document.querySelector('.sidebar-image');
+                imageContainer.src = imagePath + randomImage;
+                imageContainer.alt = imageName;
+                
+                const imageCaption = document.querySelector('.imagetext');
+                imageCaption.textContent = imageName; // Update the caption dynamically
+                
+                // Listen for keydown event on the input field
+                document.getElementById('query').addEventListener('keydown', function (event) {
+                    if (event.key === 'Enter') {
+                        sendQuery(); // Call sendQuery when Enter is pressed
+                    }
+                });
+            })
+        })
 
-        const imageCaption = document.querySelector('.imagetext');
-        imageCaption.textContent = imageName; // Update the caption dynamically
-
-        // Listen for keydown event on the input field
-        document.getElementById('query').addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                sendQuery(); // Call sendQuery when Enter is pressed
-            }
-        });
     });
 
     function formatImageName(filename) {
