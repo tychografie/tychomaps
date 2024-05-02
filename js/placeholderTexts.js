@@ -1,5 +1,4 @@
 let placeholders = [];
-let currentIndex = 0;
 let inputElement = document.getElementById('query');
 let intervalId;
 
@@ -14,8 +13,8 @@ function loadPlaceholders() {
 
 function rotatePlaceholder() {
     if (placeholders.length > 0) {
-        inputElement.placeholder = placeholders[currentIndex];
-        currentIndex = (currentIndex + 1) % placeholders.length;
+        const randomIndex = Math.floor(Math.random() * placeholders.length); // Randomly select index
+        inputElement.placeholder = placeholders[randomIndex];
         intervalId = setTimeout(rotatePlaceholder, 3000); // Rotate every 3 seconds
     }
 }
@@ -24,6 +23,8 @@ inputElement.addEventListener('focus', () => {
     clearTimeout(intervalId);
 });
 
-inputElement.addEventListener('blur', rotatePlaceholder);
+inputElement.addEventListener('blur', () => {
+    rotatePlaceholder();  // Resume rotation when input loses focus
+});
 
 document.addEventListener('DOMContentLoaded', loadPlaceholders);

@@ -9,6 +9,13 @@
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<script>
+    function toggleClearButton() {
+        var queryInput = document.getElementById('query');
+        var clearButton = document.getElementById('clearButton');
+        clearButton.style.display = queryInput.value.trim() !== '' ? 'block' : 'none';
+    }
+</script>
 
 <script>
 function clearInput() {
@@ -150,7 +157,7 @@ function adjustStickyBarPosition() {
         </nav>
     </header>
 
-    <div class="flex flex-col justify-center items-center w-full" style="flex: 1;">
+    <div class="flex flex-col justify-center items-center w-full mt-5" style="flex: 1;">
 
         
         <div class="md:top-auto md:static sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
@@ -169,12 +176,12 @@ function adjustStickyBarPosition() {
                     <p class="text-lg mt-1 ">Non-touristy and well-reviewed hidden gems. Available in over 47.000+ cities.</p>
                     <div class="mt-4 w-full relative">
                         <div class="relative">
-                                                        <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;" oninput="toggleClearButton()">
-                                                        <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                                            </svg>
-                                                        </button>
+                        <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;" oninput="toggleClearButton()">
+                        <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
 
                         </div>
                         <button class="md:block hidden rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
@@ -191,23 +198,7 @@ function adjustStickyBarPosition() {
 
     <script src="js/sendQuery.js"></script>
     <script src="js/placeholderTexts.js"></script>
-    <script>
-        // function toggleClearButton() {
-            var query = document.getElementById('query');
-            var clearButton = document.getElementById('clearButton');
-            if (query && clearButton) {
-                var queryValue = query.value.trim();
-                clearButton.style.visibility = queryValue.length > 0 ? 'visible' : 'hidden';
-            }
-        }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            toggleClearButton();
-        });
-
-        document.getElementById('query').addEventListener('input', toggleClearButton);
-        document.getElementById('clearButton').addEventListener('click', toggleClearButton);
-    </script>
 </body>
 
 </html>
