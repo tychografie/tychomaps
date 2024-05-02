@@ -67,6 +67,7 @@ function adjustStickyBarPosition() {
                 const imageContainer = document.querySelector('.sidebar-image');
                 imageContainer.src = imagePath + randomImage;
                 imageContainer.alt = imageName;
+                imageContainer.className = "object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full h-40 animation-delayed"
                 
                 const imageCaption = document.querySelector('.imagetext');
                 imageCaption.textContent = imageName; // Update the caption dynamically
@@ -143,24 +144,22 @@ function adjustStickyBarPosition() {
     </header>
 
     <div class="flex flex-col justify-center items-center w-full" style="flex: 1;">
-        <div class="md:hidden -z-10 flex items-center justify-center h-2/3 w-full absolute inset-0 ">
-            <img src="/img/tychomapsman.png" class="w-1/6">
-        </div>
+
         
         <div class="md:top-auto md:static sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
             <!-- Flexbox for responsive layout -->
             <div class="flex flex-col md:flex-row">
-                <div class="relative md:block hidden max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
-                    <img src="places/1-Dedaena-Bar-in-Tblisi.jpg" alt="No image"
-                         class="object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full h-40">
-                    <div class="rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
-                        <p class="imagetext uppercase opacity-70 text-xs tracking-wider font-semibold">An amazing place</p>
+                <div class="bg-black/5 rounded-md relative  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
+                    <img src="" alt="No image"
+                         class="hidden object-cover  sidebar-image md:w-full md:min-h-full min-w-full h-40">
+                    <div class="animation-delayed-text rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
+                        <p class="imagetext uppercase opacity-70 text-xs tracking-wider font-semibold"></p>
                     </div>
                 </div>
 
                 <div class="md:w-3/5 md:order-1 flex flex-col">
-                    <h1 class="text-2xl font-medium md:block hidden">Act like a local 🧢</h1>
-                    <p class="text-lg mt-1 md:block hidden">Non-touristy and well-reviewed hidden gems. Available in over 47,000 cities.</p>
+                    <h1 class="text-2xl font-medium md:block">Act like a local 🧢</h1>
+                    <p class="text-lg mt-1 ">Non-touristy and well-reviewed hidden gems. Available in over 47,000 cities.</p>
                     <div class="mt-4 w-full relative">
                         <input type="text" id="query" placeholder="Barber in Nijmegen" class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;">
                         <button class="md:block hidden rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>

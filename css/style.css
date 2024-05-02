@@ -7,6 +7,25 @@
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+
+.animation-delayed {
+    opacity: 0; /* Start with opacity 0 */
+    animation: fadeIn 1s ease-in-out 0s forwards; /* Apply fadeIn animation with a delay of 0.5s */
+}
+
+.animation-delayed-text {
+    opacity: 0; /* Start with opacity 0 */
+    animation: fadeIn 0.5s ease-in-out 1.5s forwards; /* Apply fadeIn animation with a delay of 0.5s */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 @font-face {
     font-family: 'Favorit';
     src: url('/fonts/Favorit-Regular.woff2') format('woff2'), /* Modern Browsers */
