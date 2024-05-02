@@ -80,7 +80,7 @@ module.exports = async (req, res) => {
             logSearch(query, mapsQuery, numPlaces);
 
             if (mapsResponse.data && mapsResponse.data.places) {
-                const filteredPlaces = mapsResponse.data.places.filter(place => place.userRatingCount > 5 && place.userRatingCount < 1500);
+                const filteredPlaces = mapsResponse.data.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500);
                 const sortedPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating).slice(0, 5);
                 res.status(200).json({ places: sortedPlaces });
             } else {
