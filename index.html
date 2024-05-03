@@ -50,14 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustStickyBarPosition();
 });
 
-function adjustStickyBarPosition() {
-    const header = document.querySelector('header');
-    const headerHeight = header.offsetHeight;  // Get the header height
-    const bottomBar = document.querySelector('.search-container');
-    const vh = window.innerHeight - headerHeight;  // Subtract header height from viewport height
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-    bottomBar.style.top = `calc(${vh}px - env(safe-area-inset-bottom))`;  // Adjust this line
-}
+
 
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -120,30 +113,34 @@ function adjustStickyBarPosition() {
         })
             .then(response => response.json())
             .then(data => {
-                const resultsContainer = document.getElementById('results');
-                resultsContainer.innerHTML = '';
-                data.results.forEach((result, index) => {
-                    setTimeout(() => {
-                        const resultItem = document.createElement('div');
-                        resultItem.className = 'result-item';
-                        resultItem.innerHTML = `
-                            <div class="top-row">
-                                <span class="place-name">${result.name}</span>
-                                <span class="rating">${result.rating}</span>
-                                ${result.opening_hours && result.opening_hours.open_now ? '<span class="open-status">Open Now</span>' : ''}
-                            </div>
-                        `;
-                        resultItem.onclick = function  () {
-                            window.location.href = result.url; // Use the actual URL provided by the API
-                        };
-                        resultsContainer.appendChild(resultItem);
-                    }, 100 * index);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('results').innerHTML = '<p>An error occurred</p>';
-            });
+    const resultsContainer = document.getElementById('results');
+    resultsContainer.innerHTML = ''; // Clear previous results
+    console.log(`Data results length: ${data.results.length}`); // Log the length of results
+
+    data.results.forEach((result, index) => {
+        setTimeout(() => {
+            const resultItem = document.createElement('div');
+            resultItem.className = 'result-item';
+            resultItem.innerHTML = `
+                <div class="top-row">
+                    <span class="place-name">${result.name}</span>
+                    <span class="rating">${result.rating}</span>
+                    ${result.opening_hours && result.opening_hours.open_now ? '<span class="open-status">Open Now</span>' : ''}
+                </div>
+            `;
+            resultItem.onclick = function () {
+                window.location.href = result.url;
+            };
+            resultsContainer.appendChild(resultItem);
+        }, 100 * index);
+    });
+
+})
+.catch(error => {
+    console.error('Error:', error);
+    document.getElementById('results').innerHTML = '<p>An error occurred</p>';
+});
+
     }
 </script>
 <body class="bg-gray-100 text-fuchsia-950 flex flex-col justify-center items-center min-h-screen">
@@ -157,10 +154,10 @@ function adjustStickyBarPosition() {
         </nav>
     </header>
 
-    <div class="flex flex-col justify-center items-center w-full mt-5" style="flex: 1;">
+    <div class="flex p-5 flex-col justify-center items-center w-full" style="flex: 1;">
 
         
-        <div class="md:top-auto md:static sticky top-[100vh] md:rounded-xl rounded-t-3xl md:min-w-0 min-w-full md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
+        <div class="top-auto  mx-10 rounded-xl md:min-w-0 md:max-w-xl w-full bg-f8e3bf p-5 relative text-543158 search-container">
             <!-- Flexbox for responsive layout -->
             <div class="flex flex-col md:flex-row">
                 <div class="bg-black/5 rounded-md relative  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">

@@ -1,0 +1,8 @@
+[
+  {
+    "query": "food in vermont",
+    "mapsQuery": "vermont+food+local+cozy",
+    "numPlaces": 20,
+    "timestamp": "2024-05-02T22:05:48.265Z"
+  }
+]
