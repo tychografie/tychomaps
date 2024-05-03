@@ -1,0 +1,58 @@
+{
+    "places": [
+        {
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=17809891039249410512",
+            "userRatingCount": 203,
+            "displayName": {
+                "text": "Guillotine Utrecht",
+                "languageCode": "nl"
+            }
+        },
+        {
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=15530517861460216709",
+            "userRatingCount": 73,
+            "displayName": {
+                "text": "Kleine Max",
+                "languageCode": "nl"
+            }
+        },
+        {
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=2838361122828915557",
+            "userRatingCount": 291,
+            "displayName": {
+                "text": "De Goedheyd",
+                "languageCode": "en"
+            }
+        },
+        {
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=15343617692220660542",
+            "userRatingCount": 752,
+            "displayName": {
+                "text": "Café DeRat",
+                "languageCode": "en"
+            }
+        },
+        {
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=16329529043840440215",
+            "userRatingCount": 1048,
+            "displayName": {
+                "text": "Landhuis in de stad",
+                "languageCode": "en"
+            }
+        },
+        {
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=16329529043840440215",
+            "userRatingCount": 1048,
+            "displayName": {
+                "text": "Eating with Tycho",
+                "languageCode": "en"
+            }
+        }
+    ]
+}

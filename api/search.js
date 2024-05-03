@@ -57,8 +57,15 @@ module.exports = async (req, res) => {
             }
         );
 
+
         if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
             const mapsQuery = aiResponse.data.choices[0].message.content.trim();
+
+            if (mapsQuery.toLowerCase().includes('maps')) {
+                res.status(404).json({ error: '🦈 Ha! You might be entering nonsense.' });
+                return;
+            }
+
 
             const mapsResponse = await axios.post(
                 'https://places.googleapis.com/v1/places:searchText',
@@ -81,7 +88,7 @@ module.exports = async (req, res) => {
 
             if (mapsResponse.data && mapsResponse.data.places) {
                 const filteredPlaces = mapsResponse.data.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500);
-                const sortedPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating).slice(0, 5);
+                const sortedPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating).slice(0, 30);
                 res.status(200).json({ places: sortedPlaces });
             } else {
                 res.status(404).json({ error: 'No places found' });
