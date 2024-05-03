@@ -41,7 +41,10 @@
     font-weight: 500; /* Medium font weight */
     font-style: normal;
 }
-
+body {
+    background-color: #F8E3BF;
+}
 html, body, body * {
     font-family: 'Favorit', sans-serif !important; /* Use !important to enforce this style */
+ 
   }

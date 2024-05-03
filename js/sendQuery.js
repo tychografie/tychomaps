@@ -133,7 +133,7 @@ function evenMoreResults() {
             });
             buttonMore.innerHTML = 'Load more';
         } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query. <a href="/support">Help me out! 😰</a></p>';
+            resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
             buttonMore.innerHTML = 'Load more';
         }
     })
