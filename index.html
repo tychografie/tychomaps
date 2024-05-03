@@ -22,7 +22,20 @@ function clearInput() {
     document.getElementById('query').value = '';
 }
 
+function toggleClearButton() {
+    var queryInput = document.getElementById('query');
+    var clearButton = document.getElementById('clearButton');
+    clearButton.style.display = queryInput.value.trim() !== '' && queryInput.value.trim() !== queryInput.placeholder ? 'block' : 'none';
+}
 
+document.addEventListener('DOMContentLoaded', function() {
+    var clearButton = document.getElementById('clearButton');
+    clearButton.style.display = 'none';
+
+    clearButton.addEventListener('click', function() {
+        clearButton.style.display = 'none';
+    });
+});
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -46,10 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
     
-    window.addEventListener('resize', function() {
-    adjustStickyBarPosition();
-});
-
 
 
 
