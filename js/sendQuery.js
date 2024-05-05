@@ -2,6 +2,7 @@
 function sendQuery() {
 
     var button = document.getElementById('search-button');
+    button.disabled = true;
     button.innerHTML = `
         <div style="display: flex; justify-content: center; align-items: center;">
             <svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -12,7 +13,10 @@ function sendQuery() {
     `;
 
     var query = document.getElementById('query').value.trim();
-    if (query.length < 1) return;
+    if (query.length < 1) {
+        button.disabled = false;
+        return;
+    };
 
     const useStatic = new URLSearchParams(window.location.search).get('useStatic') === 'true';
     const url = useStatic ? 'staticData.json' : '/api/search';
@@ -45,7 +49,7 @@ function sendQuery() {
                         <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
                             <div class="flex items-center space-x-3">
                                 <span class="place-name">${result.displayName.text}</span>
-                                ${result.opening_hours && result.opening_hours.open_now ? 
+                                ${result.opening_hours && result.opening_hours.open_now ?
                                 '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
                             </div>
                             <span class="rating">${result.rating}</span>
@@ -55,19 +59,23 @@ function sendQuery() {
                     }, 100 * index);
                 });
                 button.innerHTML = 'Search';
+                button.disabled = false;
             } else {
                 resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
                 button.innerHTML = 'Search';
+                button.disabled = false;
             }
         } else {
             resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
             button.innerHTML = 'Search';
+            button.disabled = false;
         }
     })
     .catch(error => {
         console.error('Error:', error);
         document.getElementById('results').innerHTML = '<p>An error occurred fetching the results.</p>';
         button.innerHTML = 'Search';
+        button.disabled = false;
     });
 }
 
@@ -114,7 +122,7 @@ function evenMoreResults() {
                     <div class="top-row opacity-90 hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
                         <div class="flex items-center space-x-3">
                             <span class="place-name blur-md">${result.displayName.text}</span>
-                            ${result.opening_hours && result.opening_hours.open_now ? 
+                            ${result.opening_hours && result.opening_hours.open_now ?
                             '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
                         </div>
                         <span class="rating">${result.rating}</span>
