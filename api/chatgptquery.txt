@@ -6,13 +6,14 @@ GOOD TO KNOW:
 - If someone enters a street, try to change it to the area or even the city.
 - If the query is a city, try to add the country with it. Especially with large and/or capital cities.
 - If it is a tiny village, try to expand the search 
+- Don't expand the search with neigbourhoods
 - When people search for something niche (like hostel) add less filters.
 
 EXAMPLES:
 
     Example 1 query: "canal saint-martin vegetarian dinner"
         
-    Paris+végétarien+Dîner+indépendant
+    10e+arrondissement+végétarien+Dîner+indépendant
     
     Example 2 query:"koffie funenpark"
     

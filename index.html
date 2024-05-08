@@ -20,6 +20,7 @@
 <script>
 
 
+
     
 function clearInput() {
     document.getElementById('query').value = '';
@@ -31,6 +32,16 @@ function toggleClearButton() {
     var clearButton = document.getElementById('clearButton');
     clearButton.style.display = queryInput.value.trim() !== '' && queryInput.value.trim() !== queryInput.placeholder ? 'block' : 'none';
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.location.href.includes('useDebug=true')) {
+        var mapsQueryDiv = document.getElementById('mapsQuery');
+        mapsQueryDiv.classList.remove('hidden');
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', function() {
     var clearButton = document.getElementById('clearButton');
@@ -66,16 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     document.addEventListener('DOMContentLoaded', function () {
-        // const images = [
-        //     '1-Dedaena-Bar-in-Tblisi.jpg',
-        //     // '2-Taberna-Muguruza-near-San-Sebastian.jpeg',
-        //     // '3-Latei-in-Amsterdam.jpg',
-        //     // '4-La-Recyclerie-in-Paris.jpg',
-        //     // '8-Trattoria-di-Via-Serra-in-Bologna.jpeg',
-        //     // '5-Zawya-arthouse-cinema-in-Cairo.jpg',
-        //     // '6-Restaurant-Pof-in-Amsterdam.jpg',
-        //     // '7-Trattoria-la-Madonnina.jpg'
-        // ]; // Updated list of image filenames
 
         fetch("/api/images").then(function(data){
             data.json().then(function(images){
@@ -101,6 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
         })
 
     });
+
+    
 
     function formatImageName(filename) {
         return filename
@@ -174,8 +177,10 @@ setInterval(function() {
 
 </script>
 <script>
+
+
 function popUp() {
-    if (window.location.href.includes('p58kt')) {
+    if (window.location.href.includes('useDebug=true')) {
         evenMoreResults();
     } else {
         // Run the two lines below
@@ -187,6 +192,7 @@ function closeModal() {
     var modal = document.getElementById('default-modal');
     modal.classList.add('hidden');
 }
+    
 </script>
 <body class=" text-fuchsia-950 flex flex-col justify-center items-center min-h-screen">
     <header class="w-full flex z-10 justify-between items-center px-4 py-2 ">
@@ -237,7 +243,7 @@ function closeModal() {
 
         </div>
 
-        <div id="lastQueryDisplay" class="hidden text-center text-sm p-4 bg-gray-200 text-gray-500 mt-5 rounded">LAST SEARCH: <u>...</u></div>
+        <div id="mapsQuery" class="hidden text-center text-sm p-4 bg-black/5 text-gray-500 mt-5 rounded">Debug on!</div>
     </div>
 
     <div id="default-modal" class="fixed hidden w-full top-0 left-0  h-screen bg-black/50 flex justify-center items-center">
@@ -252,7 +258,43 @@ function closeModal() {
             <p class="text-center mb-4">It's Tycho, nice to meet you. You found a secret button. I usually limit the 'hidden gems' to five, since the quality tends to go down quickly, not garuanteeing 'hidden gems'. It's very powerful on highly populated cities 🤯 Since the algorithm already selected plenty of places, who am I to hide them from you? 😇 Give it a go. And if you have feedback, let me know.</p> 
             <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="evenMoreResults()">Load more results 🤓</button>
         </div>
+
     </div>
+    <div class="footer w-full bg-black/10 p-4 text-center text-sm text-gray-500">
+        <button onclick="openFeedbackPopup()">💌 Feedback? Report a bug in 1 minute!</button>
+    </div>
+
+    <div id="feedbackPopup" class="hidden fixed top-0 left-0 w-full h-screen bg-black/50 flex justify-center items-center">
+        <div class="bg-white rounded-md p-8 w-full m-5 md:w-1/3">
+            <button class="top-2 right-2 text-gray-500 hover:opacity-80" onclick="closeFeedbackPopup()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h2 class="text-2xl font-medium text-center">Leave Feedback</h2>
+            <form action="https://submit-form.com/Cc2XdCBFh"><textarea id="feedbackText" class="w-full h-32 mt-4 p-2 border border-gray-300 rounded-md" placeholder="Enter your feedback here"></textarea>
+           <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="submitFeedback()">Submit</button></form>
+        </div>
+    </div>
+
+    <script>
+        function openFeedbackPopup() {
+            var feedbackPopup = document.getElementById('feedbackPopup');
+            feedbackPopup.classList.remove('hidden');
+        }
+
+        function closeFeedbackPopup() {
+            var feedbackPopup = document.getElementById('feedbackPopup');
+            feedbackPopup.classList.add('hidden');
+        }
+
+        function submitFeedback() {
+            var feedbackText = document.getElementById('feedbackText').value;
+            // Send feedback to Formspark or any other backend service
+            // ...
+            closeFeedbackPopup();
+        }
+    </script>
     </div>
 
     <script src="js/sendQuery.js"></script>
