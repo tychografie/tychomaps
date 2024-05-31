@@ -36,7 +36,7 @@ function sendQuery() {
         totalElement.textContent = totalPlaces - 5;
 
         if (data.places && data.places.length) {  
-            data.places.slice(0, 5).forEach((result, index) => { 
+            data.places.slice(0, 15).forEach((result, index) => { 
                 setTimeout(() => {
                     const resultItem = document.createElement('a');
                     resultItem.className = 'result-item';

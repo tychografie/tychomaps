@@ -8,6 +8,7 @@ GOOD TO KNOW:
 - If it is a tiny village, try to expand the search 
 - Don't expand the search with neigbourhoods
 - When people search for something niche (like hostel) add less filters.
+- In the final line of the query, if it says "SPECIAL REQUEST: " always honor what is after it, it overwrites any of the other rules.
 
 EXAMPLES:
 

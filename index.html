@@ -17,10 +17,45 @@
     }
 </script>
 
+<script async src="https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}"></script>
+
+
 <script>
 
 
+const locateMe = async (aiRequest) => {
 
+if (navigator.geolocation) {
+    // Change location icon to spinner icon
+    const locationIcon = document.getElementById('locateMeIcon');
+    locationIcon.src = '/img/loading.svg';
+    // Add a flag to indicate that the locator function has been used
+    var locatorUsed = true;
+
+geolocation.getCurrentPosition(function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const geocoder = new google.maps.Geocoder();
+        const latlng = new google.maps.LatLng(latitude, longitude);
+        geocoder.geocode({ 'latLng': latlng }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[0] && results[0].address_components) {
+                    const street = results[0].address_components.find(component => component.types.includes('route'))?.long_name;
+                    const city = results[0].address_components.find(component => component.types.includes('locality'))?.long_name;
+                    if (street && city) {
+                        const queryInput = document.getElementById('query');
+                        queryInput.value = queryInput.value.trim() + ' near ' + street + ' in ' + city;
+                    }
+                }
+            }
+            // Revert back to the initial location icon
+            locationIcon.src = '/img/location.svg';
+        });
+    });
+} else {
+    alert('Geolocation is not supported by this browser.');
+}
+}
     
 function clearInput() {
     document.getElementById('query').value = '';
@@ -194,7 +229,7 @@ function closeModal() {
 }
     
 </script>
-<body class=" text-fuchsia-950 flex flex-col justify-center items-center min-h-screen">
+<body class=" text-fuchsia-950 bg-white flex flex-col justify-center items-center min-h-screen">
     <header class="w-full flex z-10 justify-between items-center px-4 py-2 ">
         <img src="/img/logo.svg" id="logoImage" alt="Logo" class="logo max-h-8">
         <nav>
@@ -208,23 +243,28 @@ function closeModal() {
     <div class="flex p-5 flex-col justify-center items-center w-full" style="flex: 1;">
 
         
-        <div class="top-auto shadow-xl  mx-10 rounded-xl md:min-w-0 md:max-w-xl w-full bg-749D81 p-5 relative text-543158 search-container">
+        <div class="top-auto shadow-sm  mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#F8E3BF] p-8 relative  search-container">
             <!-- Flexbox for responsive layout -->
             <div class="flex flex-col md:flex-row">
-                <div class="bg-black/5 rounded-md relative  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
+                <div class="bg-black/5 rounded-sm relative  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
                     <img src="" alt="No image"
                          class="hidden object-cover  sidebar-image md:w-full md:min-h-full min-w-full h-40">
-                    <div class="animation-delayed-text rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
-                        <p class="imagetext uppercase opacity-70 text-xs tracking-wider font-semibold"></p>
+                    <div class="animation-delayed-text rounded-bl-sm rounded-br-sm absolute bottom-0 left-0 right-0 bg-[#859E8F] p-2 text-center">
+                        <p class="imagetext opacity-70 text-xs tracking-wider font-semibold"></p>
                     </div>
                 </div>
 
                 <div class="md:w-3/5 md:order-1 flex flex-col">
-                    <h1 class="text-2xl font-medium md:block">Where do the locals go? 🧢</h1>
-                    <p class="text-lg mt-1 ">I made this to discover <b>hidden gems</b> and <b>dodge the tourists.</b> Available in over 500 neighbourhoods. 🧑‍🎨</p>
+                    <h1 class="text-2xl font-medium md:block">Where do the locals go?</h1>
+                    <p class="text-lg mt-1 ">I made this to discover <b>hidden gems</b> and <b>dodge the tourists.</b> Available in over 500 neighbourhoods.</p>
                     <div class="mt-4 w-full relative">
                         <div class="relative">
-                        <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;" oninput="toggleClearButton()">
+                        <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-14 pr-4 py-4 rounded-md focus:outline-none focus:border-gray-400 text-lg" oninput="toggleClearButton()">
+                        
+                        <button id="locateMe" class="absolute top-0 left-0 mt-4 ml-3 pr-2 border-r border-gray-300" onclick="locateMe()">
+                            <img src="/img/location.svg" id="locateMeIcon" alt="Location" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer">
+                        </button>
+
                         <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -232,7 +272,7 @@ function closeModal() {
                         </button>
 
                         </div>
-                        <button id="search-button" class="rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
+                        <button id="search-button" class="rounded-md w-full mt-4 bg-[#EEB053] px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
                     </div>
                 </div>
             </div>
@@ -260,7 +300,7 @@ function closeModal() {
         </div>
 
     </div>
-    <div class="footer w-full bg-black/10 p-4 text-center text-sm text-gray-500">
+    <div class="footer w-full bg-black/5 p-4 text-center text-sm text-gray-500">
         <button onclick="openFeedbackPopup()">💌 Feedback? Report a bug in 1 minute!</button>
     </div>
 

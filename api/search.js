@@ -1,6 +1,8 @@
-const axios = require('axios');
+
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
+const { log } = require('console');
 
 
 const preprocess = async (userQuery) => {
@@ -18,16 +20,30 @@ const preprocess = async (userQuery) => {
     return mapsQuery
 }
 
-const aiRequest = async (query) => {
+
+
+const aiRequest = async (query, locateMe) => {
     // Read the query prefix from a separate file
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
+
+    let latitude = '';
+    let longitude = '';
+
+    if (typeof locatorUsed === 'undefined') {
+        throw new Error("locator is undefined.");
+    } else if (locatorUsed === true) {
+        throw new Error("locator is used.");
+    }
+
+
+
     const aiResponse = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: `${queryPrefix} ${query}`
+                content: `${queryPrefix} ${query} ${latitude} ${longitude}`
             }],
             temperature: 0.7
         },
@@ -38,7 +54,6 @@ const aiRequest = async (query) => {
             }
         }
     );
-
 
 
     if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
@@ -102,7 +117,16 @@ const processor = async (mapsResponse, mapsQuery) => {
 
     const numPlaces = mapsResponse && mapsResponse.places ? mapsResponse.places.length : 0;
 
-    if (mapsResponse && mapsResponse.places && mapsResponse.places.length === 1) {
+    if (numPlaces === 1 && mapsQuery.toLowerCase().includes('hidden')) {
+        const modifiedQuery = mapsQuery.replace('hidden', '');
+        const modifiedPlaces = await mapsRequest(modifiedQuery);
+        log('Modified query:', modifiedQuery);
+        return await processor(modifiedPlaces, modifiedQuery);
+    
+    }
+
+
+    if (mapsResponse && mapsResponse.places && mapsResponse.places.length ===    1) {
         const placeName = mapsResponse.places[0].displayName.text.toLowerCase();
 
         const aiResponseWords = mapsQuery.split('+');
