@@ -12,20 +12,20 @@ function sendQuery() {
     `;
 
     var query = document.getElementById('query').value.trim();
+    const latitude = document.getElementById('query').dataset.latitude || '';
+    const longitude = document.getElementById('query').dataset.longitude || '';
+
     if (query.length < 1) {
         button.disabled = false;
         return;
     };
-
-    // const useStatic = new URLSearchParams(window.location.search).get('useStatic') === 'true';
-    // const url = useStatic ? 'staticData.json' : '/api/search';
 
     fetch('/api/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query: query, staticMode: new URLSearchParams(window.location.search).get('useStatic') })
+        body: JSON.stringify({ query: query, latitude: latitude, longitude: longitude, staticMode: new URLSearchParams(window.location.search).get('useStatic') })
     })
     .then(response => response.json())
     .then(data => {
@@ -58,7 +58,7 @@ function sendQuery() {
             button.innerHTML = 'Search';
             button.disabled = false;
             
-            mapsQuery.textContent = data.aiResponse;
+            mapsQuery.textContent += data.aiResponse;
         } else {
             resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
             button.innerHTML = 'Search';
@@ -74,3 +74,5 @@ function sendQuery() {
         button.disabled = false;
     });
 }
+
+document.getElementById('removeLocationChip').addEventListener('click', removeLocationChip);

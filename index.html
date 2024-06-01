@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,193 +7,27 @@
     <link href="/src/output.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<script>
-    function toggleClearButton() {
-        var queryInput = document.getElementById('query');
-        var clearButton = document.getElementById('clearButton');
-        clearButton.style.display = queryInput.value.trim() !== '' ? 'block' : 'none';
-    }
-</script>
-
-<script>
-
-
-
-    
-function clearInput() {
-    document.getElementById('query').value = '';
-    
-}
-
-function toggleClearButton() {
-    var queryInput = document.getElementById('query');
-    var clearButton = document.getElementById('clearButton');
-    clearButton.style.display = queryInput.value.trim() !== '' && queryInput.value.trim() !== queryInput.placeholder ? 'block' : 'none';
-}
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    if (window.location.href.includes('useDebug=true')) {
-        var mapsQueryDiv = document.getElementById('mapsQuery');
-        mapsQueryDiv.classList.remove('hidden');
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    var clearButton = document.getElementById('clearButton');
-    clearButton.style.display = 'none';
-
-    clearButton.addEventListener('click', function() {
-        clearButton.style.display = 'none';
-    });
-});
-
-
-
-document.addEventListener('DOMContentLoaded', function() {
-            const validLogos = {
-                "doi3489ud": "/img/doi3489ud.svg",
-                "hd83hdk": "/img/hd83hdk.svg"
-            };
-
-            // Function to get URL parameters
-            function getQueryParameter(param) {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get(param);
-            }
-
-            // Check if the 'logo' parameter exists and corresponds to a valid logo
-            const logoParam = getQueryParameter('id');
-            if (logoParam && validLogos[logoParam]) {
-                const logoImageElement = document.getElementById('logoImage');
-                logoImageElement.src = validLogos[logoParam];
-            }
-        });
-
-    
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        fetch("/api/images").then(function(data){
-            data.json().then(function(images){
-                const imagePath = '/places/';
-                const randomImage = images[Math.floor(Math.random() * images.length)];
-                const imageName = formatImageName(randomImage);
-                
-                const imageContainer = document.querySelector('.sidebar-image');
-                imageContainer.src = imagePath + randomImage;
-                imageContainer.alt = imageName;
-                imageContainer.className = "object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full h-40 animation-delayed"
-                
-                const imageCaption = document.querySelector('.imagetext');
-                imageCaption.textContent = imageName; // Update the caption dynamically
-                
-                // Listen for keydown event on the input field
-                document.getElementById('query').addEventListener('keydown', function (event) {
-                    if (event.key === 'Enter') {
-                        sendQuery(); // Call sendQuery when Enter is pressed
-                    }
-                });
-            })
-        })
-
-    });
-
-    
-
-    function formatImageName(filename) {
-        return filename
-            .replace(/^\d+-/, '') // Remove the leading number and dash
-            .replace(/-/g, ' ') // Replace all dashes with spaces
-            .replace('.jpg', '') // Remove the .jpg extension
-            .replace('.jpeg', ''); // Remove the .jpg extension
-
-    }
-
-
-    function sendQuery() {
-        console.log("Script loaded");
-    var query = document.getElementById('query').value.trim();
-    if (query.length < 1) return;
-    // Assuming you have an API endpoint that handles search
-    console.log("Script loaded");
-    fetch('/api/search', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ query: query })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const resultsContainer = document.getElementById('results');
-        resultsContainer.innerHTML = ''; // Clear previous results
-        console.log("Script loaded");
-
-        if (data.results && data.results.length) {
-            data.results.forEach((result, index) => {
-                setTimeout(() => {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = 'result-item';
-                    resultItem.innerHTML = `
-                        <div class="top-row">
-                            <span class="place-name">${result.name}</span>
-                            <span class="rating">${result.rating}</span>
-                            ${result.opening_hours && result.opening_hours.open_now ? '<span class="open-status">Open Now</span>' : ''}
-                        </div>
-                    `;
-                    resultItem.onclick = function () {
-                        window.location.href = result.url;
-                    };
-                    resultsContainer.appendChild(resultItem);
-                }, 200 * index);
-            });
+    <style>
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            background: #f3f4f6;
+            padding: 0 0.5em;
+            border-radius: 9999px;
+            margin: 0.5em 0;
+            font-size: 0.875rem;
+            cursor: default;
         }
 
-        // Display the button if exactly 5 result items are found
-
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('results').innerHTML = '<p>An error occurred</p>';
-    });
-}
-
-setInterval(function() {
-    var resultItems = document.getElementsByClassName('result-item');
-    var loadMoreButton = document.getElementById('loadResults');
-    if (resultItems.length === 5) {
-        loadMoreButton.style.display = 'block';
-    } else {
-        loadMoreButton.style.display = 'none';
-    }
-}, 1000);
-
-
-
-</script>
-<script>
-
-
-function popUp() {
-    if (window.location.href.includes('useDebug=true')) {
-        evenMoreResults();
-    } else {
-        // Run the two lines below
-        var modal = document.getElementById('default-modal');
-        modal.classList.remove('hidden');
-    }
-}
-function closeModal() {
-    var modal = document.getElementById('default-modal');
-    modal.classList.add('hidden');
-}
-    
-</script>
-<body class=" text-fuchsia-950 flex flex-col justify-center items-center min-h-screen">
+        .chip button {
+            background: none;
+            border: none;
+            margin-left: 0.5em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="text-fuchsia-950 bg-white flex flex-col justify-center items-center min-h-screen">
     <header class="w-full flex z-10 justify-between items-center px-4 py-2 ">
         <img src="/img/logo.svg" id="logoImage" alt="Logo" class="logo max-h-8">
         <nav>
@@ -204,35 +37,41 @@ function closeModal() {
             </ul>
         </nav>
     </header>
-
     <div class="flex p-5 flex-col justify-center items-center w-full" style="flex: 1;">
-
-        
-        <div class="top-auto shadow-xl  mx-10 rounded-xl md:min-w-0 md:max-w-xl w-full bg-749D81 p-5 relative text-543158 search-container">
-            <!-- Flexbox for responsive layout -->
+        <div class="top-auto shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#F8E3BF] p-8 relative search-container">
             <div class="flex flex-col md:flex-row">
-                <div class="bg-black/5 rounded-md relative  max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
-                    <img src="" alt="No image"
-                         class="hidden object-cover  sidebar-image md:w-full md:min-h-full min-w-full h-40">
-                    <div class="animation-delayed-text rounded-bl-md rounded-br-md absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-transparent to-transparent text-white text-center p-2 pt-12">
-                        <p class="imagetext uppercase opacity-70 text-xs tracking-wider font-semibold"></p>
+                <div class="bg-black/5 rounded-sm relative max-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
+                    <img src="" alt="No image" class="hidden object-cover sidebar-image md:w-full md:min-h-full min-w-full h-40">
+                    <div class="animation-delayed-text rounded-bl-sm rounded-br-sm absolute bottom-0 left-0 right-0 bg-[#859E8F] p-2 text-center">
+                        <p class="imagetext opacity-70 text-xs tracking-wider font-semibold"></p>
                     </div>
                 </div>
-
                 <div class="md:w-3/5 md:order-1 flex flex-col">
-                    <h1 class="text-2xl font-medium md:block">Where do the locals go? 🧢</h1>
-                    <p class="text-lg mt-1 ">I made this to discover <b>hidden gems</b> and <b>dodge the tourists.</b> Available in over 500 neighbourhoods. 🧑‍🎨</p>
+                    <h1 class="text-2xl font-medium md:block">Where do the locals go?</h1>
+                    <p class="text-lg mt-1">I made this to discover <b>hidden gems</b> and <b>dodge the tourists.</b> Available in over 500 neighbourhoods.</p>
                     <div class="mt-4 w-full relative">
                         <div class="relative">
-                        <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-12 pr-4 py-4 rounded-full focus:outline-none focus:border-gray-400 text-lg" style="background-image: url('/img/search.svg'); background-repeat: no-repeat; background-position: 10px center; background-size: 32px;" oninput="toggleClearButton()">
-                        <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
-
+                            <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="inputBox placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-14 pr-4 py-4 rounded-md focus:outline-none focus:border-gray-400 text-lg" oninput="toggleClearButton()">
+                            <button id="locateMe" class="absolute top-0 left-0 mt-4 ml-3 pr-2 border-r border-gray-300" onclick="locateMe()">
+                                <img src="/img/location.svg" id="locateMeIcon" alt="Location" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer">
+                            </button>
+                            <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
                         </div>
-                        <button id="search-button" class="rounded-full w-full mt-4 bg-black/10 px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
+                        <div id="locationChipContainer" class="mt-4 flex items-center hidden">
+                            <span id="locationChip" class="bg-black/10 p-5 rounded-md text-black4">
+                                <span id="chipText"></span>
+                                <button id="removeLocationChip" onclick="removeLocationChip()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </span>
+                        </div>
+                        <button id="search-button" class="rounded-md w-full mt-4 bg-[#EEB053] px-6 py-5 hover:bg-black/20" onclick="sendQuery()">Search</button>
                     </div>
                 </div>
             </div>
@@ -240,13 +79,10 @@ function closeModal() {
                 <!-- Results will be displayed here -->
             </div>
             <button id="loadResults" class="pulse text-lg rounded-md mt-2 hidden w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="popUp()">Load <span id="total"></span> more</button>
-
         </div>
-
         <div id="mapsQuery" class="hidden text-center text-sm p-4 bg-black/5 text-gray-500 mt-5 rounded">Debug on!</div>
     </div>
-
-    <div id="default-modal" class="fixed hidden w-full top-0 left-0  h-screen bg-black/50 flex justify-center items-center">
+    <div id="default-modal" class="fixed hidden w-full top-0 left-0 h-screen bg-black/50 flex justify-center items-center">
         <div class="bg-white rounded-md p-8 w-full m-5 md:w-1/3">
             <button class="top-2 right-2 text-gray-500 hover:opacity-80" onclick="closeModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -258,12 +94,10 @@ function closeModal() {
             <p class="text-center mb-4">It's Tycho, nice to meet you. You found a secret button. I usually limit the 'hidden gems' to five, since the quality tends to go down quickly, not garuanteeing 'hidden gems'. It's very powerful on highly populated cities 🤯 Since the algorithm already selected plenty of places, who am I to hide them from you? 😇 Give it a go. And if you have feedback, let me know.</p> 
             <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="evenMoreResults()">Load more results 🤓</button>
         </div>
-
     </div>
-    <div class="footer w-full bg-black/10 p-4 text-center text-sm text-gray-500">
+    <div class="footer w-full bg-black/5 p-4 text-center text-sm text-gray-500">
         <button onclick="openFeedbackPopup()">💌 Feedback? Report a bug in 1 minute!</button>
     </div>
-
     <div id="feedbackPopup" class="hidden fixed top-0 left-0 w-full h-screen bg-black/50 flex justify-center items-center">
         <div class="bg-white rounded-md p-8 w-full m-5 md:w-1/3">
             <button class="top-2 right-2 text-gray-500 hover:opacity-80" onclick="closeFeedbackPopup()">
@@ -276,7 +110,6 @@ function closeModal() {
            <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="submitFeedback()">Submit</button></form>
         </div>
     </div>
-
     <script>
         function openFeedbackPopup() {
             var feedbackPopup = document.getElementById('feedbackPopup');
@@ -290,16 +123,113 @@ function closeModal() {
 
         function submitFeedback() {
             var feedbackText = document.getElementById('feedbackText').value;
-            // Send feedback to Formspark or any other backend service
-            // ...
             closeFeedbackPopup();
         }
+
+        function toggleClearButton() {
+            var queryInput = document.getElementById('query');
+            var clearButton = document.getElementById('clearButton');
+            clearButton.style.display = queryInput.value.trim() !== '' ? 'block' : 'none';
+        }
+
+        function clearInput() {
+            document.getElementById('query').value = '';
+            toggleClearButton();
+        }
+
+        async function locateMe() {
+            if (navigator.geolocation) {
+                const locationIcon = document.getElementById('locateMeIcon');
+                locationIcon.src = '/img/loading.svg';
+
+                navigator.geolocation.getCurrentPosition(async (position) => {
+                    try {
+                        const { latitude, longitude } = position.coords;
+                        const response = await fetch(`/api/locate?latitude=${latitude}&longitude=${longitude}`);
+                        if (response.ok) {
+                            const data = await response.json();
+                            const { address } = data;
+                            if (address) {
+                                const queryInput = document.getElementById('query');
+                                const locationChipContainer = document.getElementById('locationChipContainer');
+                                const locationChip = document.getElementById('locationChip');
+                                const chipText = document.getElementById('chipText');
+
+                                queryInput.dataset.latitude = latitude;
+                                queryInput.dataset.longitude = longitude;
+                                queryInput.dataset.address = address;
+
+                                chipText.textContent = `Around ${address}`;
+                                locationChipContainer.classList.remove('hidden');
+                            }
+                        } else {
+                            alert('Error occurred while getting location');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error occurred while getting location');
+                    } finally {
+                        locationIcon.src = '/img/location.svg';
+                    }
+                }, (error) => {
+                    console.error('Geolocation error:', error);
+                    alert('Error occurred while getting location');
+                    locationIcon.src = '/img/location.svg';
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        }
+
+        function removeLocationChip() {
+            const queryInput = document.getElementById('query');
+            const locationChipContainer = document.getElementById('locationChipContainer');
+            queryInput.removeAttribute('data-latitude');
+            queryInput.removeAttribute('data-longitude');
+            queryInput.removeAttribute('data-address');
+            locationChipContainer.classList.add('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var clearButton = document.getElementById('clearButton');
+            clearButton.style.display = 'none';
+
+            clearButton.addEventListener('click', function () {
+                clearButton.style.display = 'none';
+            });
+
+            if (window.location.href.includes('useDebug=true')) {
+                var mapsQueryDiv = document.getElementById('mapsQuery');
+                mapsQueryDiv.classList.remove('hidden');
+            }
+
+            fetch("/api/images").then(function(data){
+                data.json().then(function(images){
+                    const imagePath = '/places/';
+                    const randomImage = images[Math.floor(Math.random() * images.length)];
+                    const imageName = formatImageName(randomImage);
+                    
+                    const imageContainer = document.querySelector('.sidebar-image');
+                    imageContainer.src = imagePath + randomImage;
+                    imageContainer.alt = imageName;
+                    imageContainer.className = "object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full h-40 animation-delayed";
+                    
+                    const imageCaption = document.querySelector('.imagetext');
+                    imageCaption.textContent = imageName; // Update the caption dynamically
+                    
+                    document.getElementById('query').addEventListener('keydown', function (event) {
+                        if (event.key === 'Enter') {
+                            sendQuery(); // Call sendQuery when Enter is pressed
+                        }
+                    });
+                });
+            });
+        });
+
+        function formatImageName(filename) {
+            return filename.replace(/^\d+-/, '').replace(/-/g, ' ').replace('.jpg', '').replace('.jpeg', '');
+        }
     </script>
-    </div>
-
     <script src="js/sendQuery.js"></script>
-    <script src="js/placeholderTexts.js"></script>
-
 </body>
-
 </html>
