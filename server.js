@@ -2,11 +2,14 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const app = express();
+require('dotenv').config(); // Voor omgevingsvariabelen
 
+const locateHandler = require('./locate'); // Zorg ervoor dat dit pad correct is
+const searchHandler = require('./search'); // Zorg ervoor dat dit pad correct is
 
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.json()); // Middleware om JSON-bodies te parseren
 
-const PORT = 3000; // The port the server will listen on
+const PORT = process.env.PORT || 3000; // De poort waar de server naar luistert
 
 // Serve the last query
 app.get('/api/last-query', (req, res) => {
@@ -21,7 +24,13 @@ app.get('/api/last-query', (req, res) => {
     });
 });
 
-// Start the server
+// Voeg de locate route toe
+app.get('/api/locate', locateHandler);
+
+// Voeg de search route toe
+app.post('/api/search', searchHandler);
+
+// Start de server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
