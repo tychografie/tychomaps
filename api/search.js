@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+
 const { MongoClient } = require('mongodb'); // Voeg dit toe om MongoDB te gebruiken
-
-
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 async function logSearchQuery(query, resultCount) {
