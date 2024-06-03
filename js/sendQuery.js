@@ -57,6 +57,7 @@ function sendQuery() {
                 });
                 button.innerHTML = 'Search';
                 button.disabled = false;
+                document.getElementById('resultsList').classList.remove('hidden');
 
                 mapsQuery.textContent += data.aiResponse;
             } else {
