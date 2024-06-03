@@ -1,43 +1,43 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
+const { MongoClient } = require('mongodb');
 
-const { MongoClient } = require('mongodb'); // Voeg dit toe om MongoDB te gebruiken
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-async function logSearchQuery(query, resultCount) {
+async function logDetails(req, query, aiResponse, mapsRequest, resultCount) {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const coordinatesPresent = req.body.latitude && req.body.longitude;
+
     try {
         await client.connect();
-        const database = client.db('tychomapsmongodb'); // Gebruik de juiste database naam
+        const database = client.db('tychomapsmongodb');
         const collection = database.collection('searches');
         const logEntry = {
+            ip: ip,
             query: query,
+            coordinatesPresent: coordinatesPresent,
+            aiResponse: aiResponse,
             resultCount: resultCount,
             timestamp: new Date()
         };
         await collection.insertOne(logEntry);
     } catch (error) {
-        console.error('Error logging search query:', error);
+        console.error('Error logging details:', error);
     } finally {
         await client.close();
     }
 }
 
-const preprocess = async (userQuery, latitude, longitude) => {
-    const mapsQuery = await aiRequest(userQuery, latitude, longitude);
-    return mapsQuery;
-};
-
-const aiRequest = async (query) => {
+const aiRequest = async (query, latitude, longitude) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
-    // ${latitude ? latitude : ''} ${longitude ? longitude : ''}
     const aiResponse = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: `${queryPrefix} ${query}`
+                content: `${queryPrefix} ${query} ${latitude ? latitude : ''} ${longitude ? longitude : ''}`
             }],
             temperature: 0.7
         },
@@ -50,38 +50,18 @@ const aiRequest = async (query) => {
     );
 
     if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
-        const mapsQuery = aiResponse.data.choices[0].message.content.trim();
-        if (mapsQuery.toLowerCase().includes('maps')) {
-            throw new Error("🦈 Ha! You might be entering nonsense.");
-        }
-        return mapsQuery;
+        return aiResponse.data.choices[0].message.content.trim();
     } else {
         throw new Error('No valid response from AI');
     }
 };
 
-const mapsRequest = async (mapsQuery, lat = null, lon = null) => {
-    let minRating = 4.5;
-    if (mapsQuery.toLowerCase().includes("club")) {
-        minRating = 4.0;
-    }
-
-    const requestPayload = {
-        textQuery: mapsQuery,
-        minRating: minRating,
-    }
-
+const mapsRequest = async (mapsQuery, lat, lon) => {
+    const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
+    const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (lat && lon) {
-        requestPayload.locationBias = {
-            circle: {
-                center: {
-                    latitude: lat,
-                    longitude: lon,
-                },
-                radius: 500.0 // 500 meter
-            }
-        }
+        requestPayload.locationBias = { circle: { center: { latitude: lat, longitude: lon }, radius: 500.0 } };
     }
 
     const mapsResponse = await axios.post(
@@ -95,32 +75,15 @@ const mapsRequest = async (mapsQuery, lat = null, lon = null) => {
             }
         }
     );
-
     return mapsResponse.data;
 };
 
-const processor = async (mapsResponse, mapsQuery, lat, lon) => {
-    const numPlaces = mapsResponse && mapsResponse.places ? mapsResponse.places.length : 0;
-
-    if (numPlaces === 1 && mapsQuery.toLowerCase().includes('hidden')) {
-        const modifiedQuery = mapsQuery.replace('hidden', '');
-        const modifiedPlaces = await mapsRequest(modifiedQuery, lat, lon);
-        return await processor(modifiedPlaces, modifiedQuery, lat, lon);
-    }
-
-    if (mapsResponse && mapsResponse.places && mapsResponse.places.length === 1) {
-        const placeName = mapsResponse.places[0].displayName.text.toLowerCase();
-        const aiResponseWords = mapsQuery.split('+');
-        const hasHit = aiResponseWords.some(word => placeName.includes(word));
-        if (hasHit) {
-            throw new Error("Error alert: AI response word found in place name");
-        }
-    }
-
-    if (mapsResponse && mapsResponse.places) {
-        const filteredPlaces = mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500);
-        const sortedPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating).slice(0, 30);
-        return sortedPlaces;
+const processor = async (mapsResponse, mapsQuery) => {
+    const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
+    if (numPlaces > 0) {
+        return mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
+                                 .sort((a, b) => b.rating - a.rating)
+                                 .slice(0, 30);
     } else {
         throw new Error('No places found');
     }
@@ -128,39 +91,25 @@ const processor = async (mapsResponse, mapsQuery, lat, lon) => {
 
 module.exports = async (req, res) => {
     if (req.method !== "POST") {
-        return res.status(405).json({ error: "Method not allowed" });
+        res.status(405).json({ error: "Method not allowed" });
+        return;
     }
 
-    const { query, latitude, longitude, staticMode } = req.body;
+    const { query, latitude, longitude } = req.body;
     if (!query || query.length > 128) {
-        return res.status(400).json({ error: "Invalid query length" });
+        res.status(400).json({ error: "Invalid query length" });
+        return;
     }
 
     try {
-        let mapsQuery;
-        try {
-            if (staticMode) {
-                // Handle static mode if needed
-            } else {
-                mapsQuery = await preprocess(query);
-            }
+        const aiResponse = await aiRequest(query, latitude, longitude);
+        const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
+        const sortedPlaces = await processor(mapsResponse, aiResponse);
 
-            const places = await mapsRequest(mapsQuery, latitude, longitude);
-            const sortedPlaces = await processor(places, mapsQuery, latitude, longitude);
-
-            // Log the search query and result count to MongoDB
-            await logSearchQuery(query, sortedPlaces.length);
-
-            return res.status(200).json({ places: sortedPlaces, aiResponse: mapsQuery });
-        } catch (error) {
-            // Log the search query and zero result count to MongoDB in case of error
-            await logSearchQuery(query, 0);
-            
-            res.status(400).json({ error: error.message, aiResponse: mapsQuery });
-            return;
-        }
+        await logDetails(req, query, aiResponse, mapsResponse, sortedPlaces.length);
+        res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
     } catch (error) {
-        console.error('API request failed:', error);
-        res.status(500).json({ error: 'Internal Server Error', message: error.message });
+        await logDetails(req, query, null, null, 0);
+        res.status(500).json({ error: error.message });
     }
 };
