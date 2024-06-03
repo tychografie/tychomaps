@@ -12,8 +12,8 @@ function sendQuery() {
     `;
 
     var query = document.getElementById('query').value.trim();
-    const latitude = document.getElementById('query').dataset.latitude || '';
-    const longitude = document.getElementById('query').dataset.longitude || '';
+    const latitude = document.getElementById('query').dataset.latitude || null;
+    const longitude = document.getElementById('query').dataset.longitude || null;
 
     if (query.length < 1) {
         button.disabled = false;
@@ -27,22 +27,22 @@ function sendQuery() {
         },
         body: JSON.stringify({ query: query, latitude: latitude, longitude: longitude, staticMode: new URLSearchParams(window.location.search).get('useStatic') })
     })
-    .then(response => response.json())
-    .then(data => {
-        const resultsContainer = document.getElementById('results');
-        resultsContainer.innerHTML = '';
-        const totalPlaces = data.places.length;
-        const totalElement = document.getElementById('total');
-        totalElement.textContent = totalPlaces - 5;
+        .then(response => response.json())
+        .then(data => {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = '';
+            const totalPlaces = data.places?.length;
+            const totalElement = document.getElementById('total');
+            totalElement.textContent = totalPlaces - 5;
 
-        if (data.places && data.places.length) {  
-            data.places.slice(0, 5).forEach((result, index) => { 
-                setTimeout(() => {
-                    const resultItem = document.createElement('a');
-                    resultItem.className = 'result-item';
-                    resultItem.href = result.googleMapsUri;
-                    resultItem.target = "_blank";
-                    resultItem.innerHTML = `
+            if (data.places && data.places.length) {
+                data.places.slice(0, 30).forEach((result, index) => {
+                    setTimeout(() => {
+                        const resultItem = document.createElement('a');
+                        resultItem.className = 'result-item';
+                        resultItem.href = result.googleMapsUri;
+                        resultItem.target = "_blank";
+                        resultItem.innerHTML = `
                         <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
                             <div class="flex items-center space-x-3">
                                 <span class="place-name">${result.displayName.text}</span>
@@ -52,27 +52,27 @@ function sendQuery() {
                             <span class="rating">${result.rating}</span>
                         </div>
                         `;
-                    resultsContainer.appendChild(resultItem);
-                }, 100 * index);
-            });
+                        resultsContainer.appendChild(resultItem);
+                    }, 100 * index);
+                });
+                button.innerHTML = 'Search';
+                button.disabled = false;
+
+                mapsQuery.textContent += data.aiResponse;
+            } else {
+                resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
+                button.innerHTML = 'Search';
+                button.disabled = false;
+                mapsQuery.textContent = data.aiResponse;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('results').innerHTML = '<p>An error occurred fetching the results.</p>';
             button.innerHTML = 'Search';
-            button.disabled = false;
-            
-            mapsQuery.textContent += data.aiResponse;
-        } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
-            button.innerHTML = 'Search';
-            button.disabled = false;
             mapsQuery.textContent = data.aiResponse;
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('results').innerHTML = '<p>An error occurred fetching the results.</p>';
-        button.innerHTML = 'Search';
-        mapsQuery.textContent = data.aiResponse;
-        button.disabled = false;
-    });
+            button.disabled = false;
+        });
 }
 
 document.getElementById('removeLocationChip').addEventListener('click', removeLocationChip);

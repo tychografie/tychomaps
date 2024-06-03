@@ -4,6 +4,7 @@
     "express": "^4.19.2",
     "fs": "^0.0.1-security",
     "lowdb": "^7.0.1",
+    "mongodb": "^6.7.0",
     "path": "^0.12.7"
   },
   "name": "tychomaps",
