@@ -5,9 +5,8 @@ const { MongoClient } = require('mongodb');
 
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-async function logDetails(req, query, aiResponse, mapsRequest, resultCount) {
+async function logDetails(req, query, aiResponseContent, aiContent, country, latitude, longitude, mapsRequest, resultCount) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    const coordinatesPresent = req.body.latitude && req.body.longitude;
 
     try {
         await client.connect();
@@ -16,9 +15,12 @@ async function logDetails(req, query, aiResponse, mapsRequest, resultCount) {
         const logEntry = {
             ip: ip,
             query: query,
-            coordinatesPresent: coordinatesPresent,
-            aiResponse: aiResponse,
-            resultCount: resultCount,
+            country: country || "Unknown",
+            latitude: latitude || "Unknown",
+            longitude: longitude || "Unknown",
+            mapsRequest: mapsRequest || "Unknown",
+            aiResponseContent: aiResponseContent || "Unknown",
+            resultCount: resultCount !== undefined ? resultCount : "Unknown",
             timestamp: new Date()
         };
         await collection.insertOne(logEntry);
@@ -29,15 +31,17 @@ async function logDetails(req, query, aiResponse, mapsRequest, resultCount) {
     }
 }
 
-const aiRequest = async (query, latitude, longitude) => {
+const aiRequest = async (query, country) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
+    const fullAiContent = `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`; // This is what you're actually sending to OpenAI
+    
     const aiResponse = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: `${queryPrefix} ${query} ${latitude ? latitude : ''} ${longitude ? longitude : ''}`
+                content: fullAiContent
             }],
             temperature: 0.7
         },
@@ -50,18 +54,22 @@ const aiRequest = async (query, latitude, longitude) => {
     );
 
     if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
-        return aiResponse.data.choices[0].message.content.trim();
+        return {
+            aiContent: fullAiContent, // Return both the AI content sent and the response
+            aiResponse: aiResponse.data.choices[0].message.content.trim()
+        };
     } else {
         throw new Error('No valid response from AI');
     }
 };
 
-const mapsRequest = async (mapsQuery, lat, lon) => {
+
+const mapsRequest = async (mapsQuery, latitude, longitude) => {
     const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };
 
-    if (lat && lon) {
-        requestPayload.locationBias = { circle: { center: { latitude: lat, longitude: lon }, radius: 500.0 } };
+    if (latitude && longitude) {
+        requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 500.0 } };
     }
 
     const mapsResponse = await axios.post(
@@ -95,21 +103,32 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const { query, latitude, longitude } = req.body;
+    const { query, latitude, longitude, country } = req.body;
     if (!query || query.length > 128) {
         res.status(400).json({ error: "Invalid query length" });
         return;
     }
 
-    try {
-        const aiResponse = await aiRequest(query, latitude, longitude);
-        const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
-        const sortedPlaces = await processor(mapsResponse, aiResponse);
+    const handleRequest = async () => {
+        try {
+            const { aiContent, aiResponse } = await aiRequest(query, country); // Destructure to get both values
+            const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
+            const sortedPlaces = await processor(mapsResponse, aiResponse);
+    
+            // Check if rerun is needed
+            if (sortedPlaces.length === 1) {
+                return await handleRequest(); // Rerun the entire request
+            }
+    
+            await logDetails(req, query, aiContent, country, latitude, longitude, aiResponse, sortedPlaces.length);
+            return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
+        } catch (error) {
+            await logDetails(req, query, null, country, latitude, longitude, null, 0);
+            return res.status(500).json({ error: error.message });
+        }
+    };
+    
+    
 
-        await logDetails(req, query, aiResponse, mapsResponse, sortedPlaces.length);
-        res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
-    } catch (error) {
-        await logDetails(req, query, null, null, 0);
-        res.status(500).json({ error: error.message });
-    }
+    return await handleRequest(); // Initial call to handle the request
 };

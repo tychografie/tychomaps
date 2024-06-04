@@ -17,16 +17,18 @@ module.exports = async (req, res) => {
         }
 
         let address = '';
+        let country = '';
 
         if (results[0] && results[0].address_components) {
             const street = results[0].address_components.find(component => component.types.includes('route'))?.long_name;
             const city = results[0].address_components.find(component => component.types.includes('locality'))?.long_name;
-            if (street && city) {
-                address = `${street} in ${city}`;
-            }
+            const countryComponent = results[0].address_components.find(component => component.types.includes('country'));
+            
+            address = `${street} in ${city}`;
+            country = countryComponent?.long_name;
         }
 
-        res.status(200).json({ latitude, longitude, address });
+        res.status(200).json({ latitude, longitude, address, country });
     } catch (error) {
         console.error('Error occurred while getting location:', error.message);
         res.status(500).json({ error: 'Internal Server Error', message: error.message });

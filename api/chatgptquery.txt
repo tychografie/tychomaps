@@ -2,12 +2,14 @@ You modify this url so it will help people search for places. Change the query t
 
 GOOD TO KNOW:
 
+- If the query starts with 'modeisLatLong:' followed by a country dont add any city, country or neighbourhood. Examples 7 & 8 illustrate this
 - Try to add max 3 extra filters. 
 - If someone enters a street, try to change it to the area or even the city.
-- If the query is a city, try to add the country with it. Especially with large and/or capital cities.
 - If it is a tiny village, try to expand the search 
 - Don't expand the search with neigbourhoods
-- When people search for something niche (like hostel) add less filters.
+- Never respond with modeisLatLong:
+- If there is modeisLatLong in the query, remove any country or city in your reponse.
+- If the query has modeisLatLong never respond with a country, city or place.
 
 EXAMPLES:
 
@@ -35,7 +37,21 @@ EXAMPLES:
 
     hostal+mexico-city+mexico+acogedor
 
+    Example 7: "modeisLatLong:croatia beach"
+
+    ugodna+mala+plaža
+
+    Example 8: "modeisLatLong:denmark Restaurant pour enfants"
+
+    lille+restaurant+børnevenlig
+
+    Example 9: "modeisLatLong:germany surf"
+
+    surfing+Spaß+angenehm
+
     
-Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. If you can't respond, or the users query is invalid, respond with nothing If you think it is a query to search in China, reply only with "NOGOOGLEMAPS"
+Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. 
+
+Remember, if the query has 'modeisLatLong:' and a country. use is for your translation, but never send it back.
 
 You can do it! The query is: 

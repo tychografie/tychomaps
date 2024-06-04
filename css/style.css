@@ -41,10 +41,23 @@
     font-weight: 500; /* Medium font weight */
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'PixelPro';
+    src: url('/fonts/VPPixelPro-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/VPPixelPro-Regular.woff') format('woff');   /* Legacy Browsers */
+    font-weight: 400; /* Regular font weight */
+    font-style: normal;
+}
+
 body {
     background-color: #F8E3BF;
 }
 html, body, body * {
-    font-family: 'Favorit', sans-serif !important; /* Use !important to enforce this style */
+    font-family: 'Favorit', sans-serif; /* Use !important to enforce this style */
  
+  }
+
+  .font-family-pixelpro {
+    font-family: 'PixelPro', sans-serif !important; /* Use !important to enforce this style */
   }
