@@ -1,12 +1,13 @@
-
+const { Ratelimit } = require("@upstash/ratelimit");
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 const { kv } = require("@vercel/kv");
-const { RateLimit } = require("@upstash/ratelimit");
+
 
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 async function logDetails(req, query, aiResponseContent, aiContent, country, latitude, longitude, mapsRequest, resultCount) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -108,11 +109,12 @@ module.exports = async (req, res) => {
 
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
         const ip = req.headers["x-forwarded-for"];
-        const rl = new RateLimit({
-            redis: kv,
-            // rate limit to 3 requests per 10 seconds
-            limiter: RateLimit.slidingWindow(3, '10s')
-        })
+        
+const rl = new Ratelimit({
+    redis: kv,
+    // rate limit to 3 requests per 10 seconds
+    limiter: Ratelimit.slidingWindow(3, '10s')
+})
 
         const { success, limit, reset, remaining } = await rl.limit(
             `ratelimit_${ip}`
