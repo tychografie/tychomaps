@@ -107,7 +107,7 @@ module.exports = async (req, res) => {
     }
 
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-        const ip = req.headers.get('x-forwarded-for')
+        const ip = req.headers["x-forwarded-for"];
         const rl = new RateLimit({
             redis: kv,
             // rate limit to 3 requests per 10 seconds
