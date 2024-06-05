@@ -3,6 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 require('dotenv').config(); // Voor omgevingsvariabelen
+const mapsRequestsHandler = require('./mapsRequests'); // Zorg dat het pad correct is
+
+app.use('/', mapsRequestsHandler);
 
 const locateHandler = require('./locate'); // Zorg ervoor dat dit pad correct is
 const searchHandler = require('./search'); // Zorg ervoor dat dit pad correct is

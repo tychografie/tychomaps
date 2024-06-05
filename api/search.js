@@ -156,7 +156,7 @@ const rl = new Ratelimit({
             await logDetails(req, query, aiContent, country, latitude, longitude, aiResponse, sortedPlaces.length);
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
-            await logDetails(req, query, null, country, latitude, longitude, null, 0);
+            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, sortedPlaces.length);
             return res.status(500).json({ error: error.message });
         }
     };

@@ -27,7 +27,7 @@ EXAMPLES:
     
     Example 4: "go out in tbilisi"
     
-    tbilisi+nightclub+local+unique
+    თბილისი+ღამისკლუბი+ლოკალური+უნიკალური
 
     Example 5: "barber in porto"
     
