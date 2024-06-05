@@ -9,7 +9,7 @@ const { kv } = require("@vercel/kv");
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-async function logDetails(req, query, aiResponseContent, aiContent, country, latitude, longitude, mapsRequest, resultCount) {
+async function logDetails(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
     try {
@@ -19,12 +19,14 @@ async function logDetails(req, query, aiResponseContent, aiContent, country, lat
         const logEntry = {
             ip: ip,
             query: query,
+            aiContent: aiContent,
+            aiResponseContent: aiResponseContent || "Unknown",
             country: country || "Unknown",
             latitude: latitude || "Unknown",
             longitude: longitude || "Unknown",
             mapsRequest: mapsRequest || "Unknown",
-            aiResponseContent: aiResponseContent || "Unknown",
             resultCount: resultCount !== undefined ? resultCount : "Unknown",
+            retryAttempted: retryAttempted,
             timestamp: new Date()
         };
         await collection.insertOne(logEntry);
@@ -34,6 +36,7 @@ async function logDetails(req, query, aiResponseContent, aiContent, country, lat
         await client.close();
     }
 }
+
 
 const aiRequest = async (query, country) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
@@ -95,7 +98,7 @@ const processor = async (mapsResponse, mapsQuery) => {
     if (numPlaces > 0) {
         return mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
             .sort((a, b) => b.rating - a.rating)
-            .slice(0, 30);
+            .slice(0, 5);
     } else {
         throw new Error('No places found');
     }
@@ -142,24 +145,28 @@ const rl = new Ratelimit({
         return;
     }
 
-    const handleRequest = async () => {
+    const handleRequest = async (retry = true) => {
         try {
             const { aiContent, aiResponse } = await aiRequest(query, country); // Destructure to get both values
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
-
-            // Check if rerun is needed
-            if (sortedPlaces.length === 1) {
-                return await handleRequest(); // Rerun the entire request
+    
+            // Log the attempt before checking for retry
+            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, sortedPlaces.length, !retry);
+    
+            // Check if rerun is needed and retry is allowed
+            if (sortedPlaces.length === 0 && retry) {
+                console.log("No results found, retrying...");
+                return await handleRequest(false); // Rerun the entire request without further retries
             }
-
-            await logDetails(req, query, aiContent, country, latitude, longitude, aiResponse, sortedPlaces.length);
+    
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
-            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, sortedPlaces.length);
+            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, 0, !retry);
             return res.status(500).json({ error: error.message });
         }
     };
+    
 
 
 

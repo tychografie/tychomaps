@@ -9,20 +9,26 @@ function sendQuery() {
     const options = ['asking locals', 'asking bartenders', 'asking students', 'asking taxi drivers', 'asking surfers', 'asking designers', 'asking bakers', 'asking chefs'];
     let currentIndex = 0;
 
-    setInterval(() => {
+    function updateButtonText() {
         if (button.disabled) {
-            button.innerHTML = `
-                <div style="display: flex; justify-content: center; align-items: center;">
-                    <svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    ${options[currentIndex]}
-                </div>
-            `;
-            currentIndex = (currentIndex + 1) % options.length;
+        button.innerHTML = `
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <svg class="animate-spin h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                ${options[currentIndex]}
+            </div>
+        `;
+        currentIndex = (currentIndex + 1) % options.length;
         }
-    }, 1000);
+    }
+
+        // Call the function immediately
+        updateButtonText();
+
+        // Set interval to continue updating the button text every 1000ms
+        setInterval(updateButtonText, 1000);
 
     var query = document.getElementById('query').value.trim();
     const latitude = document.getElementById('query').dataset.latitude || null;
