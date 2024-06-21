@@ -81,14 +81,14 @@
 
             </div>
 
-            <div class="flex flex-col gap-2 mt-4">
+            <div class="flex flex-col gap-2">
                 <div class="flex items-center gap-2">
-                    <span class="text-sm opacity-0" id="totalClaim">🧢 We helped <span id="totalUsers"></span> people find <span id="totalPlaces"></span> local places</span>
+                    <span class="text-sm opacity-0 mt-4" id="totalClaim">🧢 We helped <span id="totalUsers"></span> people find <span id="totalPlaces"></span> local places</span>
                 </div>
                 </div>
 
-            <div id="resultsList" class="hidden flex rounded-md mt-2 md:mt-2 flex-col justify-center items-center w-full" style="flex: 1;">
-                <div class="top-auto shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] p-4 md:p-6 relative search-container">
+            <div id="resultsList" class="hidden flex rounded-md mt-4 md:mt-2 flex-col justify-center items-center w-full" style="flex: 1;">
+                <div class="top-auto shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] rounded-md p-4 md:p-6 relative search-container">
 
             <h1 class="text-4xl mb-2 font-medium md:block font-family-pixelpro">Locals love to go to...</h1>
             <div id="results" class="flex flex-col gap-2 mt-4">
@@ -113,9 +113,6 @@
             <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="evenMoreResults()">Load more results 🤓</button>
         </div>
     </div>
-    </div>
-    <div class="footer w-full bg-black/5 p-4 text-center text-sm text-gray-500">
-        <button onclick="openFeedbackPopup()">💌 Feedback? Report a bug in 1 minute!</button>
     </div>
     <div id="feedbackPopup" class="hidden fixed top-0 left-0 w-full h-screen bg-black/50 flex justify-center items-center">
         <div class="bg-white rounded-md p-8 w-full m-5 md:w-1/3">

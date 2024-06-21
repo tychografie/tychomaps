@@ -5,9 +5,7 @@ const axios = require('axios');
 const { MongoClient } = require('mongodb');
 const { kv } = require("@vercel/kv");
 
-
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 async function logDetails(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -27,6 +25,7 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
             mapsRequest: mapsRequest || "Unknown",
             resultCount: resultCount !== undefined ? resultCount : "Unknown",
             retryAttempted: retryAttempted,
+            userRating: 0,
             timestamp: new Date()
         };
         await collection.insertOne(logEntry);
@@ -36,7 +35,6 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
         await client.close();
     }
 }
-
 
 const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
@@ -62,14 +60,13 @@ const aiRequest = async (query, country, retryQuery = null) => {
 
     if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
         return {
-            aiContent: fullAiContent, // Return both the AI content sent and the response
+            aiContent: fullAiContent,
             aiResponse: aiResponse.data.choices[0].message.content.trim()
         };
     } else {
         throw new Error('No valid response from AI');
     }
 };
-
 
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
     const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
@@ -97,8 +94,7 @@ const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
     if (numPlaces > 0) {
         return mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
-            .sort((a, b) => b.rating - a.rating)
-            .slice(0, 5);
+            .sort((a, b) => b.rating - a.rating);
     } else {
         throw new Error('No places found');
     }
@@ -113,11 +109,10 @@ module.exports = async (req, res) => {
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
         const ip = req.headers["x-forwarded-for"];
         
-const rl = new Ratelimit({
-    redis: kv,
-    // rate limit to 3 requests per 10 seconds
-    limiter: Ratelimit.slidingWindow(3, '10s')
-})
+        const rl = new Ratelimit({
+            redis: kv,
+            limiter: Ratelimit.slidingWindow(3, '10s')
+        })
 
         const { success, limit, reset, remaining } = await rl.limit(
             `ratelimit_${ip}`
@@ -137,8 +132,6 @@ const rl = new Ratelimit({
         console.log("KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...")
     }
 
-
-
     const { query, latitude, longitude, country } = req.body;
     if (!query || query.length > 128) {
         res.status(400).json({ error: "Invalid query length" });
@@ -151,15 +144,12 @@ const rl = new Ratelimit({
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
-            // Log the attempt before checking for retry
             await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, sortedPlaces.length, !retry);
     
-            // Check if rerun is needed and retry is allowed
             if (sortedPlaces.length === 0 && retry) {
                 console.log("No results found, retrying...");
-                // Add the previous mapsQuery to the fullAiContent for the retry
                 const retryQuery = `${query} Do not return: ${aiResponse}`;
-                return await handleRequest(false, retryQuery); // Rerun the request without further retries
+                return await handleRequest(false, retryQuery);
             }
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
@@ -169,9 +159,6 @@ const rl = new Ratelimit({
             return res.status(500).json({ error: error.message });
         }
     };
-    
 
-
-
-    return await handleRequest(); // Initial call to handle the request
+    return await handleRequest();
 };
