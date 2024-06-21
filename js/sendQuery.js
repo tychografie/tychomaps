@@ -63,6 +63,11 @@ function sendQuery() {
     })
     .then(response => {
         if (!response.ok) {
+            if (response.status === 500) {
+                return response.json().then(err => {
+                    throw new Error(err.error || 'Internal Server Error');
+                });
+            }
             throw new Error('Failed to fetch');
         }
         return response.json();
@@ -105,7 +110,7 @@ function sendQuery() {
 
             mapsQuery.textContent += data.aiResponse;
         } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
+            resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department.<u><a href="/support">Give me search tips 😰</a></u></p>';
             button.innerHTML = 'Search';
             button.disabled = false;
             mapsQuery.textContent = data.aiResponse;
@@ -118,6 +123,10 @@ function sendQuery() {
             errorMessage = '<p>Failed to process server response. Please report this issue.</p>';
         } else if (error.message.includes('Failed to fetch')) {
             errorMessage = '<p>Unable to connect to server. Check your internet connection or try again later.</p>';
+        } else if (error.message === 'No results found or invalid query.') {
+            errorMessage = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
+        } else {
+            errorMessage = `<p>${error.message}</p>`;
         }
         document.getElementById('results').innerHTML = errorMessage;
         button.innerHTML = 'Search';

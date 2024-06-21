@@ -19,7 +19,7 @@ EXAMPLES:
     
     Example 2 query:"koffie funenpark"
     
-    amsterdam-oost+nederland+koffie+havermelk+gezellig
+    amsterdam-oost+koffie+havermelk+gezellig
     
     Example 3: "petit dejeuner berlijn"
     
@@ -49,6 +49,25 @@ EXAMPLES:
 
     surfing+Spaß+angenehm
 
+    Example 10: "Fish restaurants lissabon"
+
+    peixe+tasca+fresco+adorei+gosto
+
+    Example 11: "Camping bologna"
+
+    bologna+campeggio+tranquillo+naturale
+
+    Example 12: "elba wineyard"
+
+    elba+vigneto+accogliente+unica+agricola
+
+    Example 13: "Breakfast in Hull, UK"
+
+    breakfast+hull+athmosphere+bakery
+
+    Example 14: "frietjes antwerpen-zuid"
+
+    frituur+"antwerpen-zuid"
     
 Only reply with the query response. nothing else. Your response is a part of a URL that depends on you. 
 

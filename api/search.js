@@ -38,9 +38,9 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
 }
 
 
-const aiRequest = async (query, country) => {
+const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
-    const fullAiContent = `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`; // This is what you're actually sending to OpenAI
+    const fullAiContent = retryQuery || `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`;
 
     const aiResponse = await axios.post(
         'https://api.openai.com/v1/chat/completions',
@@ -147,7 +147,7 @@ const rl = new Ratelimit({
 
     const handleRequest = async (retry = true) => {
         try {
-            const { aiContent, aiResponse } = await aiRequest(query, country); // Destructure to get both values
+            const { aiContent, aiResponse } = await aiRequest(query, country);
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
@@ -157,11 +157,14 @@ const rl = new Ratelimit({
             // Check if rerun is needed and retry is allowed
             if (sortedPlaces.length === 0 && retry) {
                 console.log("No results found, retrying...");
-                return await handleRequest(false); // Rerun the entire request without further retries
+                // Add the previous mapsQuery to the fullAiContent for the retry
+                const retryQuery = `${query} Do not return: ${aiResponse}`;
+                return await handleRequest(false, retryQuery); // Rerun the request without further retries
             }
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
+            console.error('Error in handleRequest:', error);
             await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, 0, !retry);
             return res.status(500).json({ error: error.message });
         }
