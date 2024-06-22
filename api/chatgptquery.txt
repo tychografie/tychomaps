@@ -51,7 +51,7 @@ EXAMPLES:
 
     Example 10: "Fish restaurants lissabon"
 
-    peixe+tasca+fresco+adorei+gosto
+    lisboa peixe+tasca+fresco+adorei+gosto
 
     Example 11: "Camping bologna"
 
