@@ -51,7 +51,7 @@ function sendQuery() {
         return;
     }
 
-    fetch('http://localhost:3000/api/search', {
+    fetch('/api/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
