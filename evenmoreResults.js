@@ -39,7 +39,7 @@ function evenmoreResults() {
                 }, 100 * index);
             });
         } else {
-            resultsContainer.innerHTML = '<p>No results found or invalid query. <a href="/support">Help me out! 😰</a></p>';
+            resultsContainer.innerHTML = '<p>No results found or invalid query. <a href="/src/support">Help me out! 😰</a></p>';
         }
     })
     .catch(error => {

@@ -2,9 +2,9 @@ function sendQuery() {
     const mapsQuery = document.getElementById('mapsQuery');
     var button = document.getElementById('search-button');
 
-    button.disabled = true;
-    const totalClaim = document.getElementById('totalClaim');
-    totalClaim.style.opacity = '0';
+    // button.disabled = true;
+    // const totalClaim = document.getElementById('totalClaim');
+    // totalClaim.style.opacity = '0';
 
     const options = ['asking locals', 'asking bartenders', 'asking students', 'asking taxi drivers', 'asking surfers', 'asking designers', 'asking bakers', 'asking chefs'];
     let currentIndex = 0;
@@ -51,7 +51,7 @@ function sendQuery() {
         return;
     }
 
-    fetch('/api/search', {
+    fetch('http://localhost:3000/api/search', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ function sendQuery() {
         const totalElement = document.getElementById('total');
         totalElement.textContent = totalPlaces;
         totalClaim.classList.add('hidden');
-        
+
         if (data.places && data.places.length) {
             data.places.slice(0, 5).forEach((result, index) => {
                 const resultItem = document.createElement('a');
@@ -98,7 +98,7 @@ function sendQuery() {
                 `;
                 resultsContainer.appendChild(resultItem);
             });
-            
+
             if (totalPlaces > 5) {
                 const loadMoreButton = document.createElement('button');
                 loadMoreButton.id = 'loadMoreButton';
@@ -107,7 +107,7 @@ function sendQuery() {
                 loadMoreButton.onclick = () => loadMoreResults(data.places);
                 resultsContainer.appendChild(loadMoreButton);
             }
-            
+
             // Add feedback buttons
             const feedbackContainer = document.createElement('div');
             feedbackContainer.id = 'feedbackContainer';
@@ -117,18 +117,18 @@ function sendQuery() {
                 <button onclick="openFeedbackPopup()" id="badFeedback" class="px-6 py-5 bg-black/10 w-full text-black rounded hover:bg-red-500 hover:text-white transition duration-300">💔 Bad results!</button>
             `;
             resultsContainer.appendChild(feedbackContainer);
-            
+
             // Add click event listeners for feedback buttons
             document.getElementById('goodFeedback').addEventListener('click', () => submitFeedback(1));
             document.getElementById('badFeedback').addEventListener('click', () => submitFeedback(-1));
-            
+
             button.innerHTML = 'Search';
             button.disabled = false;
             document.getElementById('resultsList').classList.remove('hidden');
 
             mapsQuery.textContent += data.aiResponse;
         } else {
-            resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/support">Give me search tips 😰</a></u></p>';
+            resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/src/support">Give me search tips 😰</a></u></p>';
             button.innerHTML = 'Search';
             button.disabled = false;
             mapsQuery.textContent = data.aiResponse;
@@ -142,7 +142,7 @@ function sendQuery() {
         } else if (error.message.includes('Failed to fetch')) {
             errorMessage = '<p>Unable to connect to server. Check your internet connection or try again later.</p>';
         } else if (error.message === 'No results found or invalid query.') {
-            errorMessage = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
+            errorMessage = '<p>No results found or invalid query. <u><a href="/src/support">Help me out! 😰</a></u></p>';
         } else {
             errorMessage = `<p>${error.message}</p>`;
         }
@@ -157,7 +157,7 @@ function loadMoreResults(allPlaces) {
     const resultsContainer = document.getElementById('results');
     const currentResultCount = resultsContainer.childElementCount - 2; // Subtract 2 to account for the "Load more" button and feedback container
     const nextBatch = allPlaces.slice(currentResultCount, currentResultCount + 5);
-    
+
     nextBatch.forEach(result => {
         const resultItem = document.createElement('a');
         resultItem.className = 'result-item';
@@ -175,7 +175,7 @@ function loadMoreResults(allPlaces) {
         `;
         resultsContainer.insertBefore(resultItem, document.getElementById('loadMoreButton'));
     });
-    
+
     if (currentResultCount + 5 >= allPlaces.length) {
         document.getElementById('loadMoreButton').remove();
     }
@@ -184,7 +184,7 @@ function loadMoreResults(allPlaces) {
 function submitFeedback(rating) {
     const feedbackContainer = document.getElementById('feedbackContainer');
     feedbackContainer.innerHTML = '<p class="text-center">Thank you for your feedback!</p>';
-    
+
     fetch('/api/feedback', {
         method: 'POST',
         headers: {
