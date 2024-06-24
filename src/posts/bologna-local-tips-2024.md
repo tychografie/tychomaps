@@ -3,7 +3,7 @@ title: "Bologna's Hidden Gems 2024: Local Bars & Restaurants | Polomaps"
 cityname: bologna
 updated: 24-06-2024
 author: Tycho Litjens
-description: "Test Uncover Bologna's hidden treasures in 2024, nestled in historic alleys and tucked away from tourist hotspots. Experience authentic Bolognese cuisine and vibrant local culture in cozy cafes and unique attractions favored by residents."
+description: "Uncover Bologna's hidden treasures in 2024, nestled in historic alleys and tucked away from tourist hotspots. Experience authentic Bolognese cuisine and vibrant local culture in cozy cafes and unique attractions favored by residents."
 bar_description: "Discover Bologna's secret drinking spots, from historic taverns to trendy speakeasies, where locals enjoy aperitivo and craft cocktails."
 bars:
   - name: Aurum
