@@ -7,7 +7,6 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({"src/img": "img"});
     eleventyConfig.addPassthroughCopy({"src/places": "places"});
     eleventyConfig.addPassthroughCopy({"src/js": "js"});
-    eleventyConfig.addPassthroughCopy({"src/api": "api"});  // Ensure API files are copied
 
     let markdownLibrary = markdownIt({
         html: true,

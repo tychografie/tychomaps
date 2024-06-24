@@ -2,11 +2,6 @@
   "name": "tychomaps",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "build": "eleventy",
-    "start": "node server.js",
-    "debug": "node --inspect server.js"
-  },
   "dependencies": {
     "@upstash/ratelimit": "^1.1.3",
     "@vercel/kv": "^2.0.0",

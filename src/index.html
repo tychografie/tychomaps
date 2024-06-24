@@ -12,7 +12,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polomaps | Discover Local Places</title>
-    <link href="/css/output.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -107,7 +106,7 @@
             </button>
             <img src="https://static.thenounproject.com/png/1290463-200.png" alt="soon" class="w-24 h-24 mx-auto mb-4">
             <h2 class="text-2xl font-medium text-center">Hey there!</h2>
-            <p class="text-center mb-4">It's Tycho, nice to meet you. You found a secret button. I usually limit the 'hidden gems' to five, since the quality tends to go down quickly, not guaranteeing 'hidden gems'. It's very powerful on highly populated cities 🤯 Since the algorithm already selected plenty of places, who am I to hide them from you? 😇 Give it a go. And if you have feedback, let me know.</p> 
+            <p class="text-center mb-4">It's Tycho, nice to meet you. You found a secret button. I usually limit the 'hidden gems' to five, since the quality tends to go down quickly, not guaranteeing 'hidden gems'. It's very powerful on highly populated cities 🤯 Since the algorithm already selected plenty of places, who am I to hide them from you? 😇 Give it a go. And if you have feedback, let me know.</p>
             <button class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="evenMoreResults()">Load more results 🤓</button>
         </div>
     </div>
@@ -243,15 +242,15 @@
                     const imagePath = '/places/';
                     const randomImage = images[Math.floor(Math.random() * images.length)];
                     const imageName = formatImageName(randomImage);
-                    
+
                     const imageContainer = document.querySelector('.sidebar-image');
                     imageContainer.src = imagePath + randomImage;
                     imageContainer.alt = imageName;
                     imageContainer.className = "object-cover rounded-md sidebar-image md:w-full md:min-h-full min-w-full max-h-44 animation-delayed";
-                    
+
                     const imageCaption = document.querySelector('.imagetext');
                     imageCaption.textContent = imageName;
-                    
+
                     document.getElementById('query').addEventListener('keydown', function (event) {
                         if (event.key === 'Enter') {
                             sendQuery();
