@@ -3,7 +3,7 @@ let inputElement = document.getElementById('query');
 let intervalId;
 
 function loadPlaceholders() {
-    fetch('/assets/placeholderTexts.txt')
+    fetch('/js/placeholderTexts.txt')
         .then(response => response.text())
         .then(text => {
             placeholders = text.split('\n').filter(Boolean);  // Ensure no empty strings
