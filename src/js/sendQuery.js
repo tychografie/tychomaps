@@ -2,9 +2,9 @@ function sendQuery() {
     const mapsQuery = document.getElementById('mapsQuery');
     var button = document.getElementById('search-button');
 
-    // button.disabled = true;
-    // const totalClaim = document.getElementById('totalClaim');
-    // totalClaim.style.opacity = '0';
+    button.disabled = true;
+    const totalClaim = document.getElementById('totalClaim');
+    totalClaim.style.opacity = '0';
 
     const options = ['asking locals', 'asking bartenders', 'asking students', 'asking taxi drivers', 'asking surfers', 'asking designers', 'asking bakers', 'asking chefs'];
     let currentIndex = 0;
@@ -23,7 +23,6 @@ function sendQuery() {
         currentIndex = (currentIndex + 1) % options.length;
         }
     }
-
     updateButtonText();
     setInterval(updateButtonText, 1000);
 
