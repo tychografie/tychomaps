@@ -155,8 +155,9 @@ module.exports = async (req, res) => {
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
             console.error('Error in handleRequest:', error);
-            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, 0, !retry);
-            return res.status(500).json({ error: error.message });
+            // aiContent is not available in this context
+            // await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, 0, !retry);
+            return res.status(500).json({ error: error.message ?? error });
         }
     };
 
