@@ -2,9 +2,9 @@ function sendQuery() {
     const mapsQuery = document.getElementById('mapsQuery');
     var button = document.getElementById('search-button');
 
-    // button.disabled = true;
-    // const totalClaim = document.getElementById('totalClaim');
-    // totalClaim.style.opacity = '0';
+    button.disabled = true;
+    const totalClaim = document.getElementById('totalClaim');
+    totalClaim.style.opacity = '0';
 
     const options = ['asking locals', 'asking bartenders', 'asking students', 'asking taxi drivers', 'asking surfers', 'asking designers', 'asking bakers', 'asking chefs'];
     let currentIndex = 0;
@@ -23,7 +23,6 @@ function sendQuery() {
         currentIndex = (currentIndex + 1) % options.length;
         }
     }
-
     updateButtonText();
     setInterval(updateButtonText, 1000);
 
@@ -128,7 +127,7 @@ function sendQuery() {
 
             mapsQuery.textContent += data.aiResponse;
         } else {
-            resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/src/support">Give me search tips 😰</a></u></p>';
+            resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/support">Give me search tips 😰</a></u></p>';
             button.innerHTML = 'Search';
             button.disabled = false;
             mapsQuery.textContent = data.aiResponse;
@@ -142,7 +141,7 @@ function sendQuery() {
         } else if (error.message.includes('Failed to fetch')) {
             errorMessage = '<p>Unable to connect to server. Check your internet connection or try again later.</p>';
         } else if (error.message === 'No results found or invalid query.') {
-            errorMessage = '<p>No results found or invalid query. <u><a href="/src/support">Help me out! 😰</a></u></p>';
+            errorMessage = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
         } else {
             errorMessage = `<p>${error.message}</p>`;
         }
