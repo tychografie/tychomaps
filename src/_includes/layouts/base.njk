@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'partials/head.njk' %}
+
+<body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-center items-center min-h-screen">
+    <header class="w-full flex z-10 justify-between items-center px-6 py-6">
+        <a href="/"><img src="/img/polo-maps.svg" alt="Polomaps Logo" class="logo max-h-6 md:max-h-8"></a>
+        <nav>
+            <ul class="flex space-x-4">
+                <li class="hidden md:block"><a href="/">Discover</a></li>
+                <li><a href="/tips-and-tricks">Tips & Tricks</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8" style="max-width: 1000px;">
+        {{ content | safe }}
+    </main>
+
+    <footer class="w-full bg-gray-100 py-6 px-4 text-center mt-8">
+        <p>&copy; 2024 Polomaps. All rights reserved.</p>
+    </footer>
+</body>
+</html>

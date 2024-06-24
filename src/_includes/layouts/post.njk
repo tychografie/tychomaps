@@ -1,0 +1,85 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="text-sm mb-4">
+    <a href="/" class="hover:underline">Home</a> &gt; <a href="/italy" class="hover:underline">Italy</a> &gt; <span>{{ cityname | capitalize }}</span>
+</div>
+
+<div class="bg-[#fbeed2] rounded-md p-6 mb-8">
+    <h1 class="text-4xl font-bold mb-4 font-family-pixelpro">Where do locals in {{ cityname | capitalize }} go in 2024?</h1>
+    <div class="flex items-center mb-4">
+        <img src="/img/assets/tycho.png" alt="Tycho Litjens" class="w-8 h-8 rounded-full mr-2">
+        <span>Curated by: {{ author }}</span>
+        <span class="ml-4">Updated: {{ updated }}</span>
+    </div>
+    <p class="mb-4">{{ description }}</p>
+    <div class="flex flex-wrap -mx-2">
+        <img src="/img/assets/{{ cityname }}1.jpg" alt="{{ cityname }} local spot" class="w-1/2 md:w-1/4 p-2 object-cover h-60">
+        <img src="/img/assets/{{ cityname }}2.jpg" alt="{{ cityname }} hidden gem" class="w-1/2 md:w-1/4 p-2 object-cover h-60">
+        <img src="/img/assets/{{ cityname }}3.jpg" alt="{{ cityname }} secret cafe" class="w-1/2 md:w-1/4 p-2 object-cover h-60">
+        <img src="/img/assets/{{ cityname }}4.jpg" alt="{{ cityname }} local attraction" class="w-1/2 md:w-1/4 p-2 object-cover h-60">
+    </div>
+</div>
+
+<div class="flex flex-col md:flex-row gap-8">
+    <div class="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
+        <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Hidden bars</h2>
+        <p class="mb-4">{{ bar_description }}</p>
+        <div class="space-y-2">
+            {% for bar in bars %}
+                <a href="https://maps.google.com/?cid={{ bar.cid }}" target="_blank">
+                    <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="place-name">{{ bar.name }}</span>
+                        </div>
+                        <span class="rating">{{ bar.rating }}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="absolute bottom-12 left-12 right-12 p-6 bg-white rounded-md shadow z-20">
+                    <div class="flex items-center mb-2">
+                        <div class="relative flex -space-x-4">
+                            <img src="/places/1-Dedaena-Bar-in-Tblisi.jpg" alt="Image 1" class="w-10 h-10 rounded-full object-cover border-2 border-white">
+                            <img src="/places/7-Trattoria-la-Madonnina.jpg" alt="Image 2" class="w-10 h-10 rounded-full object-cover border-2 border-white">
+                            <img src="/places/4-La-Recyclerie-in-Paris.jpg" alt="Image 3" class="w-10 h-10 rounded-full object-cover border-2 border-white">
+                            <img src="/places/9-Bar-Franco-in-Nijmegen.jpeg" alt="Image 4" class="w-10 h-10 rounded-full object-cover border-2 border-white">
+                        </div>
+                        <span class="text-gray-400 text-sm ml-2">+56 hotspots</span>
+                    </div>
+                    <p class="text-gray-700 font-semibold mb-1">Become a local with Polomaps</p>
+                    <p class="mb-4 text-gray-600">Locals and AI curate the best hotspots. Available in a million neighborhoods. Really.</p>
+                    <a href="/?city=Bologna" class="block bg-[#EEB053] hover:scale-105 transition text-black px-4 py-4 rounded-md w-full text-center flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672 13.684 16.6m0 0-2.51 2.225.569-9.47 5.227 7.917-3.286-.672ZM12 2.25V4.5m5.834.166-1.591 1.591M20.25 10.5H18M7.757 14.743l-1.59 1.59M6 10.5H3.75m4.007-4.243-1.59-1.59" />
+                        </svg>
+                        Discover 200+ more
+                    </a>
+                </div>
+    </div>
+
+    
+
+    <div class="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
+        <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Small restaurants</h2>
+        <p class="mb-4">{{ restaurant_description }}</p>
+        <div class="space-y-2">
+            {% for restaurant in restaurants %}
+                <a href="https://maps.google.com/?cid={{ restaurant.cid }}" target="_blank">
+                    <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+                        <div class="flex items-center space-x-3">
+                            <span class="place-name">{{ restaurant.name }}</span>
+                        </div>
+                        <span class="rating">{{ restaurant.rating }}</span>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<section class="mt-8">
+    <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Explore {{ cityname | capitalize }} Like a Local</h2>
+    <p>{{ longtext }}</p>
+</section>

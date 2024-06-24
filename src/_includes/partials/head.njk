@@ -1,0 +1,35 @@
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-652VCS1PP8"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-652VCS1PP8');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .font-family-pixelpro { font-family: 'PixelPro', sans-serif; }
+
+        .space-y-2 > a:nth-last-child(-n+4) .top-row {
+            position: relative;
+            overflow: hidden;
+            filter: blur(5px);
+        }
+
+        .space-y-2 > a:nth-last-child(-n+4) .top-row > * {
+            opacity: 0.5;
+            filter: blur(2px);
+        }
+
+        .space-y-2 > a:nth-last-child(-n+4) {
+            pointer-events: none;
+        }
+    </style>
+</head>
