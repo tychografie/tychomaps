@@ -67,7 +67,7 @@ EXAMPLES:
 
     frituur+"antwerpen-zuid"
 
-    Example 15: "Sophie-Charlotte-Platz"
+    Example 15: "Sophie-Charlotte-Platz koffie"
 
     "Sophie-Charlotte-Platz"+Caffe+Atmosphäre
 
