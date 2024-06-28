@@ -22,7 +22,7 @@ router.get('/api/mapsRequests', async (req, res) => {
                 $group: {
                     _id: null,
                     totalMapsRequests: {
-                        $sum: '$mapsRequest'
+                        $sum: '$resultCount'
                     }
                 }
             }
