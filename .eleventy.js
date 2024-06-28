@@ -1,4 +1,5 @@
 const markdownIt = require("markdown-it");
+const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
     eleventyConfig.addPassthroughCopy({"src/assets": "assets"});
@@ -18,6 +19,11 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addFilter("capitalize", function(str) {
         if (!str) return "";
         return str.charAt(0).toUpperCase() + str.slice(1);
+    });
+
+    // Add a date filter
+    eleventyConfig.addFilter("readableDate", (dateObj) => {
+        return DateTime.fromISO(dateObj, { zone: 'utc' }).toLocaleString(DateTime.DATE_MED);
     });
 
     return {

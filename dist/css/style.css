@@ -1,0 +1,63 @@
+
+.search-container {
+    background-color: #fcce6d;
+    position: sticky;
+    top: calc(100vh - env(safe-area-inset-bottom));
+    width: 100%;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+.animation-delayed {
+    opacity: 0; /* Start with opacity 0 */
+    animation: fadeIn 0.5s ease-in-out 0s forwards; /* Apply fadeIn animation with a delay of 0.5s */
+}
+
+.animation-delayed-text {
+    opacity: 0; /* Start with opacity 0 */
+    animation: fadeIn 0.5s ease-in-out 0.7s forwards; /* Apply fadeIn animation with a delay of 0.5s */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@font-face {
+    font-family: 'Favorit';
+    src: url('/fonts/Favorit-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Regular.woff') format('woff');   /* Legacy Browsers */
+    font-weight: 400; /* Regular font weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Favorit';
+    src: url('/fonts/Favorit-Medium.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Medium.woff') format('woff');   /* Legacy Browsers */
+    font-weight: 500; /* Medium font weight */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PixelPro';
+    src: url('/fonts/VPPixelPro-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/VPPixelPro-Regular.woff') format('woff');   /* Legacy Browsers */
+    font-weight: 400; /* Regular font weight */
+    font-style: normal;
+}
+
+body {
+    background-color: #F8E3BF;
+}
+html, body, body * {
+    font-family: 'Favorit', sans-serif; /* Use !important to enforce this style */
+ 
+  }
+
+  .font-family-pixelpro {
+    font-family: 'PixelPro', sans-serif !important; /* Use !important to enforce this style */
+  }

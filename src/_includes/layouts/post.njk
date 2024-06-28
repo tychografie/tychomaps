@@ -1,9 +1,15 @@
 ---
 layout: layouts/base.njk
+siteName: "Polomaps"
+siteLogo: "/img/favicon_16x16.ico"
 ---
 
+{% set baseUrl = 'https://www.polomaps.com' %}
+{% set url = baseUrl + '/posts/' + page.fileSlug + '/' %}
+{% set image = baseUrl + '/img/assets/' + city + '1.jpg' %}
+
 <div class="text-sm mb-4">
-    <a href="/" class="hover:underline">Home</a> &gt; <a href="/italy" class="hover:underline">Italy</a> &gt; <span>{{ cityname | capitalize }}</span>
+    <a href="/" class="hover:underline">Home</a> &gt; <a href="/italy" class="capitalize hover:underline">{{ country }}</a> &gt; <span>{{ cityname | capitalize }}</span>
 </div>
 
 <div class="bg-[#fbeed2] rounded-md p-6 mb-8">
@@ -11,7 +17,7 @@ layout: layouts/base.njk
     <div class="flex items-center mb-4">
         <img src="/img/assets/tycho.png" alt="Tycho Litjens" class="w-8 h-8 rounded-full mr-2">
         <span>Curated by: {{ author }}</span>
-        <span class="ml-4">Updated: {{ updated }}</span>
+        <span class="ml-4">Updated: {{ updated | readableDate }}</span>
     </div>
     <p class="mb-4">{{ description }}</p>
     <div class="flex flex-wrap -mx-2">

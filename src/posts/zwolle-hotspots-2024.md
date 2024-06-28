@@ -1,6 +1,7 @@
 ---
 title: "Zwolle's Hidden Gems 2024: Local Bars & Restaurants | Polomaps"
 cityname: zwolle
+country: netherlands
 updated: 24-06-2024
 author: Tycho Litjens
 description: "Uncover Zwolle's hidden treasures in 2024, nestled in historic alleys and tucked away from tourist hotspots. Experience authentic Zwolse cuisine and vibrant local culture in cozy cafes and unique attractions favored by residents."

@@ -11,6 +11,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
+    <meta name="author" content="{{ author }}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:image" content="{{ image }}">
+    <meta property="og:url" content="{{ url }}">
+    <meta property="article:published_time" content="{{ published_time }}">
+    <meta property="article:modified_time" content="{{ updated }}">
+    <meta property="article:author" content="{{ author }}">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:image" content="{{ image }}">
+    <meta name="twitter:url" content="{{ url }}">
+
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ url }}"
+      },
+      "headline": "{{ title }}",
+      "description": "{{ description }}",
+      "image": "{{ image }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ author }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ siteName }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ siteLogo }}"
+        }
+      },
+      "datePublished": "{{ published_time }}",
+      "dateModified": "{{ updated }}"
+    }
+    </script>
+
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
