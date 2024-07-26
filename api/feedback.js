@@ -54,17 +54,17 @@ module.exports = async (req, res) => {
             }
             
             const userRating = parseInt(rating);
-            const feedback = await collection.aggregate([
-                {
-                    $match: {
-                        $or: [
-                            { userRating: userRating },
-                            { resultCount: 0 }
-                        ]
-                    }
-                },
-                { $sort: { timestamp: -1 } }
-            ]).toArray();
+            let feedback;
+            if (userRating === 1) {
+                feedback = await collection.find({ userRating: 1 }).sort({ timestamp: -1 }).toArray();
+            } else {
+                feedback = await collection.find({
+                    $or: [
+                        { userRating: -1 },
+                        { resultCount: 0 }
+                    ]
+                }).sort({ timestamp: -1 }).toArray();
+            }
 
             return res.status(200).json(feedback);
         } else {
