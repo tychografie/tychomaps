@@ -91,6 +91,57 @@ EXAMPLES:
 
     'barcelona el raval'+cena+local+acogedora+hipster
 
+    Example 21: "almere bier"
+
+    "almere"+bier+lounge+lokaal+gezellig
+
+    Example 22: "hiking slovenia"
+
+    "Pohodniška pot"+slovenija+narava+edinstven
+
+    Example 23: "groningen restaurant"
+
+    "groningen"+restaurantje+knus+atmosfeer+lokaal
+
+    Example 24: "Protein shake zuidas amsterdam"
+
+    "zuidas amsterdam"+proteine+shake
+
+    Example 25: Klusjesman Almere
+
+    "Almere"+Klusjesman+betrouwbaar+professioneel
+
+    Example 26: IPA in Dublin
+
+    "Dublin"+IPA"craft beer"+unique
+
+    Example 27: bier in bergues
+
+    "Bergues"+france+bierre+local+sympa
+
+    Example 28: Koffie in hesdin, france
+
+    "hesdin"+france"café"+convivial+sympa
+
+    Example 29: Lunch in prague
+
+    "praha"+oběd+malý+Příjemné+přátelský
+
+    Example 30: hiking sri lanka
+
+    "sri lanka"+hiking+trail
+
+    Example 31: Slowaaks eten bratislava
+
+    "bratislava"+tradičná+reštaurácia
+
+    Example 32: Indoor activities in budapest
+
+    Budapest+Magyarország+beltéri+kultúra
+
+    Example 32: Diner praag
+
+    "Prága"+étterem+kicsi+helyi+légkör
     
 Only reply with the query response. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 
