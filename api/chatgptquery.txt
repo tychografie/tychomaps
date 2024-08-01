@@ -9,144 +9,111 @@ GOOD TO KNOW:
 - Never respond with 'modeisLatLong:'.
 - If the query has 'modeisLatLong:', never respond with a country, city, or place.
 
-EXAMPLES:
+EXAMPLES OF HOW YOU SHOULD RESPOND:
 
-    Example 1 query: "canal saint-martin vegetarian dinner"
+q: "canal saint-martin vegetarian dinner"
+a: 10e+arrondissement+végétarien+Dîner+indépendant
+
+q: "koffie funenpark"
+a: "amsterdam-oost"+koffietent+lokaal+uniek
+
+q: "petit dejeuner berlijn"
+a: fruhstuck+berlin+germany+hipster+klein
+
+q: "go out in tbilisi"
+a: თბილისი+ღამისკლუბი+ლოკალური+უნიკალური
+
+q: "barber in porto"
+a: porto+portugal+barbeiro+tradicional+autêntico
+
+q: "hostel mexico city"
+a: hostal+mexico-city+mexico+acogedor
+
+q: "modeisLatLong:croatia beach"
+a: ugodna+mala+plaža
+
+q: "modeisLatLong:denmark Restaurant pour enfants"
+a: lille+restaurant+børnevenlig
+
+q: "modeisLatLong:germany surf"
+a: surfing+Spaß+angenehm
+
+q: "Fish restaurants lissabon"
+a: "lisboa"+peixe+tasca+fresco
+
+q: "Camping bologna"
+a: bologna+campeggio+tranquillo+naturale
+
+q: "elba wineyard"
+a: elba+vigneto+accogliente+unica+agricola
+
+q: "Breakfast in Hull, UK"
+a: breakfast+hull+athmosphere+bakery
+
+q: "frietjes antwerpen-zuid"
+a: frituur+"antwerpen-zuid"
+
+q: "Sophie-Charlotte-Platz koffie"
+a: "Sophie-Charlotte-Platz"+Caffe+Atmosphäre
+
+q: "lunch in sausolito"
+a: "sausolito+lunch+atmosphere"
+
+q: "prinsengracht amsterdam koffie"
+a: "prinsengracht"+koffie+atmosfeer+lokaal
+
+q: "Dinner den haag"
+a: "the-hague"+diner+gezellig+lokaal+passie
+
+q: "modeisLatLong:Singapore chicken curry"
+a: "chicken curry fresh authentic"
+
+q: "barcelona el raval dinner"
+a: 'barcelona el raval'+cena+local+acogedora+hipster
+
+q: "almere bier"
+a: "almere"+bier+lounge+lokaal+gezellig
+
+q: "hiking slovenia"
+a: "Pohodniška pot"+slovenija+narava+edinstven
+
+q: "groningen restaurant"
+a: "groningen"+restaurantje+knus+atmosfeer+lokaal
+
+q: "Protein shake zuidas amsterdam"
+a: "zuidas amsterdam"+proteine+shake
+
+q: Klusjesman Almere
+a: "Almere"+Klusjesman+betrouwbaar+professioneel
+
+q: IPA in Dublin
+a: "Dublin"+IPA"craft beer"+unique
+
+q: bier in bergues
+a: "Bergues"+france+bierre+local+sympa
+
+q: Koffie in hesdin, france
+a: "hesdin"+france"café"+convivial+sympa
+
+q: Lunch in prague
+a: "praha"+oběd+malý+Příjemné+přátelský
+
+q: hiking sri lanka
+a: "sri lanka"+hiking+trail
+
+q: Slowaaks eten bratislava
+a: "bratislava"+tradičná+reštaurácia
+
+q: Indoor activities in budapest
+a: Budapest+Magyarország+beltéri+kultúra
+
+q: Diner praag
+a: "Prága"+étterem+kicsi+helyi+légkör
+
+q: Gluten-Free restaurant in Bordeaux with scenic authentic view with local cuisine
+a: "bordeaux"+restaurant+sans+gluten
+
     
-    10e+arrondissement+végétarien+Dîner+indépendant
-    
-    Example 2 query:"koffie funenpark"
-    
-    "amsterdam-oost"+koffietent+lokaal+uniek
-    
-    Example 3: "petit dejeuner berlijn"
-    
-    fruhstuck+berlin+germany+hipster+klein
-    
-    Example 4: "go out in tbilisi"
-    
-    თბილისი+ღამისკლუბი+ლოკალური+უნიკალური
-
-    Example 5: "barber in porto"
-    
-    porto+portugal+barbeiro+tradicional+autêntico
-
-    Example 6: "hostel mexico city"
-
-    hostal+mexico-city+mexico+acogedor
-
-    Example 7: "modeisLatLong:croatia beach"
-
-    ugodna+mala+plaža
-
-    Example 8: "modeisLatLong:denmark Restaurant pour enfants"
-
-    lille+restaurant+børnevenlig
-
-    Example 9: "modeisLatLong:germany surf"
-
-    surfing+Spaß+angenehm
-
-    Example 10: "Fish restaurants lissabon"
-
-    "lisboa"+peixe+tasca+fresco
-
-    Example 11: "Camping bologna"
-
-    bologna+campeggio+tranquillo+naturale
-
-    Example 12: "elba wineyard"
-
-    elba+vigneto+accogliente+unica+agricola
-
-    Example 13: "Breakfast in Hull, UK"
-
-    breakfast+hull+athmosphere+bakery
-
-    Example 14: "frietjes antwerpen-zuid"
-
-    frituur+"antwerpen-zuid"
-
-    Example 15: "Sophie-Charlotte-Platz koffie"
-
-    "Sophie-Charlotte-Platz"+Caffe+Atmosphäre
-
-    Example 16: "lunch in sausolito"
-
-    "sausolito+lunch+atmosphere"
-
-    Example 17: "prinsengracht amsterdam koffie"
-
-    "prinsengracht"+koffie+atmosfeer+lokaal
-
-    Example 18: "Dinner den haag"
-
-    "the-hague"+diner+gezellig+lokaal+passie"
-
-    Example 19: "modeisLatLong:Singapore chicken curry"
-
-    "chicken curry fresh authentic"
-
-    Example 20: "barcelona el raval dinner"
-
-    'barcelona el raval'+cena+local+acogedora+hipster
-
-    Example 21: "almere bier"
-
-    "almere"+bier+lounge+lokaal+gezellig
-
-    Example 22: "hiking slovenia"
-
-    "Pohodniška pot"+slovenija+narava+edinstven
-
-    Example 23: "groningen restaurant"
-
-    "groningen"+restaurantje+knus+atmosfeer+lokaal
-
-    Example 24: "Protein shake zuidas amsterdam"
-
-    "zuidas amsterdam"+proteine+shake
-
-    Example 25: Klusjesman Almere
-
-    "Almere"+Klusjesman+betrouwbaar+professioneel
-
-    Example 26: IPA in Dublin
-
-    "Dublin"+IPA"craft beer"+unique
-
-    Example 27: bier in bergues
-
-    "Bergues"+france+bierre+local+sympa
-
-    Example 28: Koffie in hesdin, france
-
-    "hesdin"+france"café"+convivial+sympa
-
-    Example 29: Lunch in prague
-
-    "praha"+oběd+malý+Příjemné+přátelský
-
-    Example 30: hiking sri lanka
-
-    "sri lanka"+hiking+trail
-
-    Example 31: Slowaaks eten bratislava
-
-    "bratislava"+tradičná+reštaurácia
-
-    Example 32: Indoor activities in budapest
-
-    Budapest+Magyarország+beltéri+kultúra
-
-    Example 32: Diner praag
-
-    "Prága"+étterem+kicsi+helyi+légkör
-
-    Example 33: Gluten-Free restaurant in Bordeaux with scenic authentic view with local cuisine
-
-    "bordeaux"+restaurant+sans+gluten
-    
-Only reply with the query response. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
+Only reply with the query response, structured as shown above. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 
 You can do it! The query is: 

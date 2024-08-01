@@ -122,14 +122,22 @@ function sendQuery() {
             document.getElementById('goodFeedback').addEventListener('click', () => submitFeedback(1));
             document.getElementById('badFeedback').addEventListener('click', () => submitFeedback(-1));
 
-            button.innerHTML = 'Search';
+
+
+            if (totalPlaces === 1) {
+                button.innerHTML = 'Try again? 🤔';
+            } else {
+
+                button.innerHTML = 'Search';
+            }
+
             button.disabled = false;
             document.getElementById('resultsList').classList.remove('hidden');
 
             mapsQuery.textContent += data.aiResponse;
         } else {
             resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/support">Give me search tips 😰</a></u></p>';
-            button.innerHTML = 'Search';
+            button.innerHTML = 'Try again? ';
             button.disabled = false;
             mapsQuery.textContent = data.aiResponse;
         }
@@ -144,7 +152,13 @@ function sendQuery() {
         } else if (error.message.includes('Failed to fetch')) {
             errorMessage = '<p>Unable to connect to server. Check your internet connection or try again later.</p>';
         } else if (error.message === 'No places found') {
-            errorMessage = '<p>No small independent places found or invalid query. We have forwarded your request to our artisinal handcraft algorithm builders!<u><a href="/support">Help me out! 😰</a></u></p>';
+            errorMessage = `
+                <div class="flex items-center justify-center  space-x-4 border-spacing-1">
+                    
+                    <p class="text-left">No small independent places found or invalid query. 😤 I, <b>Tycho</b>, have received your request and will artisanally handcraft the algorithm as soon as possible. Tips: (1) just try again (2) narrow by neighbourhood or (3) expand your radius.</u></p>
+                    <img src="/img/tycho-will-help-you-out.png" alt="Tycho" class=" w-28 h-28 rotate-6">
+                </div>
+            `;
         } else {
             errorMessage = `<p>${error.message}</p>`;
         }

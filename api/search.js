@@ -139,9 +139,9 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const handleRequest = async (retry = true) => {
+    const handleRequest = async (retry = true, retryQuery = null) => {
         try {
-            const { aiContent, aiResponse } = await aiRequest(query, country);
+            const { aiContent, aiResponse } = await aiRequest(query, country, retryQuery);
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
@@ -149,15 +149,14 @@ module.exports = async (req, res) => {
     
             if (sortedPlaces.length === 0 && retry) {
                 console.log("No results found, retrying...");
-                const retryQuery = `${query} Do not return: ${aiResponse}`;
-                return await handleRequest(false, retryQuery);
+                const newRetryQuery = `${query} Do not return: ${aiResponse}`;
+                return await handleRequest(false, newRetryQuery);
             }
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
             console.error('Error in handleRequest:', error);
-            // aiContent is not available in this context
-            // await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, 0, !retry);
+            await logDetails(req, query, retryQuery || query, null, country, latitude, longitude, null, 0, !retry);
             return res.status(500).json({ error: error.message ?? error });
         }
     };
