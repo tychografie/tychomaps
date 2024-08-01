@@ -142,6 +142,10 @@ EXAMPLES:
     Example 32: Diner praag
 
     "Prága"+étterem+kicsi+helyi+légkör
+
+    Example 33: Gluten-Free restaurant in Bordeaux with scenic authentic view with local cuisine
+
+    "bordeaux"+restaurant+sans+gluten
     
 Only reply with the query response. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 

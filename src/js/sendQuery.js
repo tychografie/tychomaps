@@ -134,18 +134,21 @@ function sendQuery() {
         }
     })
     .catch(error => {
+        document.getElementById('resultsList').classList.remove('hidden');
+        document.getElementById('totalClaim').classList.add('hidden');
         console.error('Error:', error);
         let errorMessage = '<p>Unexpected error occurred. Please try again later.</p>';
         if (error instanceof SyntaxError) {
             errorMessage = '<p>Failed to process server response. Please report this issue.</p>';
         } else if (error.message.includes('Failed to fetch')) {
             errorMessage = '<p>Unable to connect to server. Check your internet connection or try again later.</p>';
-        } else if (error.message === 'No results found or invalid query.') {
-            errorMessage = '<p>No results found or invalid query. <u><a href="/support">Help me out! 😰</a></u></p>';
+        } else if (error.message === 'No places found') {
+            errorMessage = '<p>No small independent places found or invalid query. We have forwarded your request to our artisinal handcraft algorithm builders!<u><a href="/support">Help me out! 😰</a></u></p>';
         } else {
             errorMessage = `<p>${error.message}</p>`;
         }
         document.getElementById('results').innerHTML = errorMessage;
+
         button.innerHTML = 'Search';
         mapsQuery.textContent = "Error in fetching data.";
         button.disabled = false;
