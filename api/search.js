@@ -41,27 +41,28 @@ const aiRequest = async (query, country, retryQuery = null) => {
     const fullAiContent = retryQuery || `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`;
 
     const aiResponse = await axios.post(
-        'https://api.openai.com/v1/chat/completions',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + process.env.GOOGLE_MAPS_API_KEY,
         {
-            model: "gpt-3.5-turbo",
-            messages: [{
-                role: "user",
-                content: fullAiContent
-            }],
-            temperature: 0.7
-        },
+            contents: [
+              {
+                parts: [
+                  {
+                   text: fullAiContent
+                  }
+                ],
+              }
+            ]
+          },
         {
             headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
                 'Content-Type': 'application/json'
             }
         }
     );
-
-    if (aiResponse.data.choices && aiResponse.data.choices.length > 0) {
+    if (aiResponse?.data?.candidates && aiResponse.data.candidates.length > 0 && aiResponse.data.candidates[0].content?.parts && aiResponse.data.candidates[0].content.parts.length > 0 && aiResponse.data.candidates[0].content.parts[0].text) {
         return {
             aiContent: fullAiContent,
-            aiResponse: aiResponse.data.choices[0].message.content.trim()
+            aiResponse: aiResponse.data.candidates[0].content.parts[0].text.trim()
         };
     } else {
         throw new Error('No valid response from AI');
