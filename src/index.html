@@ -16,6 +16,12 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <style>
+        #seachBox {
+            transition: transform 0.1s ease;
+        }
+    </style>
+
 </head>
 
 <body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-center items-center min-h-screen">
@@ -106,5 +112,51 @@
 
     <script src="js/homeScripts.js"></script>
     <script src="js/sendQuery.js"></script>
+
+    <script>
+        let resultsLoaded = false;
+    
+        // Check if resultsList is visible
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === "class") {
+                    const resultsList = document.getElementById('resultsList');
+                    if (!resultsList.classList.contains('hidden')) {
+                        resultsLoaded = true;
+                    }
+                }
+            });
+        });
+    
+        observer.observe(document.getElementById('resultsList'), {
+            attributes: true
+        });
+    
+        // Mouse movement effect
+        document.addEventListener('mousemove', (event) => {
+            if (resultsLoaded) return;
+    
+            const searchBox = document.getElementById('seachBox');
+            const rect = searchBox.getBoundingClientRect();
+            const x = (event.clientX - rect.left - rect.width / 2) / 100;
+            const y = (event.clientY - rect.top - rect.height / 2) / 100;
+    
+            searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+    
+        // Device orientation effect
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (event) => {
+                if (resultsLoaded) return;
+    
+                const searchBox = document.getElementById('seachBox');
+                const x = event.gamma / 10; // Adjust sensitivity
+                const y = event.beta / 10; // Adjust sensitivity
+    
+                searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+            }, true);
+        }
+    </script>
+    
 </body>
 </html>

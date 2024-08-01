@@ -87,6 +87,7 @@ function sendQuery() {
                 resultItem.target = "_blank";
                 resultItem.innerHTML = `
                 <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
+
                     <div class="flex items-center space-x-3">
                         <span class="place-name">${result.displayName.text}</span>
                         ${result.opening_hours && result.opening_hours.open_now ?
