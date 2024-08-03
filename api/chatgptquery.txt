@@ -113,6 +113,14 @@ a: "Prága"+étterem+kicsi+helyi+légkör
 q: Gluten-Free restaurant in Bordeaux with scenic authentic view with local cuisine
 a: "bordeaux"+restaurant+sans+gluten
 
+q: coffee in pardubice
+a: "pardubice"+kava+atmosféra+lokální
+
+q: Lekker eten zwolle
+a: knusse+lokale+restaurantjes+in+zwolle
+
+q: bar kopenhagen
+a: "Hyggelige lokale barer med en god atmosfære i København"
     
 Only reply with the query response, structured as shown above. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 
