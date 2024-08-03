@@ -1,6 +1,18 @@
 const { MongoClient, ObjectId } = require('mongodb');
+const { validateToken } = require('./lib/auth');
 
 module.exports = async (req, res) => {
+    if (!req.headers["Authorization"]) {
+        return res.status(401);
+    } else {
+        const token = req.headers["Authorization"].split("Bearer ")[1]
+        if (!token) return res.status(401);
+        if (!validateToken(token)) {
+            // expired or invalid token
+            return res.status(401);
+        }
+    }
+
     const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -52,7 +64,7 @@ module.exports = async (req, res) => {
             if (rating !== '1' && rating !== '-1') {
                 return res.status(400).json({ error: "Invalid rating value" });
             }
-            
+
             const userRating = parseInt(rating);
             let feedback;
             if (userRating === 1) {

@@ -5,7 +5,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function loadFeedbackData(showHappyUsers) {
-    const response = await fetch(`/api/feedback?rating=${showHappyUsers ? 1 : -1}`);
+    if(!localStorage.getItem("token")){
+        // get user input
+        const password = prompt("Password:")
+        // get token
+        try {
+            const authResponse = await fetch(`/api/authorize`, {
+                method: "POST",
+                body: window.btoa(password)
+            });
+            const token = authResponse.json().token;
+            localStorage.setItem("token", token);
+            // return; // continue to fetch
+        } catch (error) {
+            console.error(error)
+            location.href = "/"
+            return
+        }
+    }
+    const response = await fetch(`/api/feedback?rating=${showHappyUsers ? 1 : -1}`, {
+        method: "GET",
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token")
+        }
+    });
     const data = await response.json();
     renderFeedbackList(data);
 }
@@ -64,6 +87,7 @@ async function handleCheckboxChange(id, isChecked) {
     await fetch('/api/feedback', {
         method: 'POST',
         headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("token"),
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ id, feedbackHandled: isChecked })
