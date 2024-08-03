@@ -12,115 +12,116 @@ GOOD TO KNOW:
 EXAMPLES OF HOW YOU SHOULD RESPOND:
 
 q: canal saint-martin vegetarian dinner
-a: 10e+arrondissement+végétarien+Dîner+indépendant
+a: dîner végétarien indépendant dans le 10e arrondissement
 
 q: koffie funenpark
-a: "amsterdam-oost"+koffietent+lokaal+uniek
+a: lokale kleine koffietent in amsterdam-oost
 
 q: petit dejeuner berlijn
-a: fruhstuck+berlin+germany+hipster+klein
+a: klein hipster frühstück in Berlin, Germany
 
 q: go out in tbilisi
-a: თბილისი+ღამისკლუბი+ლოკალური+უნიკალური
+a: პატარა დამოუკიდებელი ადგილობრივი ღამის კლუბი თბილისში
 
 q: barber in porto
-a: porto+portugal+barbeiro+tradicional+autêntico
+a: barbeiro tradicional autêntico in Porto
 
 q: hostel mexico city
-a: hostal+mexico-city+mexico+acogedor
+a: acogedor hostal in Mexico City
 
 q: modeisLatLong:croatia beach
-a: ugodna+mala+plaža
+a: ugodna mala plaža
 
 q: modeisLatLong:denmark Restaurant pour enfants
-a: lille+restaurant+børnevenlig
+a: lille restaurant børnevenlig
 
 q: modeisLatLong:germany surf
-a: surfing+Spaß+angenehm
+a: surfing Spaß angenehm
 
 q: Fish restaurants lissabon
-a: lisboa"+peixe+tasca+fresco
+a: peixe tasca fresco in Lisboa
 
 q: Camping bologna
-a: bologna+campeggio+tranquillo+naturale
+a: campeggio tranquillo naturale in Bologna
 
 q: elba wineyard
-a: unica agricola accogliente elba
+a: unica agricola accogliente in Elba
 
 q: Breakfast in Hull, UK
-a: breakfast+hull+athmosphere+bakery
+a: breakfast athmosphere bakery in Hull
 
 q: frietjes antwerpen-zuid
-a: frituur+"antwerpen-zuid"
+a: frituur in antwerpen-zuid
 
 q: Sophie-Charlotte-Platz koffie
-a: Sophie-Charlotte-Platz"+Caffe+Atmosphäre
+a: koffie atmosphäre in Sophie-Charlotte-Platz
 
 q: lunch in sausolito
-a: sausolito+lunch+atmosphere
+a: lunch atmosphere in Sausolito
 
 q: prinsengracht amsterdam koffie
-a: "prinsengracht"+koffie+atmosfeer+lokaal
+a: koffie atmosfeer lokaal in prinsengracht amsterdam
 
 q: Dinner den haag
-a: "the-hague"+diner+gezellig+lokaal+passie
+a: diner gezellig lokaal passie in The Hague
 
-q: modeisLatLong:Singapore chicken curry
-a: signapore chicken curry fresh authentic
+q: modeisLatLong
+chicken curry
+a: fresh authentic chicken curry in Singapore
 
 q: barcelona el raval dinner
-a: "barcelona el raval"+cena+local+acogedora+hipster
+a: cena local acogedora hipster in barcelona el raval
 
 q: almere bier
-a: "almere"+bier+lounge+lokaal+gezellig
+a: bier lounge lokaal gezellig in Almere
 
 q: hiking slovenia
-a: "Pohodniška pot"+slovenija+narava+edinstven
+a: Pohodniška pot narava edinstven in Slovenija
 
 q: groningen restaurant
-a: "groningen"+restaurantje+knus+atmosfeer+lokaal
+a: restaurantje knus atmosfeer lokaal in Groningen
 
 q: Protein shake zuidas amsterdam
-a: "zuidas amsterdam"+proteine+shake
+a: proteine shake in zuidas amsterdam
 
 q: Klusjesman Almere
-a: "Almere"+Klusjesman+betrouwbaar+professioneel
+a: Klusjesman betrouwbaar professioneel in Almere
 
 q: IPA in Dublin
-a: "Dublin"+IPA"craft beer"+unique
+a: IPA craft beer unique in Dublin
 
 q: bier in bergues
-a: "Bergues"+france+bierre+local+sympa
+a: bière local sympa in Bergues
 
 q: Koffie in hesdin, france
-a: "hesdin"+france+"café"+convivial+sympa
+a: café convivial sympa in Hesdin, France
 
 q: Lunch in prague
-a: "praha"+oběd+malý+Příjemné+přátelský
+a: oběd malý Příjemné přátelský in Praha
 
 q: hiking sri lanka
-a: "sri lanka"+hiking+trail
+a: hiking trail in Sri Lanka
 
 q: Slowaaks eten bratislava
-a: "bratislava"+tradičná+reštaurácia
+a: tradičná reštaurácia in Bratislava
 
 q: Indoor activities in budapest
-a: Budapest+Magyarország+beltéri+kultúra
+a: beltéri kultúra in Budapest, Magyarország
 
 q: Diner praag
-a: "Prága"+étterem+kicsi+helyi+légkör
+a: étterem kicsi helyi légkör in Prága
 
 q: Gluten-Free restaurant in Bordeaux with scenic authentic view with local cuisine
-a: "bordeaux"+restaurant+sans+gluten
+a: restaurant sans gluten in Bordeaux
 
 q: coffee in pardubice
-a: "pardubice"+kava+atmosféra+lokální
+a: kava atmosféra lokální in Pardubice
 
 q: Lekker eten zwolle
-a: knusse+lokale+restaurantjes+in+zwolle
+a: knusse lokale restaurantjes in Zwolle
 
 q: bar kopenhagen
-a: "Hyggelige lokale barer med en god atmosfære i København"
+a: hyggelige lokale barer med en god atmosfære in København
     
 Only reply with the query response, structured as shown above. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 
