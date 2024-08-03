@@ -6,10 +6,10 @@ module.exports = async (req, res) => {
         return res.status(401);
     } else {
         const token = req.headers["Authorization"].split("Bearer ")[1]
-        if (!token) return res.status(401);
+        if (!token) return res.status(401).json({error:"Invalid Token"});
         if (!validateToken(token)) {
             // expired or invalid token
-            return res.status(401);
+            return res.status(401).json({error:"Invalid Token"});
         }
     }
 
