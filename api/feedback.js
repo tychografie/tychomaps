@@ -2,10 +2,12 @@ const { MongoClient, ObjectId } = require('mongodb');
 const { validateToken } = require('./lib/auth');
 
 module.exports = async (req, res) => {
-    if (!req.headers["Authorization"]) {
-        return res.status(401);
+    if (!req.headers["authorization"]) {
+        res.status(401).json({});
+        return 
     } else {
-        const token = req.headers["Authorization"].split("Bearer ")[1]
+        const token = req.headers["authorization"].split("Bearer ")[1]
+        console.log(token)
         if (!token) return res.status(401).json({error:"Invalid Token"});
         if (!validateToken(token)) {
             // expired or invalid token
