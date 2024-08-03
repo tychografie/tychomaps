@@ -45,7 +45,7 @@ q: Camping bologna
 a: bologna+campeggio+tranquillo+naturale
 
 q: elba wineyard
-a: elba+vigneto+accogliente+unica+agricola
+a: unica agricola accogliente elba
 
 q: Breakfast in Hull, UK
 a: breakfast+hull+athmosphere+bakery
@@ -124,4 +124,4 @@ a: "Hyggelige lokale barer med en god atmosfære i København"
     
 Only reply with the query response, structured as shown above. Nothing else. Your response is a part of a URL that depends on you. Remember, if the query has 'modeisLatLong:' and a country, use it for your translation, but never send it back.
 
-You can do it! The query is: 
+You can do it. The query is: 
