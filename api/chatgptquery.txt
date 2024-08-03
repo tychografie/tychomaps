@@ -11,76 +11,76 @@ GOOD TO KNOW:
 
 EXAMPLES OF HOW YOU SHOULD RESPOND:
 
-q: "canal saint-martin vegetarian dinner"
+q: canal saint-martin vegetarian dinner
 a: 10e+arrondissement+végétarien+Dîner+indépendant
 
-q: "koffie funenpark"
+q: koffie funenpark
 a: "amsterdam-oost"+koffietent+lokaal+uniek
 
-q: "petit dejeuner berlijn"
+q: petit dejeuner berlijn
 a: fruhstuck+berlin+germany+hipster+klein
 
-q: "go out in tbilisi"
+q: go out in tbilisi
 a: თბილისი+ღამისკლუბი+ლოკალური+უნიკალური
 
-q: "barber in porto"
+q: barber in porto
 a: porto+portugal+barbeiro+tradicional+autêntico
 
-q: "hostel mexico city"
+q: hostel mexico city
 a: hostal+mexico-city+mexico+acogedor
 
-q: "modeisLatLong:croatia beach"
+q: modeisLatLong:croatia beach
 a: ugodna+mala+plaža
 
-q: "modeisLatLong:denmark Restaurant pour enfants"
+q: modeisLatLong:denmark Restaurant pour enfants
 a: lille+restaurant+børnevenlig
 
-q: "modeisLatLong:germany surf"
+q: modeisLatLong:germany surf
 a: surfing+Spaß+angenehm
 
-q: "Fish restaurants lissabon"
-a: "lisboa"+peixe+tasca+fresco
+q: Fish restaurants lissabon
+a: lisboa"+peixe+tasca+fresco
 
-q: "Camping bologna"
+q: Camping bologna
 a: bologna+campeggio+tranquillo+naturale
 
-q: "elba wineyard"
+q: elba wineyard
 a: elba+vigneto+accogliente+unica+agricola
 
-q: "Breakfast in Hull, UK"
+q: Breakfast in Hull, UK
 a: breakfast+hull+athmosphere+bakery
 
-q: "frietjes antwerpen-zuid"
+q: frietjes antwerpen-zuid
 a: frituur+"antwerpen-zuid"
 
-q: "Sophie-Charlotte-Platz koffie"
-a: "Sophie-Charlotte-Platz"+Caffe+Atmosphäre
+q: Sophie-Charlotte-Platz koffie
+a: Sophie-Charlotte-Platz"+Caffe+Atmosphäre
 
-q: "lunch in sausolito"
-a: "sausolito+lunch+atmosphere"
+q: lunch in sausolito
+a: sausolito+lunch+atmosphere
 
-q: "prinsengracht amsterdam koffie"
+q: prinsengracht amsterdam koffie
 a: "prinsengracht"+koffie+atmosfeer+lokaal
 
-q: "Dinner den haag"
+q: Dinner den haag
 a: "the-hague"+diner+gezellig+lokaal+passie
 
-q: "modeisLatLong:Singapore chicken curry"
-a: "chicken curry fresh authentic"
+q: modeisLatLong:Singapore chicken curry
+a: signapore chicken curry fresh authentic
 
-q: "barcelona el raval dinner"
-a: 'barcelona el raval'+cena+local+acogedora+hipster
+q: barcelona el raval dinner
+a: "barcelona el raval"+cena+local+acogedora+hipster
 
-q: "almere bier"
+q: almere bier
 a: "almere"+bier+lounge+lokaal+gezellig
 
-q: "hiking slovenia"
+q: hiking slovenia
 a: "Pohodniška pot"+slovenija+narava+edinstven
 
-q: "groningen restaurant"
+q: groningen restaurant
 a: "groningen"+restaurantje+knus+atmosfeer+lokaal
 
-q: "Protein shake zuidas amsterdam"
+q: Protein shake zuidas amsterdam
 a: "zuidas amsterdam"+proteine+shake
 
 q: Klusjesman Almere
@@ -93,7 +93,7 @@ q: bier in bergues
 a: "Bergues"+france+bierre+local+sympa
 
 q: Koffie in hesdin, france
-a: "hesdin"+france"café"+convivial+sympa
+a: "hesdin"+france+"café"+convivial+sympa
 
 q: Lunch in prague
 a: "praha"+oběd+malý+Příjemné+přátelský
