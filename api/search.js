@@ -39,7 +39,9 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
 const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
     const fullAiContent = retryQuery || `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`;
-
+    
+    console.log("AI Request Content:", fullAiContent); // Add this line
+    
     const aiResponse = await axios.post(
         'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + process.env.GOOGLE_MAPS_API_KEY,
         {
@@ -59,6 +61,9 @@ const aiRequest = async (query, country, retryQuery = null) => {
             }
         }
     );
+    
+    console.log("AI Response:", aiResponse.data); // Add this line
+    
     if (aiResponse?.data?.candidates && aiResponse.data.candidates.length > 0 && aiResponse.data.candidates[0].content?.parts && aiResponse.data.candidates[0].content.parts.length > 0 && aiResponse.data.candidates[0].content.parts[0].text) {
         return {
             aiContent: fullAiContent,
@@ -69,6 +74,7 @@ const aiRequest = async (query, country, retryQuery = null) => {
     }
 };
 
+
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
     const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };
@@ -76,6 +82,8 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     if (latitude && longitude) {
         requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 500.0 } };
     }
+
+    console.log("Maps Request Payload:", requestPayload); // Add this line
 
     const mapsResponse = await axios.post(
         'https://places.googleapis.com/v1/places:searchText',
@@ -88,8 +96,12 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
             }
         }
     );
+
+    console.log("Maps Response:", mapsResponse.data); // Add this line
+    
     return mapsResponse.data;
 };
+
 
 const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
@@ -155,11 +167,12 @@ module.exports = async (req, res) => {
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
-            console.error('Error in handleRequest:', error);
+            console.error('Error in handleRequest:', error); // Enhanced error log
             await logDetails(req, query, retryQuery || query, null, country, latitude, longitude, null, 0, !retry);
             return res.status(500).json({ error: error.message ?? error });
         }
     };
+    
 
     return await handleRequest();
 };
