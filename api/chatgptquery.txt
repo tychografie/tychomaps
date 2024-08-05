@@ -122,5 +122,11 @@ a: hyggelige lokale barer med en god atmosfære in København
 
 q: hostel in kyoto
 a: ホステル京都居心地の良い地元の小さい
+
+q: Kids friendly restaurants in Ljubljana
+a: restavracije otroke prijazen v Ljubljani 
+
+q: breakfast mumbai
+a: स्थानीय नाश्ता मुंबई
     
 3. YOU CAN DO IT, THE USER QUERY IS:

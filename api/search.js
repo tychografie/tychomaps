@@ -157,7 +157,11 @@ module.exports = async (req, res) => {
             const aiResult = await aiRequest(query, country, retryQuery);
             aiContent = aiResult.aiContent;
             aiResponse = aiResult.aiResponse;
-
+    
+            if (!aiResponse) {
+                throw new Error('AI response is undefined');
+            }
+    
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
@@ -185,6 +189,7 @@ module.exports = async (req, res) => {
             return res.status(500).json({ error: error.message ?? error });
         }
     };
+    
     
 
     return await handleRequest();
