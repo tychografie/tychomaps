@@ -11,10 +11,26 @@
     <div class="mx-auto mt-5">
         <div class="flex justify-between items-center m-4">
             <h1 class="text-2xl font-bold">Feedback List</h1>
-            <label class="flex items-center space-x-3">
-                <span class="text-gray-700">Show Happy Users</span>
-                <input type="checkbox" id="userToggle" class="form-checkbox h-5 w-5 text-green-600">
-            </label>
+            <div class="flex items-center space-x-3">
+                <label class="flex items-center space-x-3">
+                    <input type="checkbox" id="badRated" class="form-checkbox h-5 w-5 text-red-600">
+                    <span class="text-gray-700">👎 rated</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <input type="checkbox" id="goodRated" class="form-checkbox h-5 w-5 text-green-600">
+                    <span class="text-gray-700">👍 rated</span>
+                </label>
+                <label class="flex items-center space-x-3">
+                    <span class="text-gray-700">Result Count</span>
+                    <select id="resultCountFilter" class="form-select h-5 w-32 text-blue-600">
+                        <option value="any">Any</option>
+                        <option value="0">0 results</option>
+                        <option value="0-1">0 or 1 results</option>
+                        <option value="2-5">2 - 5 results</option>
+                        <option value="5+">5+ results</option>
+                    </select>
+                </label>
+            </div>
         </div>
         <div id="feedback-list">
             <!-- Feedback list will be inserted here -->

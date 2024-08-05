@@ -6,8 +6,8 @@ module.exports = async (req, res) => {
         res.status(401).json({});
         return 
     } else {
-        const token = req.headers["authorization"].split("Bearer ")[1]
-        console.log(token)
+        const token = req.headers["authorization"].split("Bearer ")[1];
+        console.log(token);
         if (!token) return res.status(401).json({error:"Invalid Token"});
         if (!validateToken(token)) {
             // expired or invalid token
@@ -26,12 +26,10 @@ module.exports = async (req, res) => {
             const { rating, id, feedbackHandled } = req.body;
 
             if (rating !== undefined) {
-                // Handle feedback rating
                 if (rating !== 1 && rating !== -1) {
                     return res.status(400).json({ error: "Invalid rating" });
                 }
 
-                // Find the most recent search for this user's IP
                 const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
                 const mostRecentSearch = await collection.findOne(
                     { ip: ip },
@@ -48,7 +46,6 @@ module.exports = async (req, res) => {
                     return res.status(404).json({ error: "No recent search found" });
                 }
             } else if (id !== undefined && feedbackHandled !== undefined) {
-                // Handle feedbackHandled status update
                 if (typeof feedbackHandled !== 'boolean') {
                     return res.status(400).json({ error: "Invalid feedbackHandled value" });
                 }
@@ -62,24 +59,36 @@ module.exports = async (req, res) => {
                 return res.status(400).json({ error: "Invalid request body" });
             }
         } else if (req.method === "GET") {
-            const { rating } = req.query;
-            if (rating !== '1' && rating !== '-1') {
-                return res.status(400).json({ error: "Invalid rating value" });
+            const { rating, resultCountFilter } = req.query;
+
+            let query = {};
+            if (rating) {
+                const ratings = rating.split(',').map(Number);
+                query.userRating = { $in: ratings };
             }
 
-            const userRating = parseInt(rating);
-            let feedback;
-            if (userRating === 1) {
-                feedback = await collection.find({ userRating: 1 }).sort({ timestamp: -1 }).toArray();
-            } else {
-                feedback = await collection.find({
-                    $or: [
-                        { userRating: -1 },
-                        { resultCount: 0 }
-                    ]
-                }).sort({ timestamp: -1 }).toArray();
+            if (resultCountFilter) {
+                let resultCountQuery;
+                switch (resultCountFilter) {
+                    case '0':
+                        resultCountQuery = 0;
+                        break;
+                    case '0-1':
+                        resultCountQuery = { $lte: 1 };
+                        break;
+                    case '2-5':
+                        resultCountQuery = { $gte: 2, $lte: 5 };
+                        break;
+                    case '5+':
+                        resultCountQuery = { $gte: 5 };
+                        break;
+                    default:
+                        break;
+                }
+                query.resultCount = resultCountQuery;
             }
 
+            const feedback = await collection.find(query).sort({ timestamp: -1 }).toArray();
             return res.status(200).json(feedback);
         } else {
             return res.status(405).json({ error: "Method not allowed" });
