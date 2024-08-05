@@ -151,24 +151,37 @@ module.exports = async (req, res) => {
         return;
     }
 
-    const handleRequest = async (retry = true, retryQuery = null) => {
+    const handleRequest = async (retry = true, retryQuery = null, isRetryAttempt = false) => {
+        let aiContent, aiResponse;
         try {
-            const { aiContent, aiResponse } = await aiRequest(query, country, retryQuery);
+            const aiResult = await aiRequest(query, country, retryQuery);
+            aiContent = aiResult.aiContent;
+            aiResponse = aiResult.aiResponse;
+
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
-            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, sortedPlaces.length, !retry);
+            const resultCount = sortedPlaces.length;
+            const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.toLowerCase());
+            const retryCondition2 = resultCount === 0;
     
-            if (sortedPlaces.length === 0 && retry) {
-                console.log("No results found, retrying...");
-                const newRetryQuery = `${query} Do not return: ${aiResponse}`;
-                return await handleRequest(false, newRetryQuery);
+            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, resultCount, isRetryAttempt);
+    
+            if ((retryCondition1 || retryCondition2) && retry) {
+                console.log("Retrying due to no results or only one partial match...");
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words.`;
+                return await handleRequest(false, newRetryQuery, true);
             }
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
             console.error('Error in handleRequest:', error); // Enhanced error log
-            await logDetails(req, query, retryQuery || query, null, country, latitude, longitude, null, 0, !retry);
+            if ((error.message === 'No places found' || retry) && !isRetryAttempt) {
+                console.log("Retrying due to 'No places found' error...");
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words.`;
+                return await handleRequest(false, newRetryQuery, true);
+            }
+            await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, null, 0, isRetryAttempt);
             return res.status(500).json({ error: error.message ?? error });
         }
     };
