@@ -190,7 +190,5 @@ module.exports = async (req, res) => {
         }
     };
     
-    
-
     return await handleRequest();
 };
