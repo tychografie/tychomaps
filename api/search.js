@@ -74,9 +74,9 @@ const aiRequest = async (query, country, retryQuery = null) => {
     }
 };
 
-
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
-    const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
+    // Ensure mapsQuery is a string before calling toLowerCase on it
+    const minRating = typeof mapsQuery === 'string' && mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (latitude && longitude) {
@@ -101,7 +101,6 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     
     return mapsResponse.data;
 };
-
 
 const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
