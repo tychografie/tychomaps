@@ -22,7 +22,7 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
             country: country || "Unknown",
             latitude: latitude || "Unknown",
             longitude: longitude || "Unknown",
-            mapsRequest: mapsRequest || "Unknown",
+            mapsRequest: mapsRequest !== undefined ? mapsRequest : "Unknown",
             resultCount: resultCount !== undefined ? resultCount : "Unknown",
             retryAttempted: retryAttempted,
             userRating: 0,
@@ -35,6 +35,7 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
         await client.close();
     }
 }
+
 
 const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
@@ -150,7 +151,7 @@ module.exports = async (req, res) => {
     }
 
     const handleRequest = async (retry = true, retryQuery = null, isRetryAttempt = false) => {
-        let aiContent, aiResponse;
+        let aiContent, aiResponse, mapsReq;
         try {
             const aiResult = await aiRequest(query, country, retryQuery);
             aiContent = aiResult.aiContent;
@@ -161,13 +162,15 @@ module.exports = async (req, res) => {
             }
     
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
+            mapsReq = aiResponse; // Ensure the maps request is logged
+    
             const sortedPlaces = await processor(mapsResponse, aiResponse);
     
             const resultCount = sortedPlaces.length;
             const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.toLowerCase());
             const retryCondition2 = resultCount === 0;
     
-            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, aiResponse, resultCount, isRetryAttempt);
+            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt);
     
             if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
@@ -177,16 +180,17 @@ module.exports = async (req, res) => {
     
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
-            console.error('Error in handleRequest:', error); // Enhanced error log
+            console.error('Error in handleRequest:', error);
             if ((error.message === 'No places found' || retry) && !isRetryAttempt) {
                 console.log("Retrying due to 'No places found' error...");
                 const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words.`;
                 return await handleRequest(false, newRetryQuery, true);
             }
-            await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, null, 0, isRetryAttempt);
+            await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, mapsReq, 0, isRetryAttempt);
             return res.status(500).json({ error: error.message ?? error });
         }
     };
+    
     
     return await handleRequest();
 };

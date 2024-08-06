@@ -1,5 +1,6 @@
 function sendQuery() {
-    const mapsQuery = document.getElementById('mapsQuery');
+    const mapsQueryElement = document.getElementById('mapsQuery');
+    const mapsQuery = mapsQueryElement ? mapsQueryElement.textContent : '';
     var button = document.getElementById('search-button');
 
     button.disabled = true;
@@ -134,12 +135,12 @@ function sendQuery() {
             button.disabled = false;
             document.getElementById('resultsList').classList.remove('hidden');
 
-            mapsQuery.textContent += data.aiResponse;
+            mapsQueryElement.textContent += data.aiResponse;
         } else {
             resultsContainer.innerHTML = '<p>No small, highly-rated local places found. The good news is that your request has been sent to our algorithm-improvement department. <u><a href="/support">Give me search tips 😰</a></u></p>';
             button.innerHTML = 'Try again? ';
             button.disabled = false;
-            mapsQuery.textContent = data.aiResponse;
+            mapsQueryElement.textContent = data.aiResponse;
         }
     })
     .catch(error => {
@@ -165,7 +166,7 @@ function sendQuery() {
         document.getElementById('results').innerHTML = errorMessage;
 
         button.innerHTML = 'Search';
-        mapsQuery.textContent = "Error in fetching data.";
+        mapsQueryElement.textContent = "Error in fetching data.";
         button.disabled = false;
     });
 }
