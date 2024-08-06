@@ -73,17 +73,15 @@ const aiRequest = async (query, country, retryQuery = null) => {
         throw new Error('No valid response from AI');
     }
 };
-
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
-    // Ensure mapsQuery is a string before calling toLowerCase on it
-    const minRating = typeof mapsQuery === 'string' && mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
+    const minRating = (typeof mapsQuery === 'string' && mapsQuery.toLowerCase().includes("club")) ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (latitude && longitude) {
         requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 500.0 } };
     }
 
-    console.log("Maps Request Payload:", requestPayload); // Add this line
+    console.log("Maps Request Payload:", requestPayload);
 
     const mapsResponse = await axios.post(
         'https://places.googleapis.com/v1/places:searchText',
@@ -97,10 +95,11 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
         }
     );
 
-    console.log("Maps Response:", mapsResponse.data); // Add this line
-    
+    console.log("Maps Response:", mapsResponse.data);
+
     return mapsResponse.data;
 };
+
 
 const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
