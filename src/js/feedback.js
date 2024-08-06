@@ -16,36 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadData();
 });
 
-async function authorize() {
-// get user input
-const password = prompt("Password:");
-// get token
-try {
-  const authResponse = await fetch(`/api/authorize`, {
-    method: "POST",
-    body: window.btoa(password),
-  });
-  if (!authResponse.ok) {
-    console.error(error);
-    location.href = "/";
-    return;
-  }
-  const token = (await authResponse.json()).token;
-  localStorage.setItem("token", token);
-} catch (error) {
-  console.error(error);
-  location.href = "/";
-  return;
-}
-}
-
 async function loadFeedbackData(showBadRated, showGoodRated, resultCountFilter) {
-  if (
-      !localStorage.getItem("token") ||
-      localStorage.getItem("token") === "undefined"
-  ) {
-      await authorize();
-  }
   try {
       const queryParams = [];
 
@@ -61,10 +32,7 @@ async function loadFeedbackData(showBadRated, showGoodRated, resultCountFilter) 
       const response = await fetch(
           `/api/get-feedback${queryString}`,
           {
-              method: "GET",
-              headers: {
-                  Authorization: "Bearer " + localStorage.getItem("token"),
-              },
+              method: "GET"
           }
       );
 
@@ -72,8 +40,7 @@ async function loadFeedbackData(showBadRated, showGoodRated, resultCountFilter) 
       document.querySelector("body").style.display = "block";
       renderFeedbackList(data);
   } catch (error) {
-      localStorage.removeItem("token");
-      await authorize();
+      console.error("Error loading feedback data:", error);
   }
 }
 
@@ -135,7 +102,6 @@ async function handleCheckboxChange(id, isChecked) {
   await fetch("/api/get-feedback", {
       method: "POST",
       headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "application/json",
       },
       body: JSON.stringify({ id, feedbackHandled: isChecked }),
