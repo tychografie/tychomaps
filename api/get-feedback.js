@@ -1,6 +1,19 @@
 const { MongoClient, ObjectId } = require('mongodb');
+const { validateToken } = require('./lib/auth');
 
 module.exports = async (req, res) => {
+    if (!req.headers["authorization"]) {
+        res.status(401).json({});
+        return;
+    } else {
+        const token = req.headers["authorization"].split("Bearer ")[1];
+        console.log(token);
+        if (!token) return res.status(401).json({ error: "Invalid Token" });
+        if (!validateToken(token)) {
+            return res.status(401).json({ error: "Invalid Token" });
+        }
+    }
+
     const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
