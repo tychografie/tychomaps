@@ -32,9 +32,10 @@
         <nav>
             <ul class="flex space-x-4">
                 <li class="hidden md:block"><a href="./">Discover</a></li>
-                <li><a href="/tips-and-tricks">Tips & Tricks</a></li>
+                <li class="hidden md:block"><a href="/tips-and-tricks">Tips & Tricks</a></li>
             </ul>
         </nav>
+        <button class="bg-[#EEB053] text-black rounded-md px-4 py-2 ml-4 hidden" onclick="openPremiumModal()">Get Premium</button>
     </header>
 
     <div class="flex flex-col justify-center items-center w-full space-y-4" style="flex: 1;">
@@ -87,6 +88,7 @@
         
         <div id="resultsList" class="hidden flex flex-col justify-center items-center w-full">
             <div class="shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] rounded-md p-4 md:p-6">
+                
                 <h1 class="text-4xl mb-2 font-medium md:block font-family-pixelpro">Locals love to go to...</h1>
                 <div id="results" class="flex flex-col gap-2 mt-4">
                     <!-- Results will be displayed here -->
@@ -94,6 +96,42 @@
                 <button id="loadResults" class="pulse text-lg rounded-md mt-2 hidden w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="popUp()">Load <span id="total"></span> more</button>
             </div>
             <div id="mapsQuery" class="hidden text-center text-sm p-4 bg-black/5 text-gray-500 mt-5 rounded">Debug on!</div>
+        </div>
+    </div>
+
+    <div id="premiumModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div class="bg-white rounded-md p-8 w-full max-w-md m-5 relative">
+            <button class="absolute top-2 right-2 text-gray-500 hover:opacity-80" onclick="closePremiumModal()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="text-center">
+                <h2 class="text-xl font-bold">Polomaps <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-transparent  bg-clip-text">PREMIUM</span></h2>
+                <p class="text-1xl line-through text-gray-500">€66,99 / YEAR</p>
+                <p class="text-3xl font-bold text-green-500">€24,95 / year</p>
+                <p class="mt-4">Truly change how you experience cities</p>
+                <div class="bg-[#FAEDD1] p-8 mt-4 rounded-md">
+                    <p class="text-lg font-bold">Up to 5000 searches per month</p>
+                    <p>We did the math for you, that’s an average of 160 per day, happy exploring!</p>
+                </div>
+                <div class="mt-4 space-y-4">
+                    <div class="bg-[#FAEDD1] p-4 rounded-md flex items-center">
+                        <p class="w-8 h-8 rounded-md object-cover">💎</p>
+                        <p class="ml-4 text-left">No more hidden results - See up to 20 results per search</p>
+                    </div>
+                    <div class="bg-[#FAEDD1] p-4 rounded-md flex items-center">
+                        <p class="w-8 h-8 rounded-md object-cover">🤑</p>
+                        <p class="ml-4 text-left">Filter by price - Find backpacker or luxury places</p>
+                    </div>
+                    <div class="bg-[#FAEDD1] p-4 rounded-md flex items-center">
+                        <p class="w-8 h-8 rounded-md object-cover">🪩</p>
+                        <p class="ml-4 text-left">No advertisements - That one speaks for itself</p>
+                    </div>
+                </div>
+                <button class="mt-6 bg-[#EEB053] text-white rounded-md px-6 py-3" onclick="startFreeWeek()">Start free week</button>
+                <p class="mt-2 text-sm">First week free, then €24,95 / year</p>
+            </div>
         </div>
     </div>
 
@@ -113,50 +151,6 @@
     <script src="js/homeScripts.js"></script>
     <script src="js/sendQuery.js"></script>
 
-    <script>
-        let resultsLoaded = false;
-    
-        // Check if resultsList is visible
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === "class") {
-                    const resultsList = document.getElementById('resultsList');
-                    if (!resultsList.classList.contains('hidden')) {
-                        resultsLoaded = true;
-                    }
-                }
-            });
-        });
-    
-        observer.observe(document.getElementById('resultsList'), {
-            attributes: true
-        });
-    
-        // Mouse movement effect
-        document.addEventListener('mousemove', (event) => {
-            if (resultsLoaded) return;
-    
-            const searchBox = document.getElementById('seachBox');
-            const rect = searchBox.getBoundingClientRect();
-            const x = (event.clientX - rect.left - rect.width / 2) / 100;
-            const y = (event.clientY - rect.top - rect.height / 2) / 100;
-    
-            searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
-        });
-    
-        // Device orientation effect
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (event) => {
-                if (resultsLoaded) return;
-    
-                const searchBox = document.getElementById('seachBox');
-                const x = event.gamma / 10; // Adjust sensitivity
-                const y = event.beta / 10; // Adjust sensitivity
-    
-                searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
-            }, true);
-        }
-    </script>
     
 </body>
 </html>

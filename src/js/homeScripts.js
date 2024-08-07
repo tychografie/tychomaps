@@ -139,10 +139,10 @@ document.addEventListener('DOMContentLoaded', function () {
 function formatImageName(filename) {
     return filename.replace(/^\d+-/, '').replace(/-/g, ' ').replace('.jpg', '').replace('.jpeg', '');
 }
-
 let placeholders = [];
 let inputElement = document.getElementById('query');
 let intervalId;
+let animationDisabled = false; // New flag to disable animation
 
 function loadPlaceholders() {
     fetch('/js/placeholderTexts.txt')
@@ -163,6 +163,9 @@ function rotatePlaceholder() {
 
 inputElement.addEventListener('focus', () => {
     clearTimeout(intervalId);
+    if (!animationDisabled) {
+        resetTransform();
+    }
 });
 
 inputElement.addEventListener('blur', () => {
@@ -170,3 +173,79 @@ inputElement.addEventListener('blur', () => {
 });
 
 document.addEventListener('DOMContentLoaded', loadPlaceholders);
+
+let resultsLoaded = false;
+let searchBarFocused = false;
+
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+            const resultsList = document.getElementById('resultsList');
+            if (!resultsList.classList.contains('hidden')) {
+                resultsLoaded = true;
+            }
+        }
+    });
+});
+
+observer.observe(document.getElementById('resultsList'), {
+    attributes: true
+});
+
+function handleMouseMove(event) {
+    if (resultsLoaded || searchBarFocused || animationDisabled) return;
+
+    const searchBox = document.getElementById('seachBox');
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const maxRotation = 8; // Reduced max rotation by 20%
+
+    const x = (event.clientX - centerX) / centerX * maxRotation;
+    const y = (event.clientY - centerY) / centerY * maxRotation;
+
+    searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+}
+
+function resetTransform() {
+    const searchBox = document.getElementById('seachBox');
+    searchBox.style.transform = '';
+    animationDisabled = true; // Disable future animations
+}
+
+document.addEventListener('mousemove', handleMouseMove);
+
+const searchBar = document.getElementById('query');
+searchBar.addEventListener('focus', () => {
+    searchBarFocused = true;
+    resetTransform();
+});
+searchBar.addEventListener('blur', () => {
+    searchBarFocused = false;
+});
+
+if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (event) => {
+        if (resultsLoaded || searchBarFocused || animationDisabled) return;
+
+        const searchBox = document.getElementById('seachBox');
+        const maxRotation = 8; // Reduced max rotation by 20%
+        const x = event.gamma / 90 * maxRotation; // gamma goes from -90 to 90
+        const y = event.beta / 180 * maxRotation; // beta goes from -180 to 180
+
+        searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+    }, true);
+}
+
+function closePremiumModal() {
+    document.getElementById('premiumModal').classList.add('hidden');
+}
+
+function startFreeWeek() {
+    // Add your logic for starting a free week here
+    alert('🪩 Were still in demo mode, pro-mode (sorting, see all & unlimited search) unlocked. ❤️');
+}
+
+function openPremiumModal() {
+    document.getElementById('premiumModal').classList.remove('hidden');
+}
+

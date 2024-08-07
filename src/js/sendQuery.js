@@ -3,6 +3,14 @@ function sendQuery() {
     const mapsQuery = mapsQueryElement ? mapsQueryElement.textContent : '';
     var button = document.getElementById('search-button');
 
+    console.log('Maps Query:', mapsQuery); // Add this line for logging
+
+    if (!mapsQuery || mapsQuery.length === 0) {
+        console.error('Maps query is empty or invalid.');
+        alert('Maps query is empty or invalid.');
+        return;
+    }
+
     button.disabled = true;
     const totalClaim = document.getElementById('totalClaim');
     totalClaim.style.opacity = '0';
@@ -172,6 +180,7 @@ function sendQuery() {
 }
 
 function loadMoreResults(allPlaces) {
+    
     const resultsContainer = document.getElementById('results');
     const currentResultCount = resultsContainer.childElementCount - 2; // Subtract 2 to account for the "Load more" button and feedback container
     const nextBatch = allPlaces.slice(currentResultCount, currentResultCount + 5);

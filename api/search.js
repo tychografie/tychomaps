@@ -74,8 +74,15 @@ const aiRequest = async (query, country, retryQuery = null) => {
         throw new Error('No valid response from AI');
     }
 };
+
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
-    const minRating = (typeof mapsQuery === 'string' && mapsQuery.toLowerCase().includes("club")) ? 4.0 : 4.5;
+    // Ensure mapsQuery is defined and is a string
+    if (typeof mapsQuery !== 'string') {
+        console.error('mapsQuery is not a string:', mapsQuery);
+        throw new Error('Invalid mapsQuery: mapsQuery should be a string');
+    }
+
+    const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (latitude && longitude) {
@@ -100,7 +107,6 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
 
     return mapsResponse.data;
 };
-
 
 const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
@@ -174,7 +180,7 @@ module.exports = async (req, res) => {
     
             if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words.`;
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in' try 'around'.`;
                 return await handleRequest(false, newRetryQuery, true);
             }
     
@@ -183,14 +189,13 @@ module.exports = async (req, res) => {
             console.error('Error in handleRequest:', error);
             if ((error.message === 'No places found' || retry) && !isRetryAttempt) {
                 console.log("Retrying due to 'No places found' error...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words.`;
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in' try 'around'.`;
                 return await handleRequest(false, newRetryQuery, true);
             }
             await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, mapsReq, 0, isRetryAttempt);
             return res.status(500).json({ error: error.message ?? error });
         }
     };
-    
     
     return await handleRequest();
 };
