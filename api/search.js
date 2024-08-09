@@ -90,7 +90,7 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (latitude && longitude) {
-        requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 500.0 } };
+        requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 1000.0 } };
     }
 
     console.log("Maps Request Payload:", requestPayload);
@@ -103,7 +103,7 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
-                    'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri'
+                    'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri,places.location'
                 }
             }
         );
@@ -117,17 +117,56 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     }
 };
 
-const processor = async (mapsResponse, mapsQuery) => {
+const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371; // Radius of the earth in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    const distance = R * c; // Distance in km
+    return Math.round(distance * 100) / 100; // Round to 2 decimal places
+};
+
+const addDistanceToPlaces = (places, userLat, userLon) => {
+    return places.map(place => ({
+        ...place,
+        distance: {
+            distance: calculateDistance(userLat, userLon, place.location.latitude, place.location.longitude)
+        }
+    }));
+};
+
+const mapsRequestWithDistance = async (mapsQuery, latitude, longitude) => {
+    const mapsResponse = await mapsRequest(mapsQuery, latitude, longitude);
+    
+    if (latitude && longitude && mapsResponse.places) {
+        mapsResponse.places = addDistanceToPlaces(mapsResponse.places, latitude, longitude);
+    }
+
+    return mapsResponse;
+};
+
+
+const processor = async (mapsResponse, mapsQuery, hasLocationInfo) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
     console.log("Number of places found:", numPlaces);
 
     if (numPlaces > 0) {
-        return mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
-            .sort((a, b) => b.rating - a.rating)
+        let filteredPlaces = mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
             .map(place => ({
                 ...place,
-                name: place.displayName.text // Extract the name from displayName
+                name: place.displayName.text
             }));
+        
+        // Only sort by rating if there's no location information
+        if (!hasLocationInfo) {
+            filteredPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating);
+        }
+        
+        return filteredPlaces;
     } else {
         console.error("No places found for query:", mapsQuery);
         throw new Error('No places found');
@@ -187,10 +226,12 @@ module.exports = async (req, res) => {
                 throw new Error('AI response is undefined or empty');
             }
 
-            const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
+            // Use mapsRequestWithDistance instead of mapsRequest
+            const mapsResponse = await mapsRequestWithDistance(aiResponse, latitude, longitude);
             mapsReq = aiResponse;
 
-            const sortedPlaces = await processor(mapsResponse, aiResponse);
+            const hasLocationInfo = !!(latitude && longitude) || !!country;
+            const sortedPlaces = await processor(mapsResponse, aiResponse, hasLocationInfo);
 
             const resultCount = sortedPlaces.length;
             const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.toLowerCase());

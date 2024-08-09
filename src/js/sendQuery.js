@@ -96,13 +96,22 @@ function sendQuery() {
                 resultItem.target = "_blank";
                 resultItem.innerHTML = `
                 <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
-
                     <div class="flex items-center space-x-3">
                         <span class="place-name">${result.displayName.text}</span>
                         ${result.opening_hours && result.opening_hours.open_now ?
                         '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
                     </div>
-                    <span class="rating">${result.rating}</span>
+                    <div class="flex items-center space-x-3">
+                        ${result.distance ? `
+                            <span class="distance flex items-center">
+                                <img src="/img/icons/location.svg" alt="Location" class="w-4 h-4 mr-1">
+                                ${result.distance.distance.toFixed(1)} km
+                            </span>` : ''}
+                        <span class="rating flex items-center">
+                            <img src="/img/icons/star.svg" alt="Star" class="w-4 h-4 mr-1">
+                            ${result.rating}
+                        </span>
+                    </div>
                 </div>
                 `;
                 resultsContainer.appendChild(resultItem);
@@ -197,7 +206,17 @@ function loadMoreResults(allPlaces) {
                 ${result.opening_hours && result.opening_hours.open_now ?
                 '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
             </div>
-            <span class="rating">${result.rating}</span>
+            <div class="flex items-center space-x-3">
+                ${result.distance ? `
+                    <span class="distance flex items-center">
+                        <img src="/img/icons/location.svg" alt="Location" class="w-4 h-4 mr-1">
+                        ${result.distance.distance.toFixed(1)} km
+                    </span>` : ''}
+                <span class="rating flex items-center">
+                    <img src="/img/icons/star.svg" alt="Star" class="w-4 h-4 mr-1">
+                    ${result.rating}
+                </span>
+            </div>
         </div>
         `;
         resultsContainer.insertBefore(resultItem, document.getElementById('loadMoreButton'));
