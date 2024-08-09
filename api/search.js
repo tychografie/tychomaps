@@ -36,47 +36,51 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
     }
 }
 
-
 const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
     const fullAiContent = retryQuery || `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`;
-    
-    console.log("AI Request Content:", fullAiContent); // Add this line
-    
-    const aiResponse = await axios.post(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + process.env.GOOGLE_MAPS_API_KEY,
-        {
-            contents: [
-              {
-                parts: [
+
+    console.log("AI Request Content:", fullAiContent);
+
+    try {
+        const aiResponse = await axios.post(
+            'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + process.env.GOOGLE_MAPS_API_KEY,
+            {
+                contents: [
                   {
-                   text: fullAiContent
+                    parts: [
+                      {
+                       text: fullAiContent
+                      }
+                    ],
                   }
-                ],
-              }
-            ]
-          },
-        {
-            headers: {
-                'Content-Type': 'application/json'
+                ]
+              },
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             }
+        );
+
+        console.log("AI Response:", aiResponse.data);
+        
+        if (aiResponse?.data?.candidates && aiResponse.data.candidates.length > 0 && aiResponse.data.candidates[0].content?.parts && aiResponse.data.candidates[0].content.parts.length > 0 && aiResponse.data.candidates[0].content.parts[0].text) {
+            return {
+                aiContent: fullAiContent,
+                aiResponse: aiResponse.data.candidates[0].content.parts[0].text.trim()
+            };
+        } else {
+            console.log("No valid response from AI", aiResponse.data);
+            throw new Error('No valid response from AI');
         }
-    );
-    
-    console.log("AI Response:", aiResponse.data); // Add this line
-    
-    if (aiResponse?.data?.candidates && aiResponse.data.candidates.length > 0 && aiResponse.data.candidates[0].content?.parts && aiResponse.data.candidates[0].content.parts.length > 0 && aiResponse.data.candidates[0].content.parts[0].text) {
-        return {
-            aiContent: fullAiContent,
-            aiResponse: aiResponse.data.candidates[0].content.parts[0].text.trim()
-        };
-    } else {
-        throw new Error('No valid response from AI');
+    } catch (error) {
+        console.error("Error in AI Request:", error.message);
+        throw error;
     }
 };
 
 const mapsRequest = async (mapsQuery, latitude, longitude) => {
-    // Ensure mapsQuery is defined and is a string
     if (typeof mapsQuery !== 'string') {
         console.error('mapsQuery is not a string:', mapsQuery);
         throw new Error('Invalid mapsQuery: mapsQuery should be a string');
@@ -91,34 +95,48 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
 
     console.log("Maps Request Payload:", requestPayload);
 
-    const mapsResponse = await axios.post(
-        'https://places.googleapis.com/v1/places:searchText',
-        requestPayload,
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
-                'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri'
+    try {
+        const mapsResponse = await axios.post(
+            'https://places.googleapis.com/v1/places:searchText',
+            requestPayload,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+                    'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri'
+                }
             }
-        }
-    );
+        );
 
-    console.log("Maps Response:", mapsResponse.data);
+        console.log("Maps Response:", mapsResponse.data);
 
-    return mapsResponse.data;
+        return mapsResponse.data;
+    } catch (error) {
+        console.error("Error in Maps Request:", error.message);
+        throw error;
+    }
 };
 
 const processor = async (mapsResponse, mapsQuery) => {
     const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
+    console.log("Number of places found:", numPlaces);
+
     if (numPlaces > 0) {
         return mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
-            .sort((a, b) => b.rating - a.rating);
+            .sort((a, b) => b.rating - a.rating)
+            .map(place => ({
+                ...place,
+                name: place.displayName.text // Extract the name from displayName
+            }));
     } else {
+        console.error("No places found for query:", mapsQuery);
         throw new Error('No places found');
     }
 };
 
 module.exports = async (req, res) => {
+    console.log("Incoming request:", req.method, req.body);
+
     if (req.method !== "POST") {
         res.status(405).json({ error: "Method not allowed" });
         return;
@@ -130,13 +148,12 @@ module.exports = async (req, res) => {
         const rl = new Ratelimit({
             redis: kv,
             limiter: Ratelimit.slidingWindow(3, '10s')
-        })
+        });
 
-        const { success, limit, reset, remaining } = await rl.limit(
-            `ratelimit_${ip}`
-        )
+        const { success, limit, reset, remaining } = await rl.limit(`ratelimit_${ip}`);
 
         if (!success) {
+            console.log("Rate limit exceeded for IP:", ip);
             return res
                 .status(429)
                 .json({ error: "please be kind to the locals, you need them in your future" })
@@ -147,55 +164,62 @@ module.exports = async (req, res) => {
                 });
         }
     } else {
-        console.log("KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...")
+        console.log("KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...");
     }
 
     const { query, latitude, longitude, country } = req.body;
     if (!query || query.length > 128) {
-        res.status(400).json({ error: "Invalid query length" });
-        return;
+        console.error("Invalid query length:", query);
+        return res.status(400).json({ error: "Invalid query length" });
     }
 
     const handleRequest = async (retry = true, retryQuery = null, isRetryAttempt = false) => {
+        console.log("Handling request, retry:", retry, "isRetryAttempt:", isRetryAttempt);
         let aiContent, aiResponse, mapsReq;
         try {
             const aiResult = await aiRequest(query, country, retryQuery);
             aiContent = aiResult.aiContent;
             aiResponse = aiResult.aiResponse;
-    
+
+            console.log("AI content and response received:", aiContent, aiResponse);
+
             if (!aiResponse) {
-                throw new Error('AI response is undefined');
+                throw new Error('AI response is undefined or empty');
             }
-    
+
             const mapsResponse = await mapsRequest(aiResponse, latitude, longitude);
-            mapsReq = aiResponse; // Ensure the maps request is logged
-    
+            mapsReq = aiResponse;
+
             const sortedPlaces = await processor(mapsResponse, aiResponse);
-    
+
             const resultCount = sortedPlaces.length;
             const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.toLowerCase());
             const retryCondition2 = resultCount === 0;
-    
+
             await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt);
-    
+
             if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in' try 'around'.`;
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in', try 'around'.`;
+
+                console.log("Retrying with query:", newRetryQuery);
                 return await handleRequest(false, newRetryQuery, true);
             }
-    
+
             return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
         } catch (error) {
-            console.error('Error in handleRequest:', error);
+            console.error('Error in handleRequest:', error.message);
             if ((error.message === 'No places found' || retry) && !isRetryAttempt) {
                 console.log("Retrying due to 'No places found' error...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in' try 'around'.`;
+                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in', try 'around'.`;
+
+                console.log("Retrying with query:", newRetryQuery);
                 return await handleRequest(false, newRetryQuery, true);
             }
             await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, mapsReq, 0, isRetryAttempt);
-            return res.status(500).json({ error: error.message ?? error });
+            return res.status(500).json({ error: error.message || 'Unknown error' });
         }
     };
-    
+
     return await handleRequest();
 };
