@@ -258,8 +258,11 @@ function openPremiumModal() {
 // Function to populate recent discoveries
 function populateRecentDiscoveries() {
     const recentDiscoveries = [
-        { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipNzV6tNWIK4LosxjjZZHLYe0D43n_7lzAH0z4sM", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
-        { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "This art café in Kincraig uniquely blends creativity and history, offering a cozy spot to savor local art and coffee in what was once a village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s0", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+        { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://www.lecturesplurielles.com/wp-content/uploads/2021/02/Lecture-plurielles-a-la-forge.jpg", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
+        { name: "Wangedikanda Peak", location: "Kalupahana, Sri Lanka", text: "Breathtaking views and a challenging hike, leading adventurers to the stunning summit of a lesser-known mountain gem.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipPdnYZTG9TBHv0jXsA-3U9QtR5Oxz_Tgfe5STd3=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+        { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "Art café that blends creativity and history, a cozy spot in a former village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+        { name: "C's House Homestay (ホームステイ)", location: "Nagano, Japan", text: "Suzie and Toru's guesthouse near the Snow Monkey Park offers warm hospitality, cozy rooms, and a perfect location—feels just like home!", rating: 5.0, image: "https://lh3.googleusercontent.com/p/AF1QipOTtEuz5FZ5Kqs2LIUyBcX4vqfkJY8BRM7LWEXc=s200", mapsLink: "https://maps.app.goo.gl/KfPYGPYJtjdWEHJx7" },
+
     ];
 
     const container = document.getElementById('recentDiscoveries');
@@ -272,10 +275,10 @@ function populateRecentDiscoveries() {
         const imageElement = document.createElement('img');
         imageElement.src = place.image;
         imageElement.alt = place.name;
-        imageElement.className = 'w-16 object-cover rounded-tl-md rounded-bl-md';
+        imageElement.className = 'w-24 object-cover rounded-tl-md rounded-bl-md';
         
         const infoElement = document.createElement('div');
-        infoElement.className = 'p-2 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
+        infoElement.className = 'p-4 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
         infoElement.innerHTML = `
             <h3 class="font-medium">${place.name}</h3>
             <p class="text-sm text-gray-600">${place.text}</p>
@@ -288,24 +291,45 @@ function populateRecentDiscoveries() {
     });
 }
 
-// Function to populate recent searches
-function populateRecentSearches() {
-    const recentSearches = [
-        { search: "Coffee shops in New York", emoji: "☕" },
-        { search: "Best pizza in Chicago", emoji: "🍕" },
-        { search: "Hiking trails near Seattle", emoji: "🥾" },
-        { search: "Museums in London", emoji: "🏛️" },
-        { search: "Beach bars in Miami", emoji: "🍹" },
-    ];
+// Function to capitalize every word in a string
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, l => l.toUpperCase());
+}
 
-    const container = document.getElementById('recentSearches');
-    recentSearches.forEach(search => {
-        const searchElement = document.createElement('li');
-        searchElement.className = 'mb-2 bg-white rounded-md p-2 transition-transform duration-300 ease-in-out hover:scale-105 border border-gray-200 flex items-center';
-        searchElement.innerHTML = `<span class="mr-2">${search.emoji}</span>${search.search}`;
-        searchElement.style.listStyleType = 'none';
-        container.appendChild(searchElement);
-    });
+// Function to populate recent searches
+async function populateRecentSearches() {
+    try {
+        const response = await fetch('/api/search?recentSearches=true');
+        if (!response.ok) {
+            throw new Error('Failed to fetch recent searches');
+        }
+        const recentSearches = await response.json();
+        console.log("Received recent searches:", recentSearches);
+
+        const container = document.getElementById('recentSearches');
+        container.innerHTML = ''; // Clear existing content
+
+        recentSearches.forEach(search => {
+            console.log("Processing search:", search);
+            const searchElement = document.createElement('li');
+            searchElement.className = 'mb-2 bg-white rounded-md p-4 transition-transform duration-300 ease-in-out hover:scale-105 border border-gray-200 flex items-center cursor-pointer';
+            searchElement.innerHTML = `
+                <span class="mr-2">${search.aiEmoji || '🔍'}</span>
+                <span class="flex-grow">${capitalizeWords(search.originalQuery)}</span>
+                <span class="text-xs text-gray-500">${search.aiType}</span>
+            `;
+            searchElement.style.listStyleType = 'none';
+            searchElement.addEventListener('click', () => performSearch(search.originalQuery));
+            container.appendChild(searchElement);
+        });
+    } catch (error) {
+        console.error('Error populating recent searches:', error);
+    }
+}
+
+function performSearch(query) {
+    document.getElementById('query').value = query;
+    sendQuery(); // This function should be available from sendQuery.js
 }
 
 // Call these functions when the page loads

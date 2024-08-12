@@ -222,7 +222,7 @@ function addFeedbackButtons(container) {
 function submitFeedback(rating) {
     const feedbackContainer = document.getElementById('feedbackContainer');
     feedbackContainer.innerHTML = '<p class="text-center">Thank you for your feedback!</p>';
-
+    
     fetch('/api/feedback', {
         method: 'POST',
         headers: {
@@ -233,3 +233,6 @@ function submitFeedback(rating) {
 }
 
 document.getElementById('removeLocationChip').addEventListener('click', removeLocationChip);
+
+// Export the sendQuery function
+window.sendQuery = sendQuery;

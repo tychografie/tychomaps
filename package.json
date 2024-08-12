@@ -15,7 +15,8 @@
     "markdown-it": "^12.0.0",
     "mongodb": "^6.7.0",
     "path": "^0.12.7",
-    "sitemap": "^8.0.0"
+    "sitemap": "^8.0.0",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",

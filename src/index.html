@@ -99,7 +99,7 @@
     <div class="flex flex-col md:flex-row justify-center items-start w-full max-w-6xl mt-8 px-4 gap-8">
         <!-- Recent Discoveries -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl font-medium mb-4">Recent Discoveries</h2>
+            <h2 class="text-2xl font-medium mb-4 font-family-pixelpro">Recent Discoveries</h2>
             <div id="recentDiscoveries" class="space-y-4">
                 <!-- Placeholder for 5 recent discoveries -->
                 <!-- This will be populated dynamically with JavaScript -->
@@ -108,13 +108,15 @@
 
         <!-- Recent Searches -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl font-medium mb-4">Recent Searches</h2>
+            <h2 class="text-2xl font-medium mb-4 font-family-pixelpro">Recent Searches</h2>
             <ul id="recentSearches" class="list-disc list-inside">
                 <!-- Placeholder for 20 recent searches -->
                 <!-- This will be populated dynamically with JavaScript -->
             </ul>
         </div>
     </div>
+
+    
 
     <div id="premiumModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
         <div class="bg-white rounded-md p-4 sm:p-8 w-full max-w-sm sm:max-w-md max-h-[90vh] overflow-y-auto relative">
@@ -164,6 +166,45 @@
             <button type="submit" class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="submitFeedback()">Submit</button></form>
         </div>
     </div>
+
+    <footer class="w-full bg-[#fbeed2] mt-20 py-6 px-4">
+        <div class="max-w-6xl mx-auto flex justify-between items-start">
+            <div class="flex flex-col items-start">
+                <img src="/img/polo-maps.svg" alt="Polomaps Logo" class="w-32 mb-4">
+                <div class="flex flex-col space-y-2 mb-2">
+                    <a href="/privacy-policy" class="text-sm hover:underline">Privacy Policy</a>
+                    <a href="mailto:tycho@polomaps.com" class="text-sm hover:underline">Contact Us</a>
+                </div>
+                <p class="text-sm">&copy; 2023 Polomaps. All rights reserved.</p>
+            </div>
+            <div class="flex flex-col items-end">
+                <div class="flex space-x-4 mb-4">
+                    <a href="https://www.instagram.com/polomaps" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/icons/instagram.svg" alt="Instagram" class="w-6 h-6">
+                    </a>
+                    <a href="https://www.tiktok.com/@polomaps" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/icons/tiktok.svg" alt="TikTok" class="w-6 h-6">
+                    </a>
+                </div>
+                <p class="text-sm italic handwritten opacity-0 transition-opacity duration-1000" id="handwrittenMessage">Love from your Tourguide, Tycho!</p>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script>
+        // Animation for handwritten message
+        const anobserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const handwrittenMessage = document.getElementById('handwrittenMessage');
+        anobserver.observe(handwrittenMessage);
+    </script>
 
     <script src="js/homeScripts.js"></script>
     <script src="js/sendQuery.js"></script>

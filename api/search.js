@@ -4,19 +4,44 @@ const path = require('path');
 const axios = require('axios');
 const { MongoClient } = require('mongodb');
 const { kv } = require("@vercel/kv");
+const { v4: uuidv4 } = require('uuid');
 
 const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-async function logDetails(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted) {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+const API_VERSION = '1.0.0';
 
+async function logSearchAndResults(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted, places) {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const searchId = uuidv4();
     try {
         await client.connect();
         const database = client.db('tychomapsmongodb');
-        const collection = database.collection('searches');
-        const logEntry = {
+        const searchesCollection = database.collection('searches');
+        const resultsCollection = database.collection('search_results');
+
+        const timestamp = new Date();
+
+        // Parse aiResponseContent to extract all fields
+        let parsedAiResponse = {
+            originalQuery: "Unknown",
+            aiQuery: "Unknown",
+            aiEmoji: "Unknown",
+            aiType: "Unknown",
+            modeisLatLong: false
+        };
+
+        if (aiResponseContent) {
+            try {
+                parsedAiResponse = JSON.parse(aiResponseContent);
+            } catch (parseError) {
+                console.error('Error parsing aiResponseContent:', parseError);
+            }
+        }
+
+        const searchEntry = {
+            searchId: searchId,
             ip: ip,
-            query: query,
+            originalQuery: query,
             aiContent: aiContent,
             aiResponseContent: aiResponseContent || "Unknown",
             country: country || "Unknown",
@@ -26,15 +51,84 @@ async function logDetails(req, query, aiContent, aiResponseContent, country, lat
             resultCount: resultCount !== undefined ? resultCount : "Unknown",
             retryAttempted: retryAttempted,
             userRating: 0,
-            timestamp: new Date()
+            timestamp: timestamp
         };
-        await collection.insertOne(logEntry);
+        await searchesCollection.insertOne(searchEntry);
+
+        const resultEntry = {
+            _id: searchId,
+            originalQuery: parsedAiResponse.originalQuery,
+            aiQuery: parsedAiResponse.aiQuery,
+            data: [
+                {
+                    aiEmoji: parsedAiResponse.aiEmoji,
+                    aiType: parsedAiResponse.aiType,
+                    resultCount: places.length,  // Use the actual number of places
+                    modeisLatLong: parsedAiResponse.modeisLatLong,
+                    timestamp: timestamp
+                }
+            ],
+            places: places.map((place, index) => ({
+                [index]: place
+            }))
+        };
+        await resultsCollection.insertOne(resultEntry);
+
     } catch (error) {
-        console.error('Error logging details:', error);
+        console.error('Error logging search and results:', error);
+    } finally {
+        await client.close();
+    }
+
+    return searchId;
+}
+
+async function getCachedResults(query) {
+    try {
+        await client.connect();
+        const database = client.db('tychomapsmongodb');
+        const resultsCollection = database.collection('search_results');
+
+        const cachedResults = await resultsCollection.find({
+            $or: [
+                { originalQuery: { $regex: query, $options: 'i' } },
+                { aiQuery: { $regex: query, $options: 'i' } }
+            ],
+            "data.0.resultCount": { $gte: 5 }  // Ensure at least 5 results
+        }).sort({ "data.0.timestamp": -1 }).limit(5).toArray();
+
+        console.log("Potential cached results:", JSON.stringify(cachedResults, null, 2));
+
+        for (const result of cachedResults) {
+            if (result.places && result.places.length >= 5) {
+                console.log("Using cached result:", result.originalQuery);
+                const formattedPlaces = result.places.map(place => {
+                    const placeData = Object.values(place)[0]; // Get the place data from the object
+                    return {
+                        ...placeData,
+                        name: placeData.displayName?.text || placeData.name || 'Unknown'
+                    };
+                });
+                return {
+                    places: formattedPlaces,
+                    aiResponse: {
+                        aiEmoji: result.data[0].aiEmoji || "🔍",
+                        aiType: result.data[0].aiType || "cached",
+                        originalQuery: result.originalQuery
+                    }
+                };
+            }
+        }
+        console.log("No suitable cached results found");
+        return null;
+    } catch (error) {
+        console.error('Error getting cached results:', error);
+        return null;
     } finally {
         await client.close();
     }
 }
+
 
 const aiRequest = async (query, country, retryQuery = null) => {
     const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
@@ -66,10 +160,25 @@ const aiRequest = async (query, country, retryQuery = null) => {
         console.log("AI Response:", aiResponse.data);
         
         if (aiResponse?.data?.candidates && aiResponse.data.candidates.length > 0 && aiResponse.data.candidates[0].content?.parts && aiResponse.data.candidates[0].content.parts.length > 0 && aiResponse.data.candidates[0].content.parts[0].text) {
-            return {
-                aiContent: fullAiContent,
-                aiResponse: aiResponse.data.candidates[0].content.parts[0].text.trim()
-            };
+            const aiResponseText = aiResponse.data.candidates[0].content.parts[0].text.trim();
+            try {
+                // Remove any potential markdown formatting
+                const cleanedResponse = aiResponseText.replace(/```json\n?|\n?```/g, '').trim();
+                const parsedResponse = JSON.parse(cleanedResponse);
+                
+                // Validate the parsed response
+                if (!parsedResponse.aiQuery || typeof parsedResponse.aiQuery !== 'string') {
+                    throw new Error('Invalid AI response structure: missing or invalid aiQuery');
+                }
+                
+                return {
+                    aiContent: fullAiContent,
+                    aiResponse: parsedResponse
+                };
+            } catch (parseError) {
+                console.error("Error parsing AI response as JSON:", parseError);
+                throw new Error('Invalid AI response format');
+            }
         } else {
             console.log("No valid response from AI", aiResponse.data);
             throw new Error('No valid response from AI');
@@ -173,12 +282,73 @@ const processor = async (mapsResponse, mapsQuery, hasLocationInfo) => {
     }
 };
 
+async function getRecentSearches() {
+    try {
+        await client.connect();
+        const database = client.db('tychomapsmongodb');
+        const resultsCollection = database.collection('search_results');
+
+        const recentSearches = await resultsCollection.find({
+            "data.0.resultCount": { $gte: 5 }  // Only include searches with 5 or more results
+        })
+            .sort({ "data.0.timestamp": -1 })
+            .limit(30)  // Increased limit to ensure we have enough unique results
+            .toArray();
+
+        console.log("Raw recent searches from DB:", JSON.stringify(recentSearches, null, 2));
+
+        const uniqueSearches = [];
+        const seenEmojis = new Set();
+        const seenTypes = new Set();
+
+        for (const search of recentSearches) {
+            const emoji = search.data[0].aiEmoji;
+            const type = search.data[0].aiType;
+            const resultCount = search.data[0].resultCount;
+
+            if (!seenEmojis.has(emoji) && !seenTypes.has(type) && resultCount >= 5) {
+                uniqueSearches.push({
+                    originalQuery: search.originalQuery,
+                    aiEmoji: emoji,
+                    aiType: type
+                });
+                seenEmojis.add(emoji);
+                seenTypes.add(type);
+            }
+
+            if (uniqueSearches.length === 10) break;  // Stop after getting 10 unique searches
+        }
+
+        console.log("Formatted unique recent searches:", JSON.stringify(uniqueSearches, null, 2));
+
+        return uniqueSearches;
+    } catch (error) {
+        console.error('Error getting recent searches:', error);
+        return [];
+    } finally {
+        await client.close();
+    }
+}
+
 module.exports = async (req, res) => {
-    console.log("Incoming request:", req.method, req.body);
+    console.log("Incoming request:", req.method, req.query);
+
+    if (req.method === "GET") {
+        if (req.query.recentSearches === 'true') {
+            try {
+                const recentSearches = await getRecentSearches();
+                console.log("Sending recent searches:", JSON.stringify(recentSearches, null, 2));
+                return res.status(200).json(recentSearches);
+            } catch (error) {
+                console.error('Error fetching recent searches:', error);
+                return res.status(500).json({ error: 'Failed to fetch recent searches' });
+            }
+        }
+        return res.status(405).json({ error: "Method not allowed" });
+    }
 
     if (req.method !== "POST") {
-        res.status(405).json({ error: "Method not allowed" });
-        return;
+        return res.status(405).json({ error: "Method not allowed" });
     }
 
     if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
@@ -215,6 +385,18 @@ module.exports = async (req, res) => {
     const handleRequest = async (retry = true, retryQuery = null, isRetryAttempt = false) => {
         console.log("Handling request, retry:", retry, "isRetryAttempt:", isRetryAttempt);
         let aiContent, aiResponse, mapsReq;
+        
+        // Check for cached results
+        const cachedResults = await getCachedResults(query);
+        if (cachedResults) {
+            console.log("Returning cached results");
+            return res.status(200).json({ 
+                places: cachedResults.places, 
+                aiResponse: cachedResults.aiResponse,
+                searchId: "cached" 
+            });
+        }
+
         try {
             const aiResult = await aiRequest(query, country, retryQuery);
             aiContent = aiResult.aiContent;
@@ -222,43 +404,47 @@ module.exports = async (req, res) => {
 
             console.log("AI content and response received:", aiContent, aiResponse);
 
-            if (!aiResponse) {
-                throw new Error('AI response is undefined or empty');
+            if (!aiResponse || !aiResponse.aiQuery) {
+                throw new Error('Invalid AI response structure');
             }
 
             // Use mapsRequestWithDistance instead of mapsRequest
-            const mapsResponse = await mapsRequestWithDistance(aiResponse, latitude, longitude);
-            mapsReq = aiResponse;
+            const mapsResponse = await mapsRequestWithDistance(aiResponse.aiQuery, latitude, longitude);
+            mapsReq = aiResponse.aiQuery;
 
             const hasLocationInfo = !!(latitude && longitude) || !!country;
-            const sortedPlaces = await processor(mapsResponse, aiResponse, hasLocationInfo);
+            const sortedPlaces = await processor(mapsResponse, aiResponse.aiQuery, hasLocationInfo);
 
             const resultCount = sortedPlaces.length;
-            const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.toLowerCase());
+            const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.aiQuery.toLowerCase());
             const retryCondition2 = resultCount === 0;
 
-            await logDetails(req, query, aiContent, aiResponse, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt);
+            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces);
 
             if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in', try 'around'.`;
+                const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was (${JSON.stringify(aiResponse)}) which gave no results in Google Maps API. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations.`;
 
                 console.log("Retrying with query:", newRetryQuery);
                 return await handleRequest(false, newRetryQuery, true);
             }
 
-            return res.status(200).json({ places: sortedPlaces, aiResponse: aiResponse });
+            return res.status(200).json({ 
+                places: sortedPlaces, 
+                aiResponse: aiResponse,
+                searchId: searchId
+            });
         } catch (error) {
             console.error('Error in handleRequest:', error.message);
-            if ((error.message === 'No places found' || retry) && !isRetryAttempt) {
-                console.log("Retrying due to 'No places found' error...");
-                const newRetryQuery = `${aiContent} 4. IMPORTANT Your previous response was (${aiResponse}) which gave no results in Google Maps API, aside from the location, try completely different words. If you used 'in', try 'around'.`;
+            if ((error.message === 'No places found' || error.message.includes('Invalid AI response')) && retry && !isRetryAttempt) {
+                console.log("Retrying due to error:", error.message);
+                const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was invalid or gave no results. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations. Ensure your response is a valid JSON object.`;
 
                 console.log("Retrying with query:", newRetryQuery);
                 return await handleRequest(false, newRetryQuery, true);
             }
-            await logDetails(req, query, retryQuery || query, aiContent, country, latitude, longitude, mapsReq, 0, isRetryAttempt);
-            return res.status(500).json({ error: error.message || 'Unknown error' });
+            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, 0, isRetryAttempt, []);
+            return res.status(500).json({ error: error.message || 'Unknown error', searchId: searchId });
         }
     };
 
