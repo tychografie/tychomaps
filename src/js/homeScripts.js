@@ -1,4 +1,3 @@
-
 function openFeedbackPopup() {
     var feedbackPopup = document.getElementById('feedbackPopup');
     feedbackPopup.classList.remove('hidden');
@@ -184,6 +183,7 @@ const observer = new MutationObserver((mutations) => {
             if (!resultsList.classList.contains('hidden')) {
                 resultsLoaded = true;
             }
+            adjustSearchBoxHeight(); // Call the new function here
         }
     });
 });
@@ -205,6 +205,12 @@ function handleMouseMove(event) {
 
     searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
 }
+
+document.getElementById('premiumModal').addEventListener('click', function(event) {
+    if (event.target === this) {
+        closePremiumModal();
+    }
+});
 
 function resetTransform() {
     const searchBox = document.getElementById('seachBox');
@@ -249,3 +255,84 @@ function openPremiumModal() {
     document.getElementById('premiumModal').classList.remove('hidden');
 }
 
+// Function to populate recent discoveries
+function populateRecentDiscoveries() {
+    const recentDiscoveries = [
+        { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipNzV6tNWIK4LosxjjZZHLYe0D43n_7lzAH0z4sM", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
+        { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "This art café in Kincraig uniquely blends creativity and history, offering a cozy spot to savor local art and coffee in what was once a village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s0", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+    ];
+
+    const container = document.getElementById('recentDiscoveries');
+    recentDiscoveries.forEach(place => {
+        const placeElement = document.createElement('a');
+        placeElement.href = place.mapsLink;
+        placeElement.target = "_blank";
+        placeElement.className = 'flex items-stretch bg-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-105';
+        
+        const imageElement = document.createElement('img');
+        imageElement.src = place.image;
+        imageElement.alt = place.name;
+        imageElement.className = 'w-16 object-cover rounded-tl-md rounded-bl-md';
+        
+        const infoElement = document.createElement('div');
+        infoElement.className = 'p-2 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
+        infoElement.innerHTML = `
+            <h3 class="font-medium">${place.name}</h3>
+            <p class="text-sm text-gray-600">${place.text}</p>
+            <p class="text-sm">Rating: ${place.rating} ${place.location ? `- ${place.location}` : ''}</p>
+        `;
+        
+        placeElement.appendChild(imageElement);
+        placeElement.appendChild(infoElement);
+        container.appendChild(placeElement);
+    });
+}
+
+// Function to populate recent searches
+function populateRecentSearches() {
+    const recentSearches = [
+        { search: "Coffee shops in New York", emoji: "☕" },
+        { search: "Best pizza in Chicago", emoji: "🍕" },
+        { search: "Hiking trails near Seattle", emoji: "🥾" },
+        { search: "Museums in London", emoji: "🏛️" },
+        { search: "Beach bars in Miami", emoji: "🍹" },
+    ];
+
+    const container = document.getElementById('recentSearches');
+    recentSearches.forEach(search => {
+        const searchElement = document.createElement('li');
+        searchElement.className = 'mb-2 bg-white rounded-md p-2 transition-transform duration-300 ease-in-out hover:scale-105 border border-gray-200 flex items-center';
+        searchElement.innerHTML = `<span class="mr-2">${search.emoji}</span>${search.search}`;
+        searchElement.style.listStyleType = 'none';
+        container.appendChild(searchElement);
+    });
+}
+
+// Call these functions when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    populateRecentDiscoveries();
+    populateRecentSearches();
+    adjustSearchBoxHeight(); // Initial call to set correct height
+});
+
+// Add this function to adjust the search box height
+function adjustSearchBoxHeight() {
+    const searchBox = document.getElementById('seachBox');
+    const resultsList = document.getElementById('resultsList');
+    
+    if (!resultsList.classList.contains('hidden')) {
+        // If results are shown, remove the min-height
+        searchBox.style.minHeight = 'auto';
+    } else {
+        // If results are hidden, set back to 80vh
+        searchBox.style.minHeight = '80vh';
+    }
+}
+
+// Modify the sendQuery function (if it's in this file, otherwise add it)
+function sendQuery() {
+    // ... existing query sending logic ...
+    
+    // After sending the query and showing results:
+    adjustSearchBoxHeight();
+}

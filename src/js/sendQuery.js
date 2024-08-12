@@ -87,35 +87,8 @@ function sendQuery() {
         const totalElement = document.getElementById('total');
         totalElement.textContent = totalPlaces;
         totalClaim.classList.add('hidden');
-
         if (data.places && data.places.length) {
-            data.places.slice(0, 5).forEach((result, index) => {
-                const resultItem = document.createElement('a');
-                resultItem.className = 'result-item';
-                resultItem.href = result.googleMapsUri;
-                resultItem.target = "_blank";
-                resultItem.innerHTML = `
-                <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
-                    <div class="flex items-center space-x-3">
-                        <span class="place-name">${result.displayName.text}</span>
-                        ${result.opening_hours && result.opening_hours.open_now ?
-                        '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        ${result.distance ? `
-                            <span class="distance flex items-center">
-                                <img src="/img/icons/location.svg" alt="Location" class="w-4 h-4 mr-1">
-                                ${result.distance.distance.toFixed(1)} km
-                            </span>` : ''}
-                        <span class="rating flex items-center">
-                            <img src="/img/icons/star.svg" alt="Star" class="w-4 h-4 mr-1">
-                            ${result.rating}
-                        </span>
-                    </div>
-                </div>
-                `;
-                resultsContainer.appendChild(resultItem);
-            });
+            renderResults(data.places, 0, resultsContainer);
 
             if (totalPlaces > 5) {
                 const loadMoreButton = document.createElement('button');
@@ -127,20 +100,7 @@ function sendQuery() {
             }
 
             // Add feedback buttons
-            const feedbackContainer = document.createElement('div');
-            feedbackContainer.id = 'feedbackContainer';
-            feedbackContainer.className = 'mt-2 flex justify-center space-x-4';
-            feedbackContainer.innerHTML = `
-               <button id="goodFeedback" class="px-6 py-5 bg-black/10 w-full text-black rounded hover:bg-green-500 hover:text-white transition duration-300">😎 Good results!</button>
-                <button onclick="openFeedbackPopup()" id="badFeedback" class="px-6 py-5 bg-black/10 w-full text-black rounded hover:bg-red-500 hover:text-white transition duration-300">💔 Bad results!</button>
-            `;
-            resultsContainer.appendChild(feedbackContainer);
-
-            // Add click event listeners for feedback buttons
-            document.getElementById('goodFeedback').addEventListener('click', () => submitFeedback(1));
-            document.getElementById('badFeedback').addEventListener('click', () => submitFeedback(-1));
-
-
+            addFeedbackButtons(resultsContainer);
 
             if (totalPlaces === 1) {
                 button.innerHTML = 'Try again? 🤔';
@@ -188,25 +148,20 @@ function sendQuery() {
     });
 }
 
-function loadMoreResults(allPlaces) {
-    
-    const resultsContainer = document.getElementById('results');
-    const currentResultCount = resultsContainer.childElementCount - 2; // Subtract 2 to account for the "Load more" button and feedback container
-    const nextBatch = allPlaces.slice(currentResultCount, currentResultCount + 5);
-
-    nextBatch.forEach(result => {
+function renderResults(places, startIndex, container) {
+    places.slice(startIndex, startIndex + 5).forEach(result => {
         const resultItem = document.createElement('a');
         resultItem.className = 'result-item';
         resultItem.href = result.googleMapsUri;
         resultItem.target = "_blank";
         resultItem.innerHTML = `
-        <div class="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
-            <div class="flex items-center space-x-3">
-                <span class="place-name">${result.displayName.text}</span>
+        <div class="top-row hover:bg-neutral-950 flex flex-col sm:flex-row justify-between p-5 rounded-md bg-neutral-800 text-white text-lg">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3 mb-2 sm:mb-0">
+                <span class="place-name truncate max-w-[200px] sm:max-w-[300px]">${result.displayName.text}</span>
                 ${result.opening_hours && result.opening_hours.open_now ?
                 '<span class="relative grid select-none items-center whitespace-nowrap rounded-lg bg-neutral-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">Open Now</span>' : ''}
             </div>
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 whitespace-nowrap">
                 ${result.distance ? `
                     <span class="distance flex items-center">
                         <img src="/img/icons/location.svg" alt="Location" class="w-4 h-4 mr-1">
@@ -219,12 +174,49 @@ function loadMoreResults(allPlaces) {
             </div>
         </div>
         `;
-        resultsContainer.insertBefore(resultItem, document.getElementById('loadMoreButton'));
+        container.appendChild(resultItem);
     });
+}
 
-    if (currentResultCount + 5 >= allPlaces.length) {
-        document.getElementById('loadMoreButton').remove();
+function loadMoreResults(allPlaces) {
+    const resultsContainer = document.getElementById('results');
+    const currentResultCount = resultsContainer.childElementCount - 2; // Subtract 2 to account for the "Load more" button and feedback container
+    
+    // Remove existing feedback buttons and "Load more" button
+    const feedbackContainer = document.getElementById('feedbackContainer');
+    if (feedbackContainer) feedbackContainer.remove();
+    const loadMoreButton = document.getElementById('loadMoreButton');
+    if (loadMoreButton) loadMoreButton.remove();
+
+    renderResults(allPlaces, currentResultCount, resultsContainer);
+
+    if (currentResultCount + 5 < allPlaces.length) {
+        // Re-add "Load more" button if there are more results
+        const newLoadMoreButton = document.createElement('button');
+        newLoadMoreButton.id = 'loadMoreButton';
+        newLoadMoreButton.className = 'rounded-md w-full bg-[#EEB053] px-6 py-5 hover:bg-black/20';
+        newLoadMoreButton.textContent = 'Load 5 more results';
+        newLoadMoreButton.onclick = () => loadMoreResults(allPlaces);
+        resultsContainer.appendChild(newLoadMoreButton);
     }
+
+    // Re-add feedback buttons at the bottom
+    addFeedbackButtons(resultsContainer);
+}
+
+function addFeedbackButtons(container) {
+    const feedbackContainer = document.createElement('div');
+    feedbackContainer.id = 'feedbackContainer';
+    feedbackContainer.className = 'mt-2 flex justify-center space-x-4';
+    feedbackContainer.innerHTML = `
+        <button id="goodFeedback" class="px-6 py-5 bg-black/10 w-full text-black rounded hover:bg-green-500 hover:text-white transition duration-300">😎 Good results!</button>
+        <button onclick="openFeedbackPopup()" id="badFeedback" class="px-6 py-5 bg-black/10 w-full text-black rounded hover:bg-red-500 hover:text-white transition duration-300">💔 Bad results!</button>
+    `;
+    container.appendChild(feedbackContainer);
+
+    // Add click event listeners for feedback buttons
+    document.getElementById('goodFeedback').addEventListener('click', () => submitFeedback(1));
+    document.getElementById('badFeedback').addEventListener('click', () => submitFeedback(-1));
 }
 
 function submitFeedback(rating) {

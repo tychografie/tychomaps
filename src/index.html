@@ -16,15 +16,9 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-        #seachBox {
-            transition: transform 0.1s ease;
-        }
-    </style>
-
 </head>
 
-<body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-center items-center min-h-screen">
+<body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-between items-center min-h-screen">
     <header class="w-full flex z-10 justify-between items-center px-6 py-6">
         <a href="./">
             <img src="/img/polo-maps.svg" id="logoImage" alt="Logo" class="text-red-500 logo max-h-6 md:max-h-8">
@@ -38,8 +32,9 @@
         <button class="bg-[#EEB053] text-black rounded-md px-4 py-2 ml-4" onclick="openPremiumModal()">Get Premium</button>
     </header>
 
-    <div class="flex flex-col justify-center items-center w-full space-y-4" style="flex: 1;">
-        <div id="seachBox" class="flex flex-col justify-center items-center w-full">
+
+    <div class="flex flex-col justify-center items-center w-full space-y-4 px-4 sm:px-0 flex-grow">
+        <div id="seachBox" class="flex flex-col justify-center items-center w-full min-h-[80vh] transition-transform duration-100 ease-in">
             <div class="rounded-md shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] p-4 md:p-6">
                 <div class="flex flex-col md:flex-row">
                     <div class="bg-black/5 rounded-md relative min-h-44 md:mb-0 md:order-2 md:w-2/5 mb-4 md:max-h-full md:min-h-full md:mt-0 md:ml-10">
@@ -78,14 +73,15 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div id="totalClaim" class="flex flex-col items-center">
-            <div class="flex items-center gap-2">
-                <span class="text-sm">🧢 We helped <span id="totalUsers"></span> people find <span id="totalPlaces"></span> local places</span>
+            
+            <!-- Move the totalClaim inside the searchBox -->
+            <div id="totalClaim" class="flex flex-col items-center mt-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-sm">🧢 We helped <span id="totalUsers"></span> people find <span id="totalPlaces"></span> local places</span>
+                </div>
             </div>
         </div>
-        
+
         <div id="resultsList" class="hidden flex flex-col justify-center items-center w-full">
             <div class="shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] rounded-md p-4 md:p-6">
                 
@@ -99,8 +95,29 @@
         </div>
     </div>
 
-    <div id="premiumModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        <div class="bg-white rounded-md p-8 w-full max-w-md m-5 relative">
+
+    <div class="flex flex-col md:flex-row justify-center items-start w-full max-w-6xl mt-8 px-4 gap-8">
+        <!-- Recent Discoveries -->
+        <div class="w-full md:w-1/2">
+            <h2 class="text-2xl font-medium mb-4">Recent Discoveries</h2>
+            <div id="recentDiscoveries" class="space-y-4">
+                <!-- Placeholder for 5 recent discoveries -->
+                <!-- This will be populated dynamically with JavaScript -->
+            </div>
+        </div>
+
+        <!-- Recent Searches -->
+        <div class="w-full md:w-1/2">
+            <h2 class="text-2xl font-medium mb-4">Recent Searches</h2>
+            <ul id="recentSearches" class="list-disc list-inside">
+                <!-- Placeholder for 20 recent searches -->
+                <!-- This will be populated dynamically with JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <div id="premiumModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+        <div class="bg-white rounded-md p-4 sm:p-8 w-full max-w-sm sm:max-w-md max-h-[90vh] overflow-y-auto relative">
             <button class="absolute top-2 right-2 text-gray-500 hover:opacity-80" onclick="closePremiumModal()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -113,7 +130,7 @@
                 <p class="mt-4">Truly change how you experience cities</p>
                 <div class="bg-[#FAEDD1] p-8 mt-4 rounded-md">
                     <p class="text-lg font-bold">Up to 5000 searches per month</p>
-                    <p>We did the math for you, that’s an average of 160 per day, happy exploring!</p>
+                    <p>We did the math for you, that's an average of 160 per day, happy exploring!</p>
                 </div>
                 <div class="mt-4 space-y-4">
                     <div class="bg-[#FAEDD1] p-4 rounded-md flex items-center">
@@ -151,6 +168,5 @@
     <script src="js/homeScripts.js"></script>
     <script src="js/sendQuery.js"></script>
 
-    
 </body>
 </html>
