@@ -248,7 +248,7 @@ function closePremiumModal() {
 
 function startFreeWeek() {
     // Add your logic for starting a free week here
-    alert('🪩 Haaaaa this doesnt work. But thanks for trying. Love, Tycho.');
+    alert('🪩 Were still in demo mode, pro-mode (sorting, see all & unlimited search) unlocked. ❤️');
 }
 
 function openPremiumModal() {

@@ -289,7 +289,8 @@ async function getRecentSearches() {
         const resultsCollection = database.collection('search_results');
 
         const recentSearches = await resultsCollection.find({
-            "data.0.resultCount": { $gte: 5 }  // Only include searches with 5 or more results
+            "data.0.resultCount": { $gte: 5 },  // Only include searches with 5 or more results
+            "data.0.modeisLatLong": false  // Only include searches where modeisLatLong is false
         })
             .sort({ "data.0.timestamp": -1 })
             .limit(30)  // Increased limit to ensure we have enough unique results
