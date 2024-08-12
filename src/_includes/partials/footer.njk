@@ -1,0 +1,42 @@
+<div class="footer mt-20 w-full bg-black/5 p-4 text-center text-sm text-gray-500">
+   <button onclick="openFeedbackPopup()">💌 Feedback? Tell me in a minute!</button>
+    </div>
+        <div id="feedbackPopup" class="hidden fixed top-0 left-0 w-full h-screen bg-black/50 flex justify-center items-center">
+        <div class="bg-white rounded-md p-8 w-full m-5 md:w-1/3">
+            <button class="top-2 right-2 text-gray-500 hover:opacity-80" onclick="closeFeedbackPopup()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h2 class="text-2xl font-medium text-center">Leave Feedback</h2>
+            <form action="https://submit-form.com/Cc2XdCBFh"><textarea id="feedbackText" name="feedback" class="w-full h-32 mt-4 p-2 border border-gray-300 rounded-md" placeholder="Enter your feedback here"></textarea>
+            <button type="submit" class="text-lg rounded-md mt-2 w-full bg-black/10 px-6 py-5 hover:bg-black/20" onclick="submitFeedback()">Submit</button></form>
+        </div></div>
+    
+    <footer class="w-full bg-gray-900 text-white py-12 px-4">
+
+
+
+    </div>
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start">
+            <div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+                <img src="/img/polo-maps.svg" alt="Polomaps Logo" class="w-32 mb-4 filter brightness-0 invert">
+                <div class="flex flex-col space-y-2 mb-2 text-center md:text-left">
+                    <a href="/privacy-policy" class="text-sm hover:underline">Privacy Policy</a>
+                    <a href="mailto:tycho@polomaps.com" class="text-sm hover:underline">Contact Us</a>
+                </div>
+            </div>
+            <div class="flex flex-col items-center md:items-end">
+                <div class="flex space-x-4 mb-4">
+                    <a href="https://www.instagram.com/polomaps" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/icons/instagram.svg" alt="Instagram" class="w-6 h-6 invert">
+                    </a>
+                    <a href="https://www.tiktok.com/@polomaps" target="_blank" rel="noopener noreferrer">
+                        <img src="/img/icons/tiktok.svg" alt="TikTok" class="w-6 h-6 invert">
+                    </a>
+                </div>
+                <p class="text-sm text-center md:text-right">&copy; 2023 Polomaps. All rights reserved.</p>
+                <p class="text-sm italic text-white handwritten opacity-0 transition-opacity duration-1000 mt-2" id="handwrittenMessage">Love from your Tourguide, Tycho!</p>
+            </div>
+        </div>
+    </footer>

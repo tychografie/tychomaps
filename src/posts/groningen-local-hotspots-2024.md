@@ -14,7 +14,7 @@ bars:
   - name: Cilinder
     rating: 4.8
   - name: Bramble
-    rating: 4.8
+    rating: 4.9
   - name: Literary Café De Graanrepubliek
     rating: 4.8
   - name: The Stockroom

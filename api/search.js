@@ -193,7 +193,7 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     if (typeof mapsQuery !== 'string') {
         console.error('mapsQuery is not a string:', mapsQuery);
         throw new Error('Invalid mapsQuery: mapsQuery should be a string');
-    }
+    } 
 
     const minRating = mapsQuery.toLowerCase().includes("club") ? 4.0 : 4.5;
     const requestPayload = { textQuery: mapsQuery, minRating };

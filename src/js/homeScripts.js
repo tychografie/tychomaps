@@ -248,7 +248,7 @@ function closePremiumModal() {
 
 function startFreeWeek() {
     // Add your logic for starting a free week here
-    alert('🪩 Were still in demo mode, pro-mode (sorting, see all & unlimited search) unlocked. ❤️');
+    alert('🪩 Haaaaa this doesnt work. But thanks for trying. Love, Tycho.');
 }
 
 function openPremiumModal() {
@@ -349,7 +349,7 @@ function adjustSearchBoxHeight() {
         searchBox.style.minHeight = 'auto';
     } else {
         // If results are hidden, set back to 80vh
-        searchBox.style.minHeight = '80vh';
+        searchBox.style.minHeight = '70vh';
     }
 }
 
@@ -360,3 +360,45 @@ function sendQuery() {
     // After sending the query and showing results:
     adjustSearchBoxHeight();
 }
+
+// Add this function at the end of the file
+function addPremiumButtonAnimation() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        #premiumButton .shine-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.4) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shine 3s infinite;
+        }
+    `;
+    document.head.appendChild(style);
+
+    const premiumButton = document.getElementById('premiumButton');
+    const shineEffect = document.createElement('div');
+    shineEffect.className = 'shine-effect';
+    premiumButton.appendChild(shineEffect);
+}
+
+// Call this function when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing code ...
+    addPremiumButtonAnimation();
+});
