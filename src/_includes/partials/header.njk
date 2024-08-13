@@ -42,8 +42,8 @@
         </nav>
     </div>
     <div class="flex items-center">
-        <button class="border border-gray-700 text-gray-700 rounded-md px-3 py-2 mr-2 md:mr-4 hover:bg-gray-700 hover:text-white transition-colors">
-            <span class="hidden md:inline">Login</span>
+        <button id="loginButton" class="border border-gray-700 text-gray-700 rounded-md px-3 py-2 mr-2 md:mr-4 hover:bg-gray-700 hover:text-white transition-colors" onclick="window.location.href='/sign-in'">
+            <span class="hidden md:inline" id="loginText">Login</span>
             <img src="/img/icons/account.svg" alt="Login" class="md:hidden w-5 h-5">
         </button>
         <button class="bg-[#EEB053] text-black rounded-md px-3 py-2 hover:bg-[#D99F3F] transition-colors" onclick="openPremiumModal()">
@@ -71,3 +71,29 @@
         }
     });
 </script>
+
+<script>
+    window.addEventListener('load', async function () {
+        if (window.Clerk) {
+            await Clerk.load();
+            const loginButton = document.getElementById('loginButton');
+            const loginText = document.getElementById('loginText');
+
+            if (Clerk.user) {
+                loginText.textContent = Clerk.user.firstName || 'Account';
+                loginButton.onclick = () => Clerk.openUserProfile();
+            } else {
+                loginText.textContent = 'Login';
+                loginButton.onclick = () => window.location.href = '/sign-in';
+            }
+        }
+    });
+</script>
+
+    <script
+      async
+      crossorigin="anonymous"
+      data-clerk-publishable-key="pk_test_bWVycnktY293LTQ1LmNsZXJrLmFjY291bnRzLmRldiQ"
+      src="https://merry-cow-45.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+      type="text/javascript"
+    ></script>

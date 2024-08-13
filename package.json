@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@clerk/clerk-js": "^5.14.1",
     "@upstash/ratelimit": "^1.1.3",
     "@vercel/kv": "^2.0.0",
     "axios": "^1.6.8",

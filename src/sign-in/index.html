@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<style>
+    .cl-formButtonPrimary {
+        background-color: #EEB053 !important;
+        color: #000000 !important;
+        border-radius: 0.375rem !important; /* rounded-md */
+        padding: 0.75rem 1.5rem !important;
+        font-weight: 500 !important;
+        transition: background-color 0.3s ease !important;
+        border: none !important;
+        box-shadow: none !important;
+        font-size: 1rem !important;
+    }
+
+    .cl-formButtonPrimary:hover {
+        background-color: #D99F3F !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .cl-formButtonPrimary:active {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    .cl-internal-b3fm6y {
+        display: none !important;
+    }
+</style>
+
+{% include 'partials/header.njk' %}
+
+<body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-between items-center min-h-screen">
+
+    <div class="flex flex-col justify-center items-center w-full space-y-4 px-4 sm:px-0 flex-grow">
+        <div id="app"></div>
+    </div>
+    {% include 'partials/footer.njk' %}
+
+
+    <script>
+      window.addEventListener('load', async function () {
+        await Clerk.load()
+
+        if (Clerk.user) {
+          document.getElementById('app').innerHTML = `
+            <div id="user-button"></div>
+          `
+
+          const userButtonDiv = document.getElementById('user-button')
+
+          Clerk.mountUserButton(userButtonDiv)
+        } else {
+          // The sign-in form is already in the HTML, so we don't need to do anything here
+        }
+      })
+    </script>
+
+</body>
+</html>
+
+
+<script>
+  window.addEventListener('load', async function () {
+    await Clerk.load()
+
+    if (Clerk.user) {
+      document.getElementById('app').innerHTML = `
+        <div id="user-button"></div>
+      `
+
+      const userButtonDiv = document.getElementById('user-button')
+
+      Clerk.mountUserButton(userButtonDiv)
+    } else {
+      document.getElementById('app').innerHTML = `
+        <div id="sign-in"></div>
+      `
+
+      const signInDiv = document.getElementById('sign-in')
+
+      Clerk.mountSignIn(signInDiv)
+    }
+  })
+</script>
