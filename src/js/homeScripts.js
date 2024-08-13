@@ -141,20 +141,20 @@ function formatImageName(filename) {
 let placeholders = [];
 let inputElement = document.getElementById('query');
 let intervalId;
-let animationDisabled = false; // New flag to disable animation
+let animationDisabled = false;
 
 function loadPlaceholders() {
     fetch('/js/placeholderTexts.txt')
         .then(response => response.text())
         .then(text => {
-            placeholders = text.split('\n').filter(Boolean);  // Ensure no empty strings
+            placeholders = text.split('\n').filter(Boolean);
             rotatePlaceholder();
         });
 }
 
 function rotatePlaceholder() {
     if (placeholders.length > 0) {
-        const randomIndex = Math.floor(Math.random() * placeholders.length); // Randomly select index
+        const randomIndex = Math.floor(Math.random() * placeholders.length);
         inputElement.placeholder = placeholders[randomIndex];
         intervalId = setTimeout(rotatePlaceholder, 3000); // Rotate every 3 seconds
     }
@@ -193,12 +193,12 @@ observer.observe(document.getElementById('resultsList'), {
 });
 
 function handleMouseMove(event) {
-    if (resultsLoaded || searchBarFocused || animationDisabled) return;
+    if (resultsLoaded || searchBarFocused || animationDisabled || window.innerWidth <= 768) return;
 
     const searchBox = document.getElementById('seachBox');
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
-    const maxRotation = 8; // Reduced max rotation by 20%
+    const maxRotation = 8;
 
     const x = (event.clientX - centerX) / centerX * maxRotation;
     const y = (event.clientY - centerY) / centerY * maxRotation;
@@ -229,26 +229,13 @@ searchBar.addEventListener('blur', () => {
     searchBarFocused = false;
 });
 
-if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', (event) => {
-        if (resultsLoaded || searchBarFocused || animationDisabled) return;
-
-        const searchBox = document.getElementById('seachBox');
-        const maxRotation = 8; // Reduced max rotation by 20%
-        const x = event.gamma / 90 * maxRotation; // gamma goes from -90 to 90
-        const y = event.beta / 180 * maxRotation; // beta goes from -180 to 180
-
-        searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
-    }, true);
-}
-
 function closePremiumModal() {
     document.getElementById('premiumModal').classList.add('hidden');
 }
 
 function startFreeWeek() {
     // Add your logic for starting a free week here
-    alert('🪩 Were still in demo mode, pro-mode (sorting, see all & unlimited search) unlocked. ❤️');
+    alert('🪩 Hey its Tycho! Owwww premium mode is a todo! send me your feedback on the premium offering at tycho@polomaps.com and you will get a year premium when we launch. Thanks!!!! 🔥');
 }
 
 function openPremiumModal() {
@@ -314,7 +301,7 @@ async function populateRecentSearches() {
             const searchElement = document.createElement('li');
             searchElement.className = 'mb-2 bg-white rounded-md p-4 transition-transform duration-300 ease-in-out hover:scale-[1.02] border border-gray-200 flex items-center cursor-pointer';
             searchElement.innerHTML = `
-                <span class="mr-2">${search.aiEmoji || '🔍'}</span>
+                <span class="mr-2">${search.aiEmoji || '���'}</span>
                 <span class="flex-grow">${capitalizeWords(search.originalQuery)}</span>
                 <span class="text-xs text-gray-500">${search.aiType}</span>
             `;
@@ -416,3 +403,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // ... existing code ...
     addPremiumButtonAnimation();
 });
+
+function checkMobileAndDisableAnimation() {
+    if (window.innerWidth <= 768) {
+        animationDisabled = true;
+        resetTransform();
+    } else {
+        animationDisabled = false;
+    }
+}
+
+window.addEventListener('resize', checkMobileAndDisableAnimation);
+document.addEventListener('DOMContentLoaded', checkMobileAndDisableAnimation);

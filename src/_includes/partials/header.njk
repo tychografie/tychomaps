@@ -15,6 +15,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
+{% include 'partials/premium.njk' %}
+
 <header class="w-full flex z-10 justify-between items-center px-6 py-6">
     <div class="flex items-center">
         <a href="/">
@@ -22,14 +24,14 @@
         </a>
         <nav>
             <ul class="flex space-x-4 text-gray-700">
-               <li class="hidden md:block relative group">
-                    <a href="#" class="flex items-center hover:text-gray-900">
+               <li class="hidden md:block relative">
+                    <a href="#" class="flex items-center hover:text-gray-900 city-guides-toggle" id="cityGuidesToggle">
                         City Guides
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </a>
-                    <ul class="absolute hidden group-hover:block bg-white shadow-md py-2 rounded-md w-max mt-2">
+                    <ul class="absolute hidden bg-white shadow-md py-2 rounded-md w-max mt-2" id="cityGuidesDropdown">
                         <li><a href="https://polomaps.com/posts/bologna-local-tips-2024" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">Bologna</a></li>
                         <li><a href="https://polomaps.com/posts/groningen-local-hotspots-2024" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">Groningen</a></li>
                         <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">More soon...</a></li>
@@ -50,3 +52,22 @@
         </button>
     </div>
 </header>
+
+<script>
+    const cityGuidesToggle = document.getElementById('cityGuidesToggle');
+    const cityGuidesDropdown = document.getElementById('cityGuidesDropdown');
+    let isOpen = false;
+
+    cityGuidesToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        isOpen = !isOpen;
+        cityGuidesDropdown.classList.toggle('hidden', !isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!cityGuidesToggle.contains(e.target) && !cityGuidesDropdown.contains(e.target)) {
+            isOpen = false;
+            cityGuidesDropdown.classList.add('hidden');
+        }
+    });
+</script>

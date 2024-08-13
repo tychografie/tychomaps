@@ -71,7 +71,7 @@
     <div class="flex flex-col md:flex-row justify-center items-start w-full max-w-6xl mt-8 px-4 gap-8">
         <!-- Recent Discoveries -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl font-medium mb-4 font-family-pixelpro">Recent Discoveries</h2>
+            <h2 class="text-3xl  font-medium mb-4 font-family-pixelpro">Recent Discoveries</h2>
             <div id="recentDiscoveries" class="space-y-4">
                 <!-- Placeholder for 5 recent discoveries -->
                 <!-- This will be populated dynamically with JavaScript -->
@@ -80,54 +80,31 @@
 
         <!-- Recent Searches -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl font-medium mb-4 font-family-pixelpro">Recent Searches</h2>
+            <h2 class="text-3xl font-medium mb-4 font-family-pixelpro">Recent Searches</h2>
             <ul id="recentSearches" class="list-disc list-inside">
                 <!-- Placeholder for 20 recent searches -->
                 <!-- This will be populated dynamically with JavaScript -->
             </ul>
         </div>
+        
     </div>
 
-    <div id="premiumModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
-        <div class="bg-white rounded-md p-6 sm:p-6 w-full max-w-md sm:max-w-lg max-h-[90vh] overflow-y-auto relative">
-            <div class="flex justify-between items-center mb-1">
-                <h2 class="text-2xl font-bold">Polomaps <span class="bg-gradient-to-r text-xl from-yellow-400 to-orange-500 text-transparent bg-clip-text">PREMIUM</span></h2>
-                <button class="bg-gray-200 rounded-full p-2 text-gray-500 hover:bg-gray-300" onclick="closePremiumModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                </button>
+    <div class="w-full max-w-6xl mx-auto px-4 mt-8">
+        <div class="flex flex-col md:flex-row md:h-60"> <!-- Set a fixed height for desktop -->
+            <div class="md:hidden w-full h-48"> <!-- Mobile image container -->
+                <img src="./img/mockuuups-cwe2keXMS43kgu3GBxU5xt.jpeg" alt="App mockup" class="object-cover w-full h-full rounded-t-md">
             </div>
-            <div>
-                <p class="text-sm line-through text-gray-500">€66,99 / YEAR</p>
-                <p class="text-2xl font-bold text-green-700">€24,95 / year</p>
-                <p class="text-sm">Impress your friends, impress yourself. Stop buying mediocre guides or doomscrolling TripAdvisor, start <b>discovering hidden gems</b>.</p>
-                <div class="bg-[#FAEDD1] p-4 mt-2 rounded-md text-center">
-                    <img src="/img/discover.png" alt="Discover" class="w-14 h-14 mx-auto mb-2">
-                    <p class="text-2xl font-bold font-family-pixelpro">(Re)discover the world</p>
-                    <p>Don't they say that life's about collecting memories?</p>
-                </div>
-                <div class="mt-2 space-y-2">
-                    <div class="bg-[#FAEDD1] p-3 rounded-md flex items-center">
-                        <p class="w-8 h-8 rounded-md flex items-center justify-center">💎</p>
-                        <p class="ml-2"><span class="font-medium">No more hidden results</span> – See up to 20 results</p>
-                    </div>
-                    <div class="bg-[#FAEDD1] p-3 rounded-md flex items-center">
-                        <p class="w-8 h-8 rounded-md flex items-center justify-center">🤑</p>
-                        <p class="ml-2"><span class="font-medium">Filter by price</span> - Find backpacker or luxury places</p>
-                    </div>
-                    <div class="bg-[#FAEDD1] p-3 rounded-md flex items-center">
-                        <p class="w-8 h-8 rounded-md flex items-center justify-center">🪩</p>
-                        <p class="ml-2"><span class="font-medium">No advertisements</span> - That one speaks for itself</p>
-                    </div>
-                </div>
-                <button id="premiumButton" class="mt-4 bg-gradient-to-r from-[#EEB053] via-[#F5C87A] to-[#EEB053] text-black text-opacity-90 rounded-md px-6 py-4 w-full relative overflow-hidden transition-transform duration-300 ease-in-out hover:scale-[1.02]" onclick="startFreeWeek()">
-    <span class="relative z-10">Start free week</span>
-</button>
-                <p class="mt-2 text-sm">First week free, then €24,95 / year</p>
+            <div class="bg-[#313E6D] md:w-full text-white p-6 md:p-8 rounded-b-md md:rounded-l-md md:rounded-r-none flex-grow flex flex-col justify-center">
+                <h2 class="text-3xl md:text-4xl mb-2 font-medium font-family-pixelpro">Become an app tester</h2>
+                <p class="text-md md:text-xl mb-4">Dear discoverees, we hear you. An iOS app is currently in testing phase.</p>
+                <a href="mailto:tycho@polomaps.com?subject=iOS%20tester&body=My%20apple%20ID%20is%3A" class="inline-block bg-[#EEB053] text-fuchsia-950 px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-opacity-90 transition-colors w-fit text-sm md:text-base">Join Testflight</a>
+            </div>
+            <div class="hidden md:block md:w-full h-64 md:h-full"> <!-- Desktop image container -->
+                <img src="./img/mockuuups-cwe2keXMS43kgu3GBxU5xt.jpeg" alt="App mockup" class="object-cover w-full h-full rounded-r-md">
             </div>
         </div>
     </div>
+
 
     {% include 'partials/footer.njk' %}
 
