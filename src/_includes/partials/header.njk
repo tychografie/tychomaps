@@ -9,21 +9,56 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polomaps | Discover Local Places</title>
+    <title>Polomaps | Search</title>
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <header class="w-full flex z-10 justify-between items-center px-6 py-6">
-    <a href="/">
-        <img src="/img/polo-maps.svg" id="logoImage" alt="Logo" class="text-red-500 logo max-h-6 md:max-h-8">
-    </a>
-    <nav>
-        <ul class="flex space-x-4">
-            <li class="hidden md:block"><a href="./">Discover</a></li>
-            <li class="hidden md:block"><a href="/tips-and-tricks">Tips & Tricks</a></li>
-        </ul>
-    </nav>
-    <button class="bg-[#EEB053] text-black rounded-md px-4 py-2 ml-4" onclick="openPremiumModal()">Get Premium</button>
+    <div class="flex items-center">
+        <a href="/">
+            <img src="/img/polo-maps.svg" id="logoImage" alt="Logo" class="text-red-500 logo max-h-6 md:max-h-8 mr-4">
+        </a>
+        <nav>
+            <ul class="flex space-x-4 text-gray-700">
+               <li class="hidden md:block relative group">
+                    <a href="#" class="flex items-center hover:text-gray-900">
+                        City Guides
+                        <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <ul class="absolute hidden group-hover:block bg-white shadow-md py-2 rounded-md w-max">
+                        <li><a href="https://polomaps.com/posts/bologna-local-tips-2024" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">Bologna</a></li>
+                        <li><a href="https://polomaps.com/posts/groningen-local-hotspots-2024" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">Groningen</a></li>
+                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">More soon...</a></li>
+                    </ul>
+                </li>
+                <li class="hidden md:block"><a href="/tips-and-tricks" class="hover:text-gray-900">Tips & Tricks</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="flex items-center">
+        <button class="border border-gray-700 text-gray-700 rounded-md px-4 py-2 mr-4 hover:bg-gray-700 hover:text-white transition-colors">Login</button>
+        <button class="bg-[#EEB053] text-black rounded-md px-4 py-2 hover:bg-[#D99F3F] transition-colors" onclick="openPremiumModal()">Get Premium</button>
+    </div>
 </header>
+
+<style>
+    .group:hover .absolute {
+        display: block;
+    }
+    .absolute {
+        display: none;
+    }
+    .group:hover .absolute::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        height: 10px;
+        background: transparent;
+    }
+</style>

@@ -270,7 +270,7 @@ function populateRecentDiscoveries() {
         const placeElement = document.createElement('a');
         placeElement.href = place.mapsLink;
         placeElement.target = "_blank";
-        placeElement.className = 'flex items-stretch bg-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-105';
+        placeElement.className = 'flex items-stretch bg-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02]';
         
         const imageElement = document.createElement('img');
         imageElement.src = place.image;
@@ -312,7 +312,7 @@ async function populateRecentSearches() {
         recentSearches.forEach(search => {
             console.log("Processing search:", search);
             const searchElement = document.createElement('li');
-            searchElement.className = 'mb-2 bg-white rounded-md p-4 transition-transform duration-300 ease-in-out hover:scale-105 border border-gray-200 flex items-center cursor-pointer';
+            searchElement.className = 'mb-2 bg-white rounded-md p-4 transition-transform duration-300 ease-in-out hover:scale-[1.02] border border-gray-200 flex items-center cursor-pointer';
             searchElement.innerHTML = `
                 <span class="mr-2">${search.aiEmoji || '🔍'}</span>
                 <span class="flex-grow">${capitalizeWords(search.originalQuery)}</span>
@@ -343,15 +343,29 @@ document.addEventListener('DOMContentLoaded', () => {
 function adjustSearchBoxHeight() {
     const searchBox = document.getElementById('seachBox');
     const resultsList = document.getElementById('resultsList');
-    
+    const windowHeight = window.innerHeight;
+    const windowWidth = window.innerWidth;
+
     if (!resultsList.classList.contains('hidden')) {
         // If results are shown, remove the min-height
         searchBox.style.minHeight = 'auto';
     } else {
-        // If results are hidden, set back to 80vh
-        searchBox.style.minHeight = '70vh';
+        // Adjust height based on screen size
+        if (windowWidth > 1920 && windowHeight > 1080) {
+            // For very large screens
+            searchBox.style.minHeight = '50vh';
+        } else if (windowWidth > 1440 && windowHeight > 900) {
+            // For large screens
+            searchBox.style.minHeight = '60vh';
+        } else {
+            // For normal and smaller screens
+            searchBox.style.minHeight = '70vh';
+        }
     }
 }
+
+// Call this function on window resize
+window.addEventListener('resize', adjustSearchBoxHeight);
 
 // Modify the sendQuery function (if it's in this file, otherwise add it)
 function sendQuery() {
