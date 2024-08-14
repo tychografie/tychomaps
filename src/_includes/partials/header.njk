@@ -13,6 +13,10 @@
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Metal&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 
 {% include 'partials/premium.njk' %}
@@ -46,7 +50,7 @@
             <span class="hidden md:inline" id="loginText">Login</span>
             <img src="/img/icons/account.svg" alt="Login" class="md:hidden w-5 h-5">
         </button>
-        <button class="bg-[#EEB053] text-black rounded-md px-3 py-2 hover:bg-[#D99F3F] transition-colors" onclick="openPremiumModal()">
+        <button id="premiumModalButton" class="bg-[#EEB053] text-black rounded-md px-3 py-2 hover:bg-[#D99F3F] transition-colors" onclick="openPremiumModal()">
             <span class="hidden md:inline">Get Premium</span>
             <span class="md:hidden">Premium</span>
         </button>
@@ -78,10 +82,16 @@
             await Clerk.load();
             const loginButton = document.getElementById('loginButton');
             const loginText = document.getElementById('loginText');
+            const premiumButton = document.getElementById('premiumModalButton');
 
             if (Clerk.user) {
                 loginText.textContent = Clerk.user.firstName || 'Account';
                 loginButton.onclick = () => Clerk.openUserProfile();
+
+                const { premium } = Clerk.user.publicMetadata;
+                if (premium) {
+                    premiumButton.style.display = 'none';
+                }
             } else {
                 loginText.textContent = 'Login';
                 loginButton.onclick = () => window.location.href = '/sign-in';

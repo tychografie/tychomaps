@@ -233,10 +233,31 @@ function closePremiumModal() {
     document.getElementById('premiumModal').classList.add('hidden');
 }
 
-function startFreeWeek() {
-    // Add your logic for starting a free week here
-    alert('🪩 Hey its Tycho! Owwww premium mode is a todo! send me your feedback on the premium offering at tycho@polomaps.com and you will get a year premium when we launch. Thanks!!!! 🔥');
-}
+async function startPremium() {
+    try {
+      const user = await Clerk.user;
+      if (!user) {
+        alert('Please sign in to upgrade to premium.');
+        return;
+      }
+      const response = await fetch('/api/set-premium', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
+  
+      if (response.ok) {
+        alert('Congratulations! You are now a premium user for one year!');
+      } else {
+        throw new Error('Failed to upgrade to premium');
+      }
+    } catch (error) {
+      console.error('Error upgrading to premium:', error);
+      alert('An error occurred while upgrading to premium. Please try again later.');
+    }
+  }
 
 function openPremiumModal() {
     document.getElementById('premiumModal').classList.remove('hidden');
@@ -278,6 +299,8 @@ function populateRecentDiscoveries() {
     });
 }
 
+
+
 // Function to capitalize every word in a string
 function capitalizeWords(str) {
     return str.replace(/\b\w/g, l => l.toUpperCase());
@@ -301,7 +324,7 @@ async function populateRecentSearches() {
             const searchElement = document.createElement('li');
             searchElement.className = 'mb-2 bg-white rounded-md p-4 transition-transform duration-300 ease-in-out hover:scale-[1.02] border border-gray-200 flex items-center cursor-pointer';
             searchElement.innerHTML = `
-                <span class="mr-2">${search.aiEmoji || '���'}</span>
+                <span class="mr-2">${search.aiEmoji || ''}</span>
                 <span class="flex-grow">${capitalizeWords(search.originalQuery)}</span>
                 <span class="text-xs text-gray-500">${search.aiType}</span>
             `;
