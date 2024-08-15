@@ -39,7 +39,7 @@ function sendQuery() {
     const latitude = document.getElementById('query').dataset.latitude || null;
     const longitude = document.getElementById('query').dataset.longitude || null;
     const country = document.getElementById('query').dataset.country || null;
-    const radius = document.getElementById('locationDistance').value || '500'; // Default to 500m if not set
+    const radius = latitude && longitude ? document.getElementById('locationDistance').value || '500' : null;
 
     if (query.length < 3) {
         button.innerHTML = "Can't search for nothin' 🙌";

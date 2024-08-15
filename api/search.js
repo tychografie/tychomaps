@@ -271,7 +271,7 @@ const processor = async (mapsResponse, aiQuery, hasLocationInfo, isLatLongMode) 
         name: place.displayName?.text || 'Unknown',
         rating: place.rating || 0,
         userRatingCount: place.userRatingCount || 0,
-        distance: place.distance?.distance || Infinity
+        distance: place.distance || Infinity
     }));
 
     if (isLatLongMode) {
