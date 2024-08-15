@@ -266,7 +266,12 @@ const processor = async (mapsResponse, aiQuery, hasLocationInfo, isLatLongMode) 
         throw new Error('No places found');
     }
 
-    let sortedPlaces = mapsResponse.places.map(place => ({
+    let filteredPlaces = mapsResponse.places.filter(place => {
+        const reviewCount = place.userRatingCount || 0;
+        return reviewCount > 1500 || reviewCount < 10;
+    });
+
+    let sortedPlaces = filteredPlaces.map(place => ({
         ...place,
         name: place.displayName?.text || 'Unknown',
         rating: place.rating || 0,
