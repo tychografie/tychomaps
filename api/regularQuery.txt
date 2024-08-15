@@ -34,7 +34,7 @@ Each query MUST be transformed into a valid JSON object following this format:
     "modeisLatLong": false
 }
 {
-    "originalQuery": "petit dejeuner berlijn",
+    "originalQuery": "petit dejeuner berlin",
     "aiQuery": "klein hipster frühstück \"ins Berlin Germany\"",
     "aiEmoji": "🥐",
     "aiType": "breakfast",
