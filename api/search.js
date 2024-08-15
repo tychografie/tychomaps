@@ -131,8 +131,10 @@ async function getCachedResults(query) {
 
 
 const aiRequest = async (query, country, retryQuery = null) => {
-    const queryPrefix = fs.readFileSync(path.join(__dirname, 'chatgptquery.txt'), 'utf8').trim();
-    const fullAiContent = retryQuery || `${queryPrefix} ${country ? `modeisLatLong:${country} ` : ''} ${query}`;
+    const isLatLongMode = query.includes('modeisLatLong:') || (country && country.includes('modeisLatLong:'));
+    const queryFile = isLatLongMode ? 'latlongQuery.text' : 'regularQuery.txt';
+    const queryPrefix = fs.readFileSync(path.join(__dirname, queryFile), 'utf8').trim();
+    const fullAiContent = retryQuery || `${queryPrefix} ${country ? `${country} ` : ''} ${query}`;
 
     console.log("AI Request Content:", fullAiContent);
 
@@ -189,7 +191,7 @@ const aiRequest = async (query, country, retryQuery = null) => {
     }
 };
 
-const mapsRequest = async (mapsQuery, latitude, longitude) => {
+const mapsRequest = async (mapsQuery, latitude, longitude, radius) => {
     if (typeof mapsQuery !== 'string') {
         console.error('mapsQuery is not a string:', mapsQuery);
         throw new Error('Invalid mapsQuery: mapsQuery should be a string');
@@ -199,7 +201,7 @@ const mapsRequest = async (mapsQuery, latitude, longitude) => {
     const requestPayload = { textQuery: mapsQuery, minRating };
 
     if (latitude && longitude) {
-        requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: 1000.0 } };
+        requestPayload.locationBias = { circle: { center: { latitude: latitude, longitude: longitude }, radius: parseFloat(radius) } };
     }
 
     console.log("Maps Request Payload:", requestPayload);
@@ -248,8 +250,8 @@ const addDistanceToPlaces = (places, userLat, userLon) => {
     }));
 };
 
-const mapsRequestWithDistance = async (mapsQuery, latitude, longitude) => {
-    const mapsResponse = await mapsRequest(mapsQuery, latitude, longitude);
+const mapsRequestWithDistance = async (mapsQuery, latitude, longitude, radius) => {
+    const mapsResponse = await mapsRequest(mapsQuery, latitude, longitude, radius);
     
     if (latitude && longitude && mapsResponse.places) {
         mapsResponse.places = addDistanceToPlaces(mapsResponse.places, latitude, longitude);
@@ -259,27 +261,28 @@ const mapsRequestWithDistance = async (mapsQuery, latitude, longitude) => {
 };
 
 
-const processor = async (mapsResponse, mapsQuery, hasLocationInfo) => {
-    const numPlaces = mapsResponse.places ? mapsResponse.places.length : 0;
-    console.log("Number of places found:", numPlaces);
-
-    if (numPlaces > 0) {
-        let filteredPlaces = mapsResponse.places.filter(place => place.userRatingCount > 15 && place.userRatingCount < 1500)
-            .map(place => ({
-                ...place,
-                name: place.displayName.text
-            }));
-        
-        // Only sort by rating if there's no location information
-        if (!hasLocationInfo) {
-            filteredPlaces = filteredPlaces.sort((a, b) => b.rating - a.rating);
-        }
-        
-        return filteredPlaces;
-    } else {
-        console.error("No places found for query:", mapsQuery);
+const processor = async (mapsResponse, aiQuery, hasLocationInfo, isLatLongMode) => {
+    if (!mapsResponse || !mapsResponse.places || mapsResponse.places.length === 0) {
         throw new Error('No places found');
     }
+
+    let sortedPlaces = mapsResponse.places.map(place => ({
+        ...place,
+        name: place.displayName?.text || 'Unknown',
+        rating: place.rating || 0,
+        userRatingCount: place.userRatingCount || 0,
+        distance: place.distance?.distance || Infinity
+    }));
+
+    if (isLatLongMode) {
+        // Sort by distance for lat/long queries
+        sortedPlaces.sort((a, b) => a.distance - b.distance);
+    } else {
+        // Sort by rating for regular queries
+        sortedPlaces.sort((a, b) => b.rating - a.rating);
+    }
+
+    return sortedPlaces;
 };
 
 async function getRecentSearches() {
@@ -377,7 +380,9 @@ module.exports = async (req, res) => {
         console.log("KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...");
     }
 
-    const { query, latitude, longitude, country } = req.body;
+    const { query, latitude, longitude, country, radius } = req.body;
+    const isLatLongMode = !!(latitude && longitude);
+
     if (!query || query.length > 128) {
         console.error("Invalid query length:", query);
         return res.status(400).json({ error: "Invalid query length" });
@@ -387,19 +392,21 @@ module.exports = async (req, res) => {
         console.log("Handling request, retry:", retry, "isRetryAttempt:", isRetryAttempt);
         let aiContent, aiResponse, mapsReq;
         
-        // Check for cached results
-        const cachedResults = await getCachedResults(query);
-        if (cachedResults) {
-            console.log("Returning cached results");
-            return res.status(200).json({ 
-                places: cachedResults.places, 
-                aiResponse: cachedResults.aiResponse,
-                searchId: "cached" 
-            });
+        // Check for cached results only for non-lat/long queries
+        if (!isLatLongMode) {
+            const cachedResults = await getCachedResults(query);
+            if (cachedResults) {
+                console.log("Returning cached results");
+                return res.status(200).json({ 
+                    places: cachedResults.places, 
+                    aiResponse: cachedResults.aiResponse,
+                    searchId: "cached" 
+                });
+            }
         }
 
         try {
-            const aiResult = await aiRequest(query, country, retryQuery);
+            const aiResult = await aiRequest(query, isLatLongMode ? `modeisLatLong:${country || ''}` : country, retryQuery);
             aiContent = aiResult.aiContent;
             aiResponse = aiResult.aiResponse;
 
@@ -409,12 +416,11 @@ module.exports = async (req, res) => {
                 throw new Error('Invalid AI response structure');
             }
 
-            // Use mapsRequestWithDistance instead of mapsRequest
-            const mapsResponse = await mapsRequestWithDistance(aiResponse.aiQuery, latitude, longitude);
+            const mapsResponse = await mapsRequestWithDistance(aiResponse.aiQuery, latitude, longitude, radius);
             mapsReq = aiResponse.aiQuery;
 
-            const hasLocationInfo = !!(latitude && longitude) || !!country;
-            const sortedPlaces = await processor(mapsResponse, aiResponse.aiQuery, hasLocationInfo);
+            const hasLocationInfo = isLatLongMode || !!country;
+            const sortedPlaces = await processor(mapsResponse, aiResponse.aiQuery, hasLocationInfo, isLatLongMode);
 
             const resultCount = sortedPlaces.length;
             const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.aiQuery.toLowerCase());
@@ -422,7 +428,7 @@ module.exports = async (req, res) => {
 
             const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces);
 
-            if ((retryCondition1 || retryCondition2) && retry) {
+            if ((retryCondition1 || retryCondition2) && retry && !isLatLongMode) {
                 console.log("Retrying due to no results or only one partial match...");
                 const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was (${JSON.stringify(aiResponse)}) which gave no results in Google Maps API. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations.`;
 
@@ -437,7 +443,7 @@ module.exports = async (req, res) => {
             });
         } catch (error) {
             console.error('Error in handleRequest:', error.message);
-            if ((error.message === 'No places found' || error.message.includes('Invalid AI response')) && retry && !isRetryAttempt) {
+            if ((error.message === 'No places found' || error.message.includes('Invalid AI response')) && retry && !isLatLongMode) {
                 console.log("Retrying due to error:", error.message);
                 const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was invalid or gave no results. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations. Ensure your response is a valid JSON object.`;
 

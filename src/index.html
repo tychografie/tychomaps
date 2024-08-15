@@ -1,6 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polomaps | Discover Hidden Gems 💎</title>
+    <meta name="description" content="Polomaps is a platform that allows you to discover hidden gems in the world. It uses AI to help you find the best places to visit and the best time to visit them.">
+    <meta property="og:title" content="Polomaps | Discover Hidden Gems 💎">
+    <meta property="og:description" content="Polomaps is a platform that allows you to discover hidden gems in the world. It uses AI to help you find the best places to visit and the best time to visit them.">
+    <meta property="og:image" content="/img/mockuuups-cwe2keXMS43kgu3GBxU5xt.jpeg">
+    <meta property="og:url" content="https://www.polomaps.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Polomaps | Discover Hidden Gems 💎">
+    <meta name="twitter:description" content="Polomaps is a platform that allows you to discover hidden gems in the world. It uses AI to help you find the best places to visit and the best time to visit them.">
+    <meta name="twitter:image" content="/img/mockuuups-cwe2keXMS43kgu3GBxU5xt.jpeg">
+    <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
+    <link href="/css/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Instrument+Serif:ital@0;1&family=Metal&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-652VCS1PP8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-652VCS1PP8');
+    </script>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: auto;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
 {% include 'partials/header.njk' %}
 
 <body class="text-fuchsia-950 bg-[#fffbf5] flex flex-col justify-between items-center min-h-screen">
@@ -16,13 +72,14 @@
                         </div>
                     </div>
                     <div class="md:w-3/5 md:order-1 flex flex-col">
-                        <h1 class="text-2xl font-bold md:block instrument-serif-regular">Where do the locals go?</h1>
+                        <h1 class="text-2xl md:block belanosima-regular">Where do the locals go?</h1>
                         <p class="text-md mt-1">Free from tourist traps, full of AI superpowers <b>to find hidden gems</b> 🎷</p>
                         <div class="mt-4 w-full relative">
                             <div class="relative">
-                                <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 placeholder-gray-400 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-14 pr-4 py-4 rounded-md focus:outline-none focus:border-gray-400 text-lg" oninput="toggleClearButton()">
-                                <button id="locateMe" class="absolute top-0 left-0 mt-4 ml-3 pr-2 border-r border-gray-300" onclick="locateMe()">
-                                    <img src="/img/location.svg" id="locateMeIcon" alt="Location" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer">
+                                <input autocomplete="off" type="text" id="query" placeholder="Barber in Nijmegen" class="placeholder-fuchsia-950 focus:placeholder-fuchsia-950/20 placeholder-gray-400 focus:outline-0.5 focus:outline-gray-400 shadow-sm w-full pl-14 pr-10 py-4 rounded-md focus:outline-none focus:border-gray-400 text-lg" oninput="toggleClearButton()">
+                                <button id="locateMe" class="absolute top-0 left-0 mt-4 ml-3 pr-2 border-r border-gray-300 tooltip" onclick="locateMe()">
+                                    <img src="/img/location-off.svg" id="locateMeIcon" alt="Location" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer">
+                                    <span class="tooltiptext bg-black text-white text-xs rounded py-1 px-2 absolute z-10 hidden">Search nearby</span>
                                 </button>
                                 <button id="clearButton" class="absolute top-0 right-0 mt-4 mr-4" onclick="clearInput()">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 hover:text-gray-600 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -30,10 +87,20 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div id="locationChipContainer" class="mt-2 md:mt-4 flex items-center hidden">
-                                <span id="locationChip" class="bg-black/10 p-5 rounded-md text-black4">
-                                    <span id="chipText"></span>
-                                    <button id="removeLocationChip" onclick="removeLocationChip()">
+                            <div id="locationChipContainer" class="mt-2 md:mt-4 flex items-start hidden">
+                                <span id="locationChip" class="bg-black/10 p-3 rounded-md text-black4 flex flex-wrap items-center max-w-full relative">
+                                    <span class="mr-1 whitespace-nowrap">Around</span>
+                                    <select id="locationDistance" class="mr-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="250">250m</option>
+                                        <option value="500" selected>500m</option>
+                                        <option value="1000">1 km</option>
+                                        <option value="5000">5 km</option>
+                                    </select>
+                                    <span id="chipText" class="flex-wrap">
+
+
+                                    </span>
+                                    <button id="removeLocationChip" onclick="removeLocationChip()" class="absolute right-4 top-1/2 transform -translate-y-1/2">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                         </svg>
@@ -57,7 +124,7 @@
         <div id="resultsList" class="hidden flex flex-col justify-center items-center w-full">
             <div class="shadow-sm mx-14 md:min-w-0 md:max-w-2xl w-full bg-[#fbeed2] rounded-md p-4 md:p-6">
                 
-                <h1 class="text-4xl mb-2 font-medium md:block instrument-serif-regular">Locals love to go to...</h1>
+                <h1 class="text-2xl mb-2 font-medium md:block belanosima-regular">Locals love to go to...</h1>
                 <div id="results" class="flex flex-col gap-2 mt-4">
                     <!-- Results will be displayed here -->
                 </div>
@@ -71,7 +138,7 @@
     <div class="flex flex-col md:flex-row justify-center items-start w-full max-w-6xl mt-8 px-4 gap-8">
         <!-- Recent Discoveries -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl  font-medium mb-4 instrument-serif-regular">Recent Discoveries</h2>
+            <h2 class="text-2xl  font-medium mb-4 belanosima-regular">Recent Discoveries</h2>
             <div id="recentDiscoveries" class="space-y-4">
                 <!-- Placeholder for 5 recent discoveries -->
                 <!-- This will be populated dynamically with JavaScript -->
@@ -80,7 +147,7 @@
 
         <!-- Recent Searches -->
         <div class="w-full md:w-1/2">
-            <h2 class="text-2xl font-medium mb-4 instrument-serif-regular">Recent Searches</h2>
+            <h2 class="text-2xl font-medium mb-4 belanosima-regular">Recent Searches</h2>
             <ul id="recentSearches" class="list-disc list-inside">
                 <!-- Placeholder for 20 recent searches -->
                 <!-- This will be populated dynamically with JavaScript -->
@@ -95,7 +162,7 @@
                 <img src="./img/mockuuups-cwe2keXMS43kgu3GBxU5xt.jpeg" alt="App mockup" class="object-cover w-full h-full rounded-t-md">
             </div>
             <div class="bg-[#313E6D] md:w-full text-white p-6 md:p-8 rounded-b-md md:rounded-l-md md:rounded-r-none flex-grow flex flex-col justify-center">
-                <h2 class="text-xl md:text-xl mb-2 font-medium instrument-serif-regular">Become an app tester</h2>
+                <h2 class="text-xl md:text-2xl mb-2 font-medium belanosima-regular">Become an app tester</h2>
                 <p class="text-md md:text-xl mb-4">Dear discoverees, we hear you. An iOS app is currently in testing phase.</p>
                 <a href="mailto:tycho@polomaps.com?subject=iOS%20tester&body=My%20apple%20ID%20is%3A" class="inline-block bg-[#EEB053] text-fuchsia-950 px-4 py-2 md:px-6 md:py-3 rounded-md hover:bg-opacity-90 transition-colors w-fit text-sm md:text-base">Join Testflight</a>
             </div>
@@ -107,20 +174,6 @@
 
 
     {% include 'partials/footer.njk' %}
-
-    <script>
-        // Animation for handwritten message
-        const anobserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                }
-            });
-        }, { threshold: 0.5 });
-
-        const handwrittenMessage = document.getElementById('handwrittenMessage');
-        anobserver.observe(handwrittenMessage);
-    </script>
 
     <script src="js/homeScripts.js"></script>
     <script src="js/sendQuery.js"></script>

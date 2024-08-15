@@ -9,27 +9,28 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Polomaps | Search</title>
+    <title>Polomaps | Discover Hidden Gems 💎</title>
+    <meta name="description" content="Polomaps is a platform that allows you to discover hidden gems in the world. It uses AI to help you find the best places to visit and the best time to visit them.">
+
     <link href="/css/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/img/favicon_16x16.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Metal&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Instrument+Serif:ital@0;1&family=Metal&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 
 {% include 'partials/premium.njk' %}
 
-<header class="w-full flex z-10 justify-between items-center px-6 py-6">
-    <div class="flex items-center">
+<header class="w-full flex z-10 justify-between items-center text-md px-6 py-6">
+    <div class="flex  items-center">
         <a href="/">
             <img src="/img/polo-maps.svg" id="logoImage" alt="Logo" class="text-red-500 logo max-h-6 md:max-h-8 mr-4">
         </a>
         <nav>
             <ul class="flex space-x-4 text-gray-700">
                <li class="hidden md:block relative">
-                    <a href="#" class="flex items-center hover:text-gray-900 city-guides-toggle" id="cityGuidesToggle">
+                    <a href="#" class="belanosima-regular flex items-center hover:text-gray-900 city-guides-toggle" id="cityGuidesToggle">
                         City Guides
                         <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -41,64 +42,23 @@
                         <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-gray-900">More soon...</a></li>
                     </ul>
                 </li>
-                <li class="hidden md:block"><a href="/tips-and-tricks" class="hover:text-gray-900">Tips & Tricks</a></li>
+                <li class="hidden md:block"><a href="/tips-and-tricks" class="belanosima-regular hover:text-gray-900">Tips & Tricks</a></li>
             </ul>
         </nav>
     </div>
     <div class="flex items-center">
         <button id="loginButton" class="border border-gray-700 text-gray-700 rounded-md px-3 py-2 mr-2 md:mr-4 hover:bg-gray-700 hover:text-white transition-colors" onclick="window.location.href='/sign-in'">
-            <span class="hidden md:inline" id="loginText">Login</span>
+            <span class="belanosima-regular hidden md:inline" id="loginText">Login</span>
             <img src="/img/icons/account.svg" alt="Login" class="md:hidden w-5 h-5">
         </button>
         <button id="premiumModalButton" class="bg-[#EEB053] text-black rounded-md px-3 py-2 hover:bg-[#D99F3F] transition-colors" onclick="openPremiumModal()">
-            <span class="hidden md:inline">Get Premium</span>
-            <span class="md:hidden">Premium</span>
+            <span class="belanosima-regular hidden md:inline">Get Premium</span>
+            <span class="belanosima-regular md:hidden">Premium</span>
         </button>
     </div>
 </header>
 
-<script>
-    const cityGuidesToggle = document.getElementById('cityGuidesToggle');
-    const cityGuidesDropdown = document.getElementById('cityGuidesDropdown');
-    let isOpen = false;
-
-    cityGuidesToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        isOpen = !isOpen;
-        cityGuidesDropdown.classList.toggle('hidden', !isOpen);
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!cityGuidesToggle.contains(e.target) && !cityGuidesDropdown.contains(e.target)) {
-            isOpen = false;
-            cityGuidesDropdown.classList.add('hidden');
-        }
-    });
-</script>
-
-<script>
-    window.addEventListener('load', async function () {
-        if (window.Clerk) {
-            await Clerk.load();
-            const loginButton = document.getElementById('loginButton');
-            const loginText = document.getElementById('loginText');
-            const premiumButton = document.getElementById('premiumModalButton');
-
-            if (Clerk.user) {
-                loginText.textContent = Clerk.user.firstName || 'Account';
-                loginButton.onclick = () => Clerk.openUserProfile();
-
-                const { premium } = Clerk.user.publicMetadata;
-                if (premium) {
-                    premiumButton.style.display = 'none';
-                }
-            } else {
-                loginText.textContent = 'Login';
-                loginButton.onclick = () => window.location.href = '/sign-in';
-            }
-        }
-    });
-</script>
+<script src="/js/headerScripts.js"></script>
 
     <script
       async
@@ -107,3 +67,4 @@
       src="https://merry-cow-45.clerk.accounts.dev/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
       type="text/javascript"
     ></script>
+

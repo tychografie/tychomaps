@@ -24,10 +24,59 @@ function clearInput() {
     toggleClearButton();
 }
 
+const locationIcon = document.getElementById('locateMeIcon');
+const locationChipContainer = document.getElementById('locationChipContainer');
+const chipText = document.getElementById('chipText');
+const locateButton = document.getElementById('locateMe');
+
+function updateLocationIcon(state) {
+    switch (state) {
+        case 'off':
+            locationIcon.src = '/img/location-off.svg';
+            break;
+        case 'on':
+            locationIcon.src = '/img/location-on.svg';
+            break;
+        case 'loading':
+            locationIcon.src = '/img/loading.svg';
+            break;
+    }
+}
+
+function formatAddress(street, city) {
+    return `of ${street} in ${city}`.split(' ').map(word => 
+        `<span class="mr-1">${word}</span>`  // Verwijder inline-block als je CSS het al afhandelt
+    ).join('');
+}
+
+
+locateButton.addEventListener('mouseover', function() {
+    if (locationIcon.src.includes('location-off.svg')) {
+        updateLocationIcon('on');
+    }
+});
+
+locateButton.addEventListener('mouseout', function() {
+    if (locationIcon.src.includes('location-on.svg') && locationChipContainer.classList.contains('hidden')) {
+        updateLocationIcon('off');
+    }
+});
+
+function removeLocationChip() {
+    const queryInput = document.getElementById('query');
+    queryInput.removeAttribute('data-latitude');
+    queryInput.removeAttribute('data-longitude');
+    queryInput.removeAttribute('data-address');
+    queryInput.removeAttribute('data-country');
+    locationChipContainer.classList.add('hidden');
+    updateLocationIcon('off');
+}
+
 async function locateMe() {
     if (navigator.geolocation) {
-        const locationIcon = document.getElementById('locateMeIcon');
-        locationIcon.src = '/img/loading.svg';
+        const tooltip = document.querySelector('#locateMe .tooltiptext');
+        tooltip.classList.add('hidden');
+        updateLocationIcon('loading');
 
         navigator.geolocation.getCurrentPosition(async (position) => {
             try {
@@ -38,46 +87,38 @@ async function locateMe() {
                     const { address, country } = data;
                     if (address) {
                         const queryInput = document.getElementById('query');
-                        const locationChipContainer = document.getElementById('locationChipContainer');
-                        const locationChip = document.getElementById('locationChip');
-                        const chipText = document.getElementById('chipText');
-
                         queryInput.dataset.latitude = latitude;
                         queryInput.dataset.longitude = longitude;
                         queryInput.dataset.address = address;
                         queryInput.dataset.country = country;
 
-                        chipText.textContent = `Around ${address}`;
+                        const [street, city] = address.split(' in ');
+                        chipText.innerHTML = formatAddress(street, city);
                         locationChipContainer.classList.remove('hidden');
+                        updateLocationIcon('on');
                     }
                 } else {
-                    alert('Error occurred while getting location');
+                    throw new Error('Error occurred while getting location');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error occurred while getting location');
-            } finally {
-                locationIcon.src = '/img/location.svg';
+                alert(error.message);
+                updateLocationIcon('off');
             }
         }, (error) => {
             console.error('Geolocation error:', error);
             alert('Error occurred while getting location');
-            locationIcon.src = '/img/location.svg';
+            updateLocationIcon('off');
         });
     } else {
         alert('Geolocation is not supported by this browser.');
     }
 }
 
-function removeLocationChip() {
-    const queryInput = document.getElementById('query');
-    const locationChipContainer = document.getElementById('locationChipContainer');
-    queryInput.removeAttribute('data-latitude');
-    queryInput.removeAttribute('data-longitude');
-    queryInput.removeAttribute('data-address');
-    queryInput.removeAttribute('data-country');
-    locationChipContainer.classList.add('hidden');
-}
+// Initialize the icon state on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateLocationIcon(locationChipContainer.classList.contains('hidden') ? 'off' : 'on');
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     fetch("/api/mapsRequests")
@@ -198,19 +239,12 @@ function handleMouseMove(event) {
     const searchBox = document.getElementById('seachBox');
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
-    const maxRotation = 8;
-
+    const maxRotation = 5; // Reduced max rotation to prevent excessive movement
     const x = (event.clientX - centerX) / centerX * maxRotation;
     const y = (event.clientY - centerY) / centerY * maxRotation;
 
     searchBox.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
 }
-
-document.getElementById('premiumModal').addEventListener('click', function(event) {
-    if (event.target === this) {
-        closePremiumModal();
-    }
-});
 
 function resetTransform() {
     const searchBox = document.getElementById('seachBox');
@@ -228,40 +262,6 @@ searchBar.addEventListener('focus', () => {
 searchBar.addEventListener('blur', () => {
     searchBarFocused = false;
 });
-
-function closePremiumModal() {
-    document.getElementById('premiumModal').classList.add('hidden');
-}
-
-async function startPremium() {
-    try {
-      const user = await Clerk.user;
-      if (!user) {
-        alert('Please sign in to upgrade to premium.');
-        return;
-      }
-      const response = await fetch('/api/set-premium', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: user.id }),
-      });
-  
-      if (response.ok) {
-        alert('Congratulations! You are now a premium user for one year!');
-      } else {
-        throw new Error('Failed to upgrade to premium');
-      }
-    } catch (error) {
-      console.error('Error upgrading to premium:', error);
-      alert('An error occurred while upgrading to premium. Please try again later.');
-    }
-  }
-
-function openPremiumModal() {
-    document.getElementById('premiumModal').classList.remove('hidden');
-}
 
 // Function to populate recent discoveries
 function populateRecentDiscoveries() {
@@ -288,9 +288,10 @@ function populateRecentDiscoveries() {
         const infoElement = document.createElement('div');
         infoElement.className = 'p-4 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
         infoElement.innerHTML = `
-            <h3 class="font-medium">${place.name}</h3>
+            <h3 class="belanosima-regular">${place.name}</h3>
             <p class="text-sm text-gray-600">${place.text}</p>
             <p class="text-sm">Rating: ${place.rating} ${place.location ? `- ${place.location}` : ''}</p>
+            ${place.distance !== undefined ? `<p class="text-sm">Distance: ${formatDistance(place.distance)}</p>` : ''}
         `;
         
         placeElement.appendChild(imageElement);
@@ -385,48 +386,6 @@ function sendQuery() {
     adjustSearchBoxHeight();
 }
 
-// Add this function at the end of the file
-function addPremiumButtonAnimation() {
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes shine {
-            0% {
-                transform: translateX(-100%);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-
-        #premiumButton .shine-effect {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.4) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            animation: shine 3s infinite;
-        }
-    `;
-    document.head.appendChild(style);
-
-    const premiumButton = document.getElementById('premiumButton');
-    const shineEffect = document.createElement('div');
-    shineEffect.className = 'shine-effect';
-    premiumButton.appendChild(shineEffect);
-}
-
-// Call this function when the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    // ... existing code ...
-    addPremiumButtonAnimation();
-});
-
 function checkMobileAndDisableAnimation() {
     if (window.innerWidth <= 768) {
         animationDisabled = true;
@@ -438,3 +397,51 @@ function checkMobileAndDisableAnimation() {
 
 window.addEventListener('resize', checkMobileAndDisableAnimation);
 document.addEventListener('DOMContentLoaded', checkMobileAndDisableAnimation);
+
+function formatDistance(distance) {
+    console.log('Formatting distance:', distance); // Debug log
+    if (distance !== undefined && distance !== null && !isNaN(distance)) {
+        return distance.toFixed(2) + ' km';
+    }
+    return 'Unknown';
+}
+
+// Modify the populateRecentDiscoveries function
+function populateRecentDiscoveries() {
+    const recentDiscoveries = [
+        { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://www.lecturesplurielles.com/wp-content/uploads/2021/02/Lecture-plurielles-a-la-forge.jpg", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
+        { name: "Wangedikanda Peak", location: "Kalupahana, Sri Lanka", text: "Breathtaking views and a challenging hike, leading adventurers to the stunning summit of a lesser-known mountain gem.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipPdnYZTG9TBHv0jXsA-3U9QtR5Oxz_Tgfe5STd3=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+        { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "Art café that blends creativity and history, a cozy spot in a former village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
+        { name: "C's House Homestay (ホームステイ)", location: "Nagano, Japan", text: "Suzie and Toru's guesthouse near the Snow Monkey Park offers warm hospitality, cozy rooms, and a perfect location—feels just like home!", rating: 5.0, image: "https://lh3.googleusercontent.com/p/AF1QipOTtEuz5FZ5Kqs2LIUyBcX4vqfkJY8BRM7LWEXc=s200", mapsLink: "https://maps.app.goo.gl/KfPYGPYJtjdWEHJx7" },
+
+    ];
+
+    const container = document.getElementById('recentDiscoveries');
+    container.innerHTML = ''; // Clear existing content
+
+    recentDiscoveries.forEach(place => {
+        console.log('Processing place:', place); // Debug log
+        const placeElement = document.createElement('a');
+        placeElement.href = place.mapsLink;
+        placeElement.target = "_blank";
+        placeElement.className = 'flex items-stretch bg-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02]';
+        
+        const imageElement = document.createElement('img');
+        imageElement.src = place.image;
+        imageElement.alt = place.name;
+        imageElement.className = 'w-24 object-cover rounded-tl-md rounded-bl-md';
+        
+        const infoElement = document.createElement('div');
+        infoElement.className = 'p-4 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
+        infoElement.innerHTML = `
+            <h3 class="belanosima-regular">${place.name}</h3>
+            <p class="text-sm text-gray-600">${place.text}</p>
+            <p class="text-sm">Rating: ${place.rating} ${place.location ? `- ${place.location}` : ''}</p>
+            ${place.distance !== undefined ? `<p class="text-sm">Distance: ${formatDistance(place.distance)}</p>` : ''}
+        `;
+        
+        placeElement.appendChild(imageElement);
+        placeElement.appendChild(infoElement);
+        container.appendChild(placeElement);
+    });
+}

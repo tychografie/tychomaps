@@ -1,4 +1,3 @@
-
 .search-container {
     background-color: #fcce6d;
     position: sticky;
@@ -27,24 +26,53 @@
     }
 }
 
-.metal-regular {
-    font-family: "Metal", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .instrument-serif-regular {
-    font-family: "Instrument Serif", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  
-
-.platypi {
-    font-family: "Platypi", serif;
-    font-optical-sizing: auto;
+#locationChip {
+  max-width: 100%;
+  position: relative;
+  display: block; /* Probeer deze wijziging als flex problemen geeft */
 }
+
+#chipText {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal; /* Zorg ervoor dat de tekst kan wrappen */
+  hyphens: auto; /* Voeg dit toe voor nette afbreking van lange woorden */
+}
+
+#chipText span {
+  display: inline-block; /* Inline block zorgt ervoor dat elk element zichzelf op een nieuwe lijn kan zetten indien nodig */
+  margin-right: 0.25rem;
+}
+
+#chipText span:last-child {
+  margin-right: 0;
+}
+
+
+#removeLocationChip {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.belanosima-regular {
+    font-family: "Belanosima", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .belanosima-semibold {
+    font-family: "Belanosima", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  .belanosima-bold {
+    font-family: "Belanosima", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
 
   
 @font-face {
@@ -82,3 +110,31 @@ html, body, body * {
   .font-family-pixelpro {
     font-family: 'PixelPro', sans-serif !important; /* Use !important to enforce this style */
   }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1
+}

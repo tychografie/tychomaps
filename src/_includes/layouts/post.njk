@@ -13,7 +13,7 @@ siteLogo: "/img/favicon_16x16.ico"
 </div>
 
 <div class="bg-[#fbeed2] rounded-md p-6 mb-8">
-    <h1 class="text-4xl font-bold mb-4 font-family-pixelpro">Where do locals in {{ cityname | capitalize }} go in 2024?</h1>
+    <h1 class="text-2xl mb-4 belanosima-regular">Where do locals in {{ cityname | capitalize }} go in 2024?</h1>
     <div class="flex items-center mb-4">
         <img src="/img/assets/tycho.png" alt="Tycho Litjens" class="w-8 h-8 rounded-full mr-2">
         <span>Curated by: {{ author }}</span>
@@ -30,7 +30,7 @@ siteLogo: "/img/favicon_16x16.ico"
 
 <div class="flex flex-col md:flex-row gap-8">
     <div class="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
-        <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Hidden bars</h2>
+        <h2 class="text-2xl mb-4 belanosima-regular">Hidden bars</h2>
         <p class="mb-4">{{ bar_description }}</p>
         <div class="space-y-2">
             {% for bar in bars %}
@@ -68,7 +68,7 @@ siteLogo: "/img/favicon_16x16.ico"
     
 
     <div class="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
-        <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Small restaurants</h2>
+        <h2 class="text-2xl mb-4 belanosima-regular">Small restaurants</h2>
         <p class="mb-4">{{ restaurant_description }}</p>
         <div class="space-y-2">
             {% for restaurant in restaurants %}
@@ -105,6 +105,6 @@ siteLogo: "/img/favicon_16x16.ico"
 </div>
 
 <section class="mt-8">
-    <h2 class="text-3xl font-bold mb-4 font-family-pixelpro">Explore {{ cityname | capitalize }} Like a Local</h2>
+    <h2 class="text-2xl mb-4 belanosima-semibold">Explore {{ cityname | capitalize }} Like a Local</h2>
     <p>{{ longtext }}</p>
 </section>

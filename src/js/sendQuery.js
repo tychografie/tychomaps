@@ -39,6 +39,7 @@ function sendQuery() {
     const latitude = document.getElementById('query').dataset.latitude || null;
     const longitude = document.getElementById('query').dataset.longitude || null;
     const country = document.getElementById('query').dataset.country || null;
+    const radius = document.getElementById('locationDistance').value || '500'; // Default to 500m if not set
 
     if (query.length < 3) {
         button.innerHTML = "Can't search for nothin' 🙌";
@@ -64,7 +65,7 @@ function sendQuery() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ query: query, country: country, latitude: latitude, longitude: longitude, staticMode: new URLSearchParams(window.location.search).get('useStatic') })
+        body: JSON.stringify({ query: query, country: country, latitude: latitude, longitude: longitude, radius: radius, staticMode: new URLSearchParams(window.location.search).get('useStatic') })
     })
     .then(response => {
         if (!response.ok) {
@@ -148,6 +149,34 @@ function sendQuery() {
     });
 }
 
+function formatDistance(distance) {
+    console.log('Formatting distance:', distance); // Debug log
+
+    if (typeof distance === 'object' && distance !== null && 'distance' in distance) {
+        // If distance is an object with a 'distance' property
+        distance = distance.distance;
+    }
+
+    if (typeof distance === 'number' && !isNaN(distance)) {
+        if (distance < 1) {
+            // Convert to meters and round to nearest integer
+            return Math.round(distance * 1000) + ' m';
+        } else {
+            // Keep in km, with two decimal places
+            return distance.toFixed(2) + ' km';
+        }
+    } else if (typeof distance === 'string') {
+        // Try to parse the string as a number
+        const parsedDistance = parseFloat(distance);
+        if (!isNaN(parsedDistance)) {
+            return formatDistance(parsedDistance); // Recursively call with parsed number
+        }
+    }
+
+    console.log('Unable to format distance:', distance); // Debug log
+    return 'Unknown';
+}
+
 function renderResults(places, startIndex, container) {
     places.slice(startIndex, startIndex + 5).forEach(result => {
         const resultItem = document.createElement('a');
@@ -165,7 +194,7 @@ function renderResults(places, startIndex, container) {
                 ${result.distance ? `
                     <span class="distance flex items-center">
                         <img src="/img/icons/location.svg" alt="Location" class="w-4 h-4 mr-1">
-                        ${result.distance.distance.toFixed(1)} km
+                        ${formatDistance(result.distance)}
                     </span>` : ''}
                 <span class="rating flex items-center">
                     <img src="/img/icons/star.svg" alt="Star" class="w-4 h-4 mr-1">
