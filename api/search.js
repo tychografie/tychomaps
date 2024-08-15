@@ -268,7 +268,7 @@ const processor = async (mapsResponse, aiQuery, hasLocationInfo, isLatLongMode) 
 
     let filteredPlaces = mapsResponse.places.filter(place => {
         const reviewCount = place.userRatingCount || 0;
-        return reviewCount > 1500 || reviewCount < 10;
+        return reviewCount >= 10 && reviewCount <= 1500;
     });
 
     let sortedPlaces = filteredPlaces.map(place => ({
