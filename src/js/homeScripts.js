@@ -348,6 +348,14 @@ document.addEventListener('DOMContentLoaded', () => {
     populateRecentDiscoveries();
     populateRecentSearches();
     adjustSearchBoxHeight(); // Initial call to set correct height
+
+    // Check for query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query) {
+        document.getElementById('query').value = decodeURIComponent(query);
+        sendQuery();
+    }
 });
 
 // Add this function to adjust the search box height
@@ -380,6 +388,11 @@ window.addEventListener('resize', adjustSearchBoxHeight);
 
 // Modify the sendQuery function (if it's in this file, otherwise add it)
 function sendQuery() {
+    const query = document.getElementById('query').value.trim();
+    const encodedQuery = encodeURIComponent(query);
+    const newUrl = `${window.location.origin}${window.location.pathname}?q=${encodedQuery}`;
+    window.history.pushState({ query: query }, '', newUrl);
+
     // ... existing query sending logic ...
     
     // After sending the query and showing results:

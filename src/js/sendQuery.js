@@ -1,4 +1,9 @@
 function sendQuery() {
+    const query = document.getElementById('query').value.trim();
+    const encodedQuery = encodeURIComponent(query);
+    const newUrl = `${window.location.origin}${window.location.pathname}?q=${encodedQuery}`;
+    window.history.pushState({ query: query }, '', newUrl);
+
     const mapsQueryElement = document.getElementById('mapsQuery');
     const mapsQuery = mapsQueryElement ? mapsQueryElement.textContent : '';
     var button = document.getElementById('search-button');
@@ -35,7 +40,6 @@ function sendQuery() {
     updateButtonText();
     setInterval(updateButtonText, 1000);
 
-    var query = document.getElementById('query').value.trim();
     const latitude = document.getElementById('query').dataset.latitude || null;
     const longitude = document.getElementById('query').dataset.longitude || null;
     const country = document.getElementById('query').dataset.country || null;
