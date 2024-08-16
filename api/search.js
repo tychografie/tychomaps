@@ -433,7 +433,7 @@ module.exports = async (req, res) => {
 
             const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces);
 
-            if ((retryCondition1 || retryCondition2) && retry && !isLatLongMode) {
+            if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
                 const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was (${JSON.stringify(aiResponse)}) which gave no results in Google Maps API. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations.`;
 
@@ -448,7 +448,7 @@ module.exports = async (req, res) => {
             });
         } catch (error) {
             console.error('Error in handleRequest:', error.message);
-            if ((error.message === 'No places found' || error.message.includes('Invalid AI response')) && retry && !isLatLongMode) {
+            if ((error.message === 'No places found' || error.message.includes('Invalid AI response')) && retry) {
                 console.log("Retrying due to error:", error.message);
                 const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was invalid or gave no results. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations. Ensure your response is a valid JSON object.`;
 
