@@ -95,7 +95,8 @@ async function getCachedResults(query) {
                 { originalQuery: { $regex: query, $options: 'i' } },
                 { aiQuery: { $regex: query, $options: 'i' } }
             ],
-            "data.0.resultCount": { $gte: 5 }  // Ensure at least 5 results
+            "data.0.resultCount": { $gte: 5 },  // Ensure at least 5 results
+            "data.0.modeisLatLong": false  // Exclude modeisLatLong: true results
         }).sort({ "data.0.timestamp": -1 }).limit(5).toArray();
 
         console.log("Potential cached results:", JSON.stringify(cachedResults, null, 2));
