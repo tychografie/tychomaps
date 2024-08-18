@@ -10,7 +10,7 @@ const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true,
 
 const API_VERSION = '1.0.0';
 
-async function logSearchAndResults(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted, places) {
+async function logSearchAndResults(req, query, aiContent, aiResponseContent, country, latitude, longitude, mapsRequest, resultCount, retryAttempted, places, isLatLongMode) {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const searchId = uuidv4();
     try {
@@ -51,7 +51,8 @@ async function logSearchAndResults(req, query, aiContent, aiResponseContent, cou
             resultCount: resultCount !== undefined ? resultCount : "Unknown",
             retryAttempted: retryAttempted,
             userRating: 0,
-            timestamp: timestamp
+            timestamp: timestamp,
+            isLatLongMode: isLatLongMode
         };
         await searchesCollection.insertOne(searchEntry);
 
@@ -64,7 +65,7 @@ async function logSearchAndResults(req, query, aiContent, aiResponseContent, cou
                     aiEmoji: parsedAiResponse.aiEmoji,
                     aiType: parsedAiResponse.aiType,
                     resultCount: places.length,  // Use the actual number of places
-                    modeisLatLong: parsedAiResponse.modeisLatLong,
+                    modeisLatLong: isLatLongMode,
                     timestamp: timestamp
                 }
             ],
@@ -173,6 +174,9 @@ const aiRequest = async (query, country, retryQuery = null) => {
                     throw new Error('Invalid AI response structure: missing or invalid aiQuery');
                 }
                 
+                // Add the modeisLatLong flag to the parsedResponse
+                parsedResponse.modeisLatLong = isLatLongMode;
+                
                 return {
                     aiContent: fullAiContent,
                     aiResponse: parsedResponse
@@ -276,16 +280,20 @@ const processor = async (mapsResponse, aiQuery, hasLocationInfo, isLatLongMode) 
         name: place.displayName?.text || 'Unknown',
         rating: place.rating || 0,
         userRatingCount: place.userRatingCount || 0,
-        distance: place.distance || Infinity
+        distance: place.distance?.distance || Infinity
     }));
 
+    console.log("Before sorting:", sortedPlaces.map(p => ({ name: p.name, distance: p.distance })));
+    
     if (isLatLongMode) {
-        // Sort by distance for lat/long queries
+        console.log("Sorting by distance (latlong mode)");
         sortedPlaces.sort((a, b) => a.distance - b.distance);
     } else {
-        // Sort by rating for regular queries
+        console.log("Sorting by rating (regular mode)");
         sortedPlaces.sort((a, b) => b.rating - a.rating);
     }
+
+    console.log("After sorting:", sortedPlaces.map(p => ({ name: p.name, distance: p.distance })));
 
     return sortedPlaces;
 };
@@ -431,7 +439,7 @@ module.exports = async (req, res) => {
             const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.aiQuery.toLowerCase());
             const retryCondition2 = resultCount === 0;
 
-            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces);
+            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces, isLatLongMode);
 
             if ((retryCondition1 || retryCondition2) && retry) {
                 console.log("Retrying due to no results or only one partial match...");
@@ -443,7 +451,10 @@ module.exports = async (req, res) => {
 
             return res.status(200).json({ 
                 places: sortedPlaces, 
-                aiResponse: aiResponse,
+                aiResponse: {
+                    ...aiResponse,
+                    modeisLatLong: isLatLongMode.toString()
+                },
                 searchId: searchId
             });
         } catch (error) {
@@ -455,7 +466,7 @@ module.exports = async (req, res) => {
                 console.log("Retrying with query:", newRetryQuery);
                 return await handleRequest(false, newRetryQuery, true);
             }
-            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, 0, isRetryAttempt, []);
+            const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, 0, isRetryAttempt, [], isLatLongMode);
             return res.status(500).json({ error: error.message || 'Unknown error', searchId: searchId });
         }
     };
