@@ -307,7 +307,10 @@ async function getRecentSearches() {
 
         const recentSearches = await resultsCollection.find({
             "data.0.resultCount": { $gte: 5 },  // Only include searches with 5 or more results
-            "data.0.modeisLatLong": false  // Only include searches where modeisLatLong is false
+            $or: [
+                { "data.0.modeisLatLong": { $ne: true } },  // Include where modeisLatLong is not true
+                { "data.0.modeisLatLong": { $exists: false } }  // Include where modeisLatLong doesn't exist
+            ]
         })
             .sort({ "data.0.timestamp": -1 })
             .limit(30)  // Increased limit to ensure we have enough unique results
