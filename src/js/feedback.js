@@ -98,7 +98,7 @@ async function renderFeedbackList(data) {
 
     const queryText = document.createElement("span");
     queryText.className = "w-3/12 min-w-0 truncate";
-    queryText.textContent = item.query;
+    queryText.textContent = item.originalQuery; // Change this line
 
     const mapsRequestText = document.createElement("span");
     mapsRequestText.className = "w-full min-w-0 truncate";
