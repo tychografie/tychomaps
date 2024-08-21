@@ -6,6 +6,12 @@
     padding-bottom: env(safe-area-inset-bottom);
 }
 
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 .animation-delayed {
     opacity: 0; /* Start with opacity 0 */

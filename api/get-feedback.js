@@ -87,7 +87,18 @@ module.exports = async (req, res) => {
                 query.resultCount = resultCountQuery;
             }
 
-            const feedback = await collection.find(query).sort({ timestamp: -1 }).toArray();
+            const feedback = await collection.find(query)
+                .sort({ timestamp: -1 })
+                .project({
+                    _id: 1,
+                    originalQuery: 1,
+                    userRating: 1,
+                    resultCount: 1,
+                    timestamp: 1,
+                    feedbackHandled: 1,
+                    mapsRequest: 1
+                })
+                .toArray();
             return res.status(200).json(feedback);
         } else {
             return res.status(405).json({ error: "Method not allowed" });

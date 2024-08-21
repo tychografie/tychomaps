@@ -266,15 +266,15 @@ searchBar.addEventListener('blur', () => {
 // Function to populate recent discoveries
 function populateRecentDiscoveries() {
     const recentDiscoveries = [
-        { name: "Petra's Sommerkafé", location: "Langelille, Netherlands", text: "Petra’s Summer Café is a hidden gem with delicious homemade cakes, warm hospitality, and a charming terrace perfect for a cycling break or a cozy chat. A must-visit!", rating: 4.9, image: "https://lh5.googleusercontent.com/p/AF1QipMH3p6Vise9opoZlIM_9FTTlX03ZsEordZwZUjU=w408-h543-k-no", mapsLink: "https://maps.app.goo.gl/bikaH2h2G3qr8stw5" },
+        { name: "Petra's Sommerkafé", location: "Langelille, Netherlands", text: "Petra's Summer Café is a hidden gem with delicious homemade cakes, warm hospitality, and a charming terrace perfect for a cycling break or a cozy chat. A must-visit!", rating: 4.9, image: "https://lh5.googleusercontent.com/p/AF1QipMH3p6Vise9opoZlIM_9FTTlX03ZsEordZwZUjU=w408-h543-k-no", mapsLink: "https://maps.app.goo.gl/bikaH2h2G3qr8stw5" },
         { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://www.lecturesplurielles.com/wp-content/uploads/2021/02/Lecture-plurielles-a-la-forge.jpg", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
         { name: "Wangedikanda Peak", location: "Kalupahana, Sri Lanka", text: "Breathtaking views and a challenging hike, leading adventurers to the stunning summit of a lesser-known mountain gem.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipPdnYZTG9TBHv0jXsA-3U9QtR5Oxz_Tgfe5STd3=s200", mapsLink: "https://maps.app.goo.gl/mqPJNn5m4SCNofuY9" },
         { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "Art café that blends creativity and history, a cozy spot in a former village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
-        { name: "C's House Homestay (ホームステイ)", location: "Nagano, Japan", text: "Suzie and Toru's guesthouse near the Snow Monkey Park offers warm hospitality, cozy rooms, and a perfect location—feels just like home!", rating: 5.0, image: "https://lh3.googleusercontent.com/p/AF1QipOTtEuz5FZ5Kqs2LIUyBcX4vqfkJY8BRM7LWEXc=s200", mapsLink: "https://maps.app.goo.gl/KfPYGPYJtjdWEHJx7" },
-
     ];
 
     const container = document.getElementById('recentDiscoveries');
+    container.innerHTML = ''; // Clear existing content
+
     recentDiscoveries.forEach(place => {
         const placeElement = document.createElement('a');
         placeElement.href = place.mapsLink;
@@ -290,8 +290,11 @@ function populateRecentDiscoveries() {
         infoElement.className = 'p-4 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
         infoElement.innerHTML = `
             <h3 class="belanosima-regular">${place.name}</h3>
-            <p class="text-sm text-gray-600">${place.text}</p>
-            <p class="text-sm">Rating: ${place.rating} ${place.location ? `- ${place.location}` : ''}</p>
+            <p class="text-sm text-gray-600 line-clamp-2">${place.text}</p>
+            <p class="text-sm flex items-center">
+                <img src="/img/icons/star.svg" alt="Rating" class="w-3 h-3 mr-1 invert">
+                ${place.rating} ${place.location ? `- ${place.location}` : ''}
+            </p>
             ${place.distance !== undefined ? `<p class="text-sm">Distance: ${formatDistance(place.distance)}</p>` : ''}
         `;
         
@@ -418,44 +421,4 @@ function formatDistance(distance) {
         return distance.toFixed(2) + ' km';
     }
     return 'Unknown';
-}
-
-// Modify the populateRecentDiscoveries function
-function populateRecentDiscoveries() {
-    const recentDiscoveries = [
-        { name: "La Forge des Halles", location: "Chambéry, France", text: "Once an iron forge, now transformed into a lively market hub full of local crafts and artisanal delights.", rating: 4.9, image: "https://www.lecturesplurielles.com/wp-content/uploads/2021/02/Lecture-plurielles-a-la-forge.jpg", mapsLink: "https://maps.app.goo.gl/EXGt26Ktu43mshBC8" },
-        { name: "Wangedikanda Peak", location: "Kalupahana, Sri Lanka", text: "Breathtaking views and a challenging hike, leading adventurers to the stunning summit of a lesser-known mountain gem.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipPdnYZTG9TBHv0jXsA-3U9QtR5Oxz_Tgfe5STd3=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
-        { name: "Old Post office Cafe Gallery", location: "Kincraig, Scotland", text: "Art café that blends creativity and history, a cozy spot in a former village post office.", rating: 4.9, image: "https://lh3.googleusercontent.com/p/AF1QipMdtBgEv8gBQbKW-3TycahbQWKgX28pXJp7rq96=s200", mapsLink: "https://maps.app.goo.gl/cHjLLj9ttHmk7z1s8" },
-        { name: "C's House Homestay (ホームステイ)", location: "Nagano, Japan", text: "Suzie and Toru's guesthouse near the Snow Monkey Park offers warm hospitality, cozy rooms, and a perfect location—feels just like home!", rating: 5.0, image: "https://lh3.googleusercontent.com/p/AF1QipOTtEuz5FZ5Kqs2LIUyBcX4vqfkJY8BRM7LWEXc=s200", mapsLink: "https://maps.app.goo.gl/KfPYGPYJtjdWEHJx7" },
-
-    ];
-
-    const container = document.getElementById('recentDiscoveries');
-    container.innerHTML = ''; // Clear existing content
-
-    recentDiscoveries.forEach(place => {
-        console.log('Processing place:', place); // Debug log
-        const placeElement = document.createElement('a');
-        placeElement.href = place.mapsLink;
-        placeElement.target = "_blank";
-        placeElement.className = 'flex items-stretch bg-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02]';
-        
-        const imageElement = document.createElement('img');
-        imageElement.src = place.image;
-        imageElement.alt = place.name;
-        imageElement.className = 'w-24 object-cover rounded-tl-md rounded-bl-md';
-        
-        const infoElement = document.createElement('div');
-        infoElement.className = 'p-4 flex-grow rounded-tr-md rounded-br-md border-t border-r border-b border-gray-200';
-        infoElement.innerHTML = `
-            <h3 class="belanosima-regular">${place.name}</h3>
-            <p class="text-sm text-gray-600">${place.text}</p>
-            <p class="text-sm">Rating: ${place.rating} ${place.location ? `- ${place.location}` : ''}</p>
-            ${place.distance !== undefined ? `<p class="text-sm">Distance: ${formatDistance(place.distance)}</p>` : ''}
-        `;
-        
-        placeElement.appendChild(imageElement);
-        placeElement.appendChild(infoElement);
-        container.appendChild(placeElement);
-    });
 }
