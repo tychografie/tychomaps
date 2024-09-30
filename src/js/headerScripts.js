@@ -84,25 +84,33 @@ async function startPremium() {
     try {
         const user = await Clerk.user;
         if (!user) {
-            alert('Please sign in to upgrade to premium.');
+            alert('Please sign in to start your free trial.');
             return;
         }
-        const response = await fetch('/api/set-premium', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId: user.id }),
-        });
 
-        if (response.ok) {
-            alert('Congratulations! You are now a premium user for one year!');
-        } else {
-            throw new Error('Failed to upgrade to premium');
+        // Check if Paddle is loaded
+        if (typeof Paddle === 'undefined') {
+            throw new Error('Paddle is not loaded');
         }
+
+        // Open Paddle checkout
+        Paddle.Checkout.open({
+            product: 'pro_01j5tpqxz6s2bs0c3m6k6fkz8n', // Your actual product ID
+            email: user.primaryEmailAddress.emailAddress,
+            passthrough: JSON.stringify({
+                userId: user.id
+            }),
+            successCallback: function(data) {
+                console.log('Checkout complete!', data);
+                // Here you can call your backend to update the user's premium status
+            },
+            closeCallback: function(data) {
+                console.log('Checkout closed', data);
+            }
+        });
     } catch (error) {
-        console.error('Error upgrading to premium:', error);
-        alert('An error occurred while upgrading to premium. Please try again later.');
+        console.error('Error starting premium trial:', error);
+        alert('An error occurred while starting your free trial. Please try again later.');
     }
 }
 
