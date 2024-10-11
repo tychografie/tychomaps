@@ -1,37 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-    --background: #ffffff;
-    --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background: #0a0a0a;
-        --foreground: #ededed;
-    }
-}
-
-body {
-    color: var(--foreground);
-    background: var(--background);
-    /*font-family: (var(--font));*/
-    /*font-family: Arial, Helvetica, sans-serif;*/
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-belanosima-sans);
-}
-
-@layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-}
-
-
 .search-container {
     background-color: #fcce6d;
     position: sticky;
@@ -41,10 +7,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .animation-delayed {
@@ -67,25 +33,25 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #locationChip {
-    max-width: 100%;
-    position: relative;
-    display: block; /* Probeer deze wijziging als flex problemen geeft */
+  max-width: 100%;
+  position: relative;
+  display: block; /* Probeer deze wijziging als flex problemen geeft */
 }
 
 #chipText {
-    word-wrap: break-word;
-    word-break: break-word;
-    white-space: normal; /* Zorg ervoor dat de tekst kan wrappen */
-    hyphens: auto; /* Voeg dit toe voor nette afbreking van lange woorden */
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal; /* Zorg ervoor dat de tekst kan wrappen */
+  hyphens: auto; /* Voeg dit toe voor nette afbreking van lange woorden */
 }
 
 #chipText span {
-    display: inline-block; /* Inline block zorgt ervoor dat elk element zichzelf op een nieuwe lijn kan zetten indien nodig */
-    margin-right: 0.25rem;
+  display: inline-block; /* Inline block zorgt ervoor dat elk element zichzelf op een nieuwe lijn kan zetten indien nodig */
+  margin-right: 0.25rem;
 }
 
 #chipText span:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 
@@ -99,38 +65,42 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Belanosima", sans-serif;
     font-weight: 400;
     font-style: normal;
-}
-
-.belanosima-semibold {
+  }
+  
+  .belanosima-semibold {
     font-family: "Belanosima", sans-serif;
     font-weight: 600;
     font-style: normal;
-}
-
-.belanosima-bold {
+  }
+  
+  .belanosima-bold {
     font-family: "Belanosima", sans-serif;
     font-weight: 700;
     font-style: normal;
-}
+  }
+  
 
-
+  
 @font-face {
     font-family: 'Favorit';
-    src: url('/fonts/Favorit-Regular.woff2') format('woff2'), /* Modern Browsers */ url('/fonts/Favorit-Regular.woff') format('woff');   /* Legacy Browsers */
+    src: url('/fonts/Favorit-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Regular.woff') format('woff');   /* Legacy Browsers */
     font-weight: 400; /* Regular font weight */
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Favorit';
-    src: url('/fonts/Favorit-Medium.woff2') format('woff2'), /* Modern Browsers */ url('/fonts/Favorit-Medium.woff') format('woff');   /* Legacy Browsers */
+    src: url('/fonts/Favorit-Medium.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/Favorit-Medium.woff') format('woff');   /* Legacy Browsers */
     font-weight: 500; /* Medium font weight */
     font-style: normal;
 }
 
 @font-face {
     font-family: 'PixelPro';
-    src: url('/fonts/VPPixelPro-Regular.woff2') format('woff2'), /* Modern Browsers */ url('/fonts/VPPixelPro-Regular.woff') format('woff');   /* Legacy Browsers */
+    src: url('/fonts/VPPixelPro-Regular.woff2') format('woff2'), /* Modern Browsers */
+         url('/fonts/VPPixelPro-Regular.woff') format('woff');   /* Legacy Browsers */
     font-weight: 400; /* Regular font weight */
     font-style: normal;
 }
@@ -138,8 +108,16 @@ h1, h2, h3, h4, h5, h6 {
 body {
     background-color: #F8E3BF;
 }
+html, body, body * {
+    font-family: 'Favorit', sans-serif; /* Use !important to enforce this style */
+ 
+  }
 
-.tooltip {
+  .font-family-pixelpro {
+    font-family: 'PixelPro', sans-serif !important; /* Use !important to enforce this style */
+  }
+
+  .tooltip {
     position: relative;
     display: inline-block;
 }

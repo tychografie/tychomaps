@@ -38,6 +38,9 @@ dependencies:
   fs:
     specifier: ^0.0.1-security
     version: 0.0.1-security
+  google:
+    specifier: link:next/font/google
+    version: link:next/font/google
   lowdb:
     specifier: ^7.0.1
     version: 7.0.1
