@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "./styles/globals.css"
 import { Belanosima } from "next/font/google"
-import { Header } from "../lib/components/Header"
+import { Header } from "./lib/components/Header"
 
 const favoritSans = localFont({
   src: "./fonts/Favorit-Regular.woff",
