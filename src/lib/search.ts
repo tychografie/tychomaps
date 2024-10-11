@@ -1,11 +1,9 @@
 import fs from 'fs/promises'
-import { Ratelimit } from '@upstash/ratelimit'
 import path from 'path'
 import axios from 'axios'
 import { MongoClient } from 'mongodb'
-import { kv } from '@vercel/kv'
 import { v4 as uuidv4 } from 'uuid'
-import { NextRequest, NextResponse } from 'next/server'
+import { SearchObject, SearchStateResponse } from '@/app/types'
 
 const client = new MongoClient(process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true })
@@ -13,20 +11,68 @@ const client = new MongoClient(process.env.MONGODB_URI,
 export const dynamic = 'force-dynamic' // defaults to auto
 const API_VERSION = '1.0.0'
 
-export function tokenizeAndNormalize(text) {
-  const stopWords = new Set(['the', 'in', 'and', 'of', 'a', 'to', 'is', 'it', 'with', 'for', 'on', 'that', 'this', 'at', 'by', 'an', 'be', 'as', 'from', 'or', 'are', 'was', 'but', 'not', 'have', 'has', 'had', 'which', 'you', 'we', 'they', 'i', 'he', 'she', 'him', 'her', 'them', 'us', 'our', 'your', 'their', 'its', 'my', 'mine', 'yours', 'his', 'hers', 'ours', 'theirs']);
-  return text.toLowerCase().split(/\s+/).filter(word => !stopWords.has(word));
+export function tokenizeAndNormalize (text) {
+  const stopWords = new Set([
+    'the',
+    'in',
+    'and',
+    'of',
+    'a',
+    'to',
+    'is',
+    'it',
+    'with',
+    'for',
+    'on',
+    'that',
+    'this',
+    'at',
+    'by',
+    'an',
+    'be',
+    'as',
+    'from',
+    'or',
+    'are',
+    'was',
+    'but',
+    'not',
+    'have',
+    'has',
+    'had',
+    'which',
+    'you',
+    'we',
+    'they',
+    'i',
+    'he',
+    'she',
+    'him',
+    'her',
+    'them',
+    'us',
+    'our',
+    'your',
+    'their',
+    'its',
+    'my',
+    'mine',
+    'yours',
+    'his',
+    'hers',
+    'ours',
+    'theirs'])
+  return text.toLowerCase().split(/\s+/).filter(word => !stopWords.has(word))
 }
 
-export function containsAnyToken(text, tokens) {
-  const lowerText = text.toLowerCase();
-  return tokens.some(token => lowerText.includes(token));
+export function containsAnyToken (text, tokens) {
+  const lowerText = text.toLowerCase()
+  return tokens.some(token => lowerText.includes(token))
 }
 
 export async function logSearchAndResults (
-  req, query, aiContent, aiResponseContent, country, latitude, longitude,
+  ip, query, aiContent, aiResponseContent, country, latitude, longitude,
   mapsRequest, resultCount, retryAttempted, places, isLatLongMode) {
-  const ip = req.headers['x-forwarded-for']
   // || req.connection.remoteAddress
   const searchId = uuidv4()
   try {
@@ -85,9 +131,7 @@ export async function logSearchAndResults (
           timestamp: timestamp,
         },
       ],
-      places: places.map((place, index) => ({
-        [index]: place,
-      })),
+      places
     }
     await resultsCollection.insertOne(resultEntry)
 
@@ -147,9 +191,10 @@ export async function getCachedResults (query) {
     await client.close()
   }
 }
+
 // Function to read the query file
-export async function readQueryFile(filename: string): Promise<string> {
-  const filePath = path.join(process.cwd(), 'src','lib', filename)
+export async function readQueryFile (filename: string): Promise<string> {
+  const filePath = path.join(process.cwd(), 'src', 'lib', filename)
   try {
     const content = await fs.readFile(filePath, 'utf8')
     return content.trim()
@@ -158,11 +203,12 @@ export async function readQueryFile(filename: string): Promise<string> {
     throw new Error(`Failed to read ${filename}`)
   }
 }
+
 export const aiRequest = async (query, country, retryQuery = null) => {
   const isLatLongMode = query.includes('modeisLatLong:') ||
     (country && country.includes('modeisLatLong:'))
   const queryFile = isLatLongMode ? 'latlongQuery.text' : 'regularQuery.txt'
-  const queryPrefix =  await readQueryFile(queryFile)
+  const queryPrefix = await readQueryFile(queryFile)
   // fs.readFileSync("./" + queryFile, 'utf8').
   //   trim()
   const fullAiContent = retryQuery ||
@@ -403,3 +449,115 @@ export async function getRecentSearches () {
     await client.close()
   }
 }
+
+export type SearchBody = {
+  query: string,
+  latitude: string,
+  longitude: string,
+  country: string,
+  radius: number
+}
+export const handleSearchRequest = async (
+  body: SearchBody, ip: string): Promise<SearchStateResponse> => {
+  // const body = await req.json()
+  const { query, latitude, longitude, country, radius } = body
+  const isLatLongMode = !!(latitude && longitude)
+
+  if (!query || query.length > 128) {
+    console.error('Invalid query length:', query)
+    throw new Error('Invalid query length', { status: 400 })
+    // return NextResponse.json({ error: 'Invalid query length' }, { status: 400 })
+  }
+
+  async function handleRequest (
+    retry = true, retryQuery = null,
+    isRetryAttempt = false): Promise<SearchObject> {
+    console.log('Handling request, retry:', retry, 'isRetryAttempt:',
+      isRetryAttempt)
+    let aiContent, aiResponse, mapsReq
+
+    // Check for cached results only for non-lat/long queries
+    if (!isLatLongMode) {
+      const cachedResults = await getCachedResults(query)
+      if (cachedResults) {
+        console.log('Returning cached results')
+        return {
+          places: cachedResults.places,
+          aiResponse: cachedResults.aiResponse,
+          searchId: 'cached',
+        }
+      }
+    }
+
+    try {
+      const aiResult = await aiRequest(query,
+        isLatLongMode ? `modeisLatLong:${country || ''}` : country, retryQuery)
+      aiContent = aiResult.aiContent
+      aiResponse = aiResult.aiResponse
+
+      console.log('AI content and response received:', aiContent, aiResponse)
+
+      if (!aiResponse || !aiResponse.aiQuery) {
+        throw new Error('Invalid AI response structure')
+      }
+
+      const mapsResponse = await mapsRequestWithDistance(aiResponse.aiQuery,
+        latitude, longitude, radius)
+      mapsReq = aiResponse.aiQuery
+
+      const hasLocationInfo = isLatLongMode || !!country
+      const sortedPlaces = await processor(mapsResponse, aiResponse.aiQuery,
+        hasLocationInfo, isLatLongMode)
+
+      const resultCount = sortedPlaces.length
+      const originalQueryTokens = tokenizeAndNormalize(query)
+      const retryCondition1 = resultCount === 1 &&
+        containsAnyToken(sortedPlaces[0].name, originalQueryTokens)
+      const retryCondition2 = resultCount === 0
+
+      const searchId = await logSearchAndResults(req, query, aiContent,
+        aiResponse ? JSON.stringify(aiResponse) : null, country, latitude,
+        longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces,
+        isLatLongMode)
+
+      if ((retryCondition1 || retryCondition2) && retry) {
+        console.log('Retrying due to no results or only one partial match...')
+        const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was (${JSON.stringify(
+          aiResponse)}) which gave no results in Google Maps API. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations.`
+
+        console.log('Retrying with query:', newRetryQuery)
+        return await handleRequest(false, newRetryQuery, true)
+      }
+
+      return {
+        places: sortedPlaces,
+        aiResponse: {
+          ...aiResponse,
+          modeisLatLong: isLatLongMode.toString(),
+        },
+        searchId: searchId,
+      }
+    } catch (error) {
+      console.error('Error in handleRequest:', error.message)
+      if ((error.message === 'No places found' ||
+        error.message.includes('Invalid AI response')) && retry) {
+        console.log('Retrying due to error:', error.message)
+        const newRetryQuery = `${aiContent} 5. IMPORTANT Your previous response was invalid or gave no results. Please provide a different query, focusing on the type of place and its characteristics, without mentioning specific locations. Ensure your response is a valid JSON object.`
+
+        console.log('Retrying with query:', newRetryQuery)
+        return await handleRequest(false, newRetryQuery, true)
+      }
+      const searchId = await logSearchAndResults(ip, query, aiContent,
+        aiResponse ? JSON.stringify(aiResponse) : null, country, latitude,
+        longitude, mapsReq, 0, isRetryAttempt, [], isLatLongMode)
+      throw new Error(error.message || 'Unknown error',
+        { searchId, cause: 500 })
+      // return NextResponse.json(
+      //   { error: error.message || 'Unknown error', searchId: searchId },
+      //   { status: 500 })
+    }
+  }
+
+  return await handleRequest()
+}
+

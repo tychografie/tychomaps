@@ -9,12 +9,16 @@ const initialState: SearchStateResponse = {
 }
 export default function Home () {
   const [state, formAction, isPending] = useFormState<SearchStateResponse>(search, initialState)
-  const { pending } = useFormStatus()
 
   return (
     <div className={"flex items-center justify-center min-h-screen"}>
-      <div class={"w-xl bg-amber-50 p-4"}>
-        {pending}
+      <div className={"w-xl bg-amber-50 p-4"}>
+        {state.response ? state.response?.places.length : []}
+
+        {state.response?.places.map((place)=>{
+          return <div>{place.name}</div>
+        })}
+
         <h1 className={'p-12 text-center text-4xl'}>polomaps</h1>
         {state ? state.message : 'nostate'}
         {isPending}
