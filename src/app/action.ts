@@ -6,7 +6,8 @@ import { getRecentSearches, handleSearchRequest } from '@/lib/search'
 
 export async function search (
   prevState: any, formData: FormData): Promise<SearchStateResponse> {
-  const ip = headers()['x-forwarded-for']
+  // const ip = request().ip
+  const ip = headers().get('x-forwarded-for')
   const response = await handleSearchRequest({ query: formData.get('query') },
     ip)
   console.log(response)

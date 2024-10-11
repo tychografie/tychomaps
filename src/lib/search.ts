@@ -397,7 +397,7 @@ export const processor = async (
   return sortedPlaces
 }
 
-export async function getRecentSearches (): Promise<QueryInfo[]> {
+export async function getRecentSearches (): Promise<QueryInfo> {
   try {
     await client.connect()
     const database = client.db('tychomapsmongodb')
