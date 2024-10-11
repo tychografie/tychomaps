@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add middleware for rate limiting">
-      <change beforePath="$PROJECT_DIR$/src/app/middleware/middeleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/middeleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/middeleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/middeleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/search.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +36,9 @@
     "accountId": "3eece01c-8654-44b9-bc67-7ea8fc351966"
   }
 }]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 1
 }]]></component>
@@ -91,7 +95,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="10924000" />
+      <workItem from="1728642604521" duration="11254000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -221,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728654256360</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Add middleware for rate limiting">
+      <option name="closed" value="true" />
+      <created>1728654331457</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1728654331457</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

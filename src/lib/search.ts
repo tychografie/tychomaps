@@ -3,7 +3,7 @@ import path from 'path'
 import axios from 'axios'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
-import { SearchObject, SearchStateResponse } from '@/app/types'
+import { PlaceDetail, SearchObject, SearchStateResponse } from '@/app/types'
 import { Ratelimit } from '@upstash/ratelimit'
 import { kv } from '@vercel/kv'
 import { NextResponse } from 'next/server'
@@ -168,8 +168,8 @@ export async function getCachedResults (query) {
     for (const result of cachedResults) {
       if (result.places && result.places.length >= 5) {
         console.log('Using cached result:', result.originalQuery)
-        const formattedPlaces = result.places.map(place => {
-          const placeData = Object.values(place)[0] // Get the place data from the object
+        const formattedPlaces = result.places.map((placeData: PlaceDetail) => {
+          // const placeData = Object.values(place)[0] // Get the place data from the object
           return {
             ...placeData,
             name: placeData.displayName?.text || placeData.name || 'Unknown',
@@ -519,7 +519,7 @@ export const handleSearchRequest = async (
         containsAnyToken(sortedPlaces[0].name, originalQueryTokens)
       const retryCondition2 = resultCount === 0
 
-      const searchId = await logSearchAndResults(req, query, aiContent,
+      const searchId = await logSearchAndResults(ip, query, aiContent,
         aiResponse ? JSON.stringify(aiResponse) : null, country, latitude,
         longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces,
         isLatLongMode)

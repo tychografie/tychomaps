@@ -10,7 +10,7 @@ const ratelimit = new Ratelimit({
 
 // Define which routes you want to rate limit
 export const config = {
-  matcher: ['/', 'api/search'],
+  matcher: ['/', 'api/search'], // server actions are living on the page path
 }
 
 export default async function middleware (request: NextRequest) {
