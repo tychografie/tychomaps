@@ -11,12 +11,16 @@ export default function Home() {
     search,
     initialState,
   )
-  const { pending } = useFormStatus()
 
   return (
     <div className={"flex items-center justify-center min-h-screen"}>
       <div className={"w-xl bg-amber-50 p-4"}>
-        {pending}
+        {state.response ? state.response?.places.length : []}
+
+        {state.response?.places.map((place) => {
+          return <div>{place.name}</div>
+        })}
+
         <h1 className={"p-12 text-center text-4xl"}>polomaps</h1>
         {state ? state.message : "nostate"}
         {isPending}
