@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="next init" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="rm next boiler">
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Medium.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Medium.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Regular.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/VPPixelPro-Regular.woff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/fonts/VPPixelPro-Regular.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/fonts/GeistMonoVF.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/fonts/GeistVF.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/styles/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,11 +54,13 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/hidde/repos/tychomaps/src/app",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/hidde/repos/tychomaps/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -62,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="330000" />
+      <workItem from="1728642604521" duration="649000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -96,7 +113,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728642931742</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="pnpm is better">
+      <option name="closed" value="true" />
+      <created>1728642992330</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728642992330</updated>
+    </task>
+    <task id="LOCAL-00006" summary="rm next boiler">
+      <option name="closed" value="true" />
+      <created>1728643092822</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728643092822</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,6 +138,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="move to sub" />
     <MESSAGE value="next init" />
-    <option name="LAST_COMMIT_MESSAGE" value="next init" />
+    <MESSAGE value="pnpm is better" />
+    <MESSAGE value="rm next boiler" />
+    <option name="LAST_COMMIT_MESSAGE" value="rm next boiler" />
   </component>
 </project>
