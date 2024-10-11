@@ -169,7 +169,6 @@ export async function getCachedResults (query) {
       if (result.places && result.places.length >= 5) {
         console.log('Using cached result:', result.originalQuery)
         const formattedPlaces = result.places.map((placeData: PlaceDetail) => {
-          // const placeData = Object.values(place)[0] // Get the place data from the object
           return {
             ...placeData,
             name: placeData.displayName?.text || placeData.name || 'Unknown',
