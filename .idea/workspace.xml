@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add types and split up search call to make server action and move response creation" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add middleware for rate limiting">
+      <change beforePath="$PROJECT_DIR$/src/app/middleware/middeleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/middeleware.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,10 +69,10 @@
       <recent name="$PROJECT_DIR$/src/app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/lib" />
       <recent name="$PROJECT_DIR$/src/app/api/search" />
       <recent name="$PROJECT_DIR$/src/static" />
-      <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/styles" />
     </key>
   </component>
@@ -89,7 +91,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="10599000" />
+      <workItem from="1728642604521" duration="10924000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -203,7 +205,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728653975499</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="API route workin">
+      <option name="closed" value="true" />
+      <created>1728654150639</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1728654150639</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add middleware for rate limiting">
+      <option name="closed" value="true" />
+      <created>1728654256360</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1728654256360</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +240,8 @@
     <MESSAGE value="Font and style fixes" />
     <MESSAGE value="Fix api route and split up" />
     <MESSAGE value="Add types and split up search call to make server action and move response creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add types and split up search call to make server action and move response creation" />
+    <MESSAGE value="API route workin" />
+    <MESSAGE value="Add middleware for rate limiting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add middleware for rate limiting" />
   </component>
 </project>
