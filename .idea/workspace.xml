@@ -4,23 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="rm next boiler">
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Medium.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Medium.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/Favorit-Regular.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/VPPixelPro-Regular.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/fonts/VPPixelPro-Regular.woff2" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Fix fonts">
+      <change afterPath="$PROJECT_DIR$/src/app/api/search/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/fonts/GeistMonoVF.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/fonts/GeistVF.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/styles/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,6 +62,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app" />
+      <recent name="$PROJECT_DIR$/src/app/styles" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -79,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="649000" />
+      <workItem from="1728642604521" duration="1443000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -129,7 +136,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728643092822</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fix fonts">
+      <option name="closed" value="true" />
+      <created>1728643276599</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728643276599</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +155,7 @@
     <MESSAGE value="next init" />
     <MESSAGE value="pnpm is better" />
     <MESSAGE value="rm next boiler" />
-    <option name="LAST_COMMIT_MESSAGE" value="rm next boiler" />
+    <MESSAGE value="Fix fonts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix fonts" />
   </component>
 </project>
