@@ -18,3 +18,8 @@ export async function search (
 }
 
 
+export async function recentSearches(){
+  return {
+    'empty': true
+  }
+}
