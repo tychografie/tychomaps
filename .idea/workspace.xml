@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Fix api route and split up">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/action.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/search/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/search/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/search.ts" afterDir="false" />
-    </list>
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add types and split up search call to make server action and move response creation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +89,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="10195000" />
+      <workItem from="1728642604521" duration="10599000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -202,7 +195,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728652367746</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add types and split up search call to make server action and move response creation">
+      <option name="closed" value="true" />
+      <created>1728653975499</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1728653975499</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +221,7 @@
     <MESSAGE value="Form handling" />
     <MESSAGE value="Font and style fixes" />
     <MESSAGE value="Fix api route and split up" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix api route and split up" />
+    <MESSAGE value="Add types and split up search call to make server action and move response creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add types and split up search call to make server action and move response creation" />
   </component>
 </project>

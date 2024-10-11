@@ -58,5 +58,14 @@ export async function POST (req: NextRequest) {
       'KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...')
   }
 
-  return await handleSearchRequest(await req.json(), ip)
+  try {
+    const response = await handleSearchRequest(await req.json(), ip)
+    return NextResponse.json(response)
+  } catch (e) {
+    return NextResponse.json({
+      error: e.message,
+    }, {
+      status: 500,
+    })
+  }
 }
