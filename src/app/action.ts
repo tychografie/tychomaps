@@ -2,7 +2,8 @@
 
 import { SearchStateResponse } from '@/app/types'
 import { headers } from 'next/headers'
-import { handleSearchRequest } from '@/lib/search'
+import { getRecentSearches, handleSearchRequest } from '@/lib/search'
+import { NextResponse } from 'next/server'
 
 export async function search (
   prevState: any, formData: FormData): Promise<SearchStateResponse> {
@@ -17,9 +18,7 @@ export async function search (
   }
 }
 
+export async function recentSearches () {
+  return await getRecentSearches()
 
-export async function recentSearches(){
-  return {
-    'empty': true
-  }
 }
