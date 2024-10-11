@@ -405,7 +405,7 @@ module.exports = async (req, res) => {
         return res.status(400).json({ error: "Invalid query length" });
     }
 
-    const handleRequest = async (retry = true, retryQuery = null, isRetryAttempt = false) => {
+    async function handleRequest(retry = true, retryQuery = null, isRetryAttempt = false) {
         console.log("Handling request, retry:", retry, "isRetryAttempt:", isRetryAttempt);
         let aiContent, aiResponse, mapsReq;
         
@@ -440,7 +440,8 @@ module.exports = async (req, res) => {
             const sortedPlaces = await processor(mapsResponse, aiResponse.aiQuery, hasLocationInfo, isLatLongMode);
 
             const resultCount = sortedPlaces.length;
-            const retryCondition1 = resultCount === 1 && sortedPlaces[0].name.toLowerCase().includes(aiResponse.aiQuery.toLowerCase());
+            const originalQueryTokens = tokenizeAndNormalize(query);
+            const retryCondition1 = resultCount === 1 && containsAnyToken(sortedPlaces[0].name, originalQueryTokens);
             const retryCondition2 = resultCount === 0;
 
             const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, resultCount, isRetryAttempt, sortedPlaces, isLatLongMode);
@@ -473,7 +474,17 @@ module.exports = async (req, res) => {
             const searchId = await logSearchAndResults(req, query, aiContent, aiResponse ? JSON.stringify(aiResponse) : null, country, latitude, longitude, mapsReq, 0, isRetryAttempt, [], isLatLongMode);
             return res.status(500).json({ error: error.message || 'Unknown error', searchId: searchId });
         }
-    };
+    }
+
+    function tokenizeAndNormalize(text) {
+        const stopWords = new Set(['the', 'in', 'and', 'of', 'a', 'to', 'is', 'it', 'with', 'for', 'on', 'that', 'this', 'at', 'by', 'an', 'be', 'as', 'from', 'or', 'are', 'was', 'but', 'not', 'have', 'has', 'had', 'which', 'you', 'we', 'they', 'i', 'he', 'she', 'him', 'her', 'them', 'us', 'our', 'your', 'their', 'its', 'my', 'mine', 'yours', 'his', 'hers', 'ours', 'theirs']);
+        return text.toLowerCase().split(/\s+/).filter(word => !stopWords.has(word));
+    }
+
+    function containsAnyToken(text, tokens) {
+        const lowerText = text.toLowerCase();
+        return tokens.some(token => lowerText.includes(token));
+    }
 
     return await handleRequest();
 };

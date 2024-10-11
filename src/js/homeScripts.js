@@ -11,6 +11,28 @@ function closeFeedbackPopup() {
 function submitFeedback() {
     var feedbackText = document.getElementById('feedbackText').value;
     closeFeedbackPopup();
+
+    fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ feedbackText })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to submit feedback');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Feedback submitted successfully:', data);
+        alert('Thank you for your feedback!');
+    })
+    .catch(error => {
+        console.error('Error submitting feedback:', error);
+        alert('Error submitting feedback. Please try again later.');
+    });
 }
 
 function toggleClearButton() {
