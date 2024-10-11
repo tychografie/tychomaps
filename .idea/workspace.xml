@@ -4,16 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Form handling">
-      <change afterPath="$PROJECT_DIR$/src/app/styles/output.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/styles/style.css" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Font and style fixes">
+      <change afterPath="$PROJECT_DIR$/next.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/search/latlongQuery.text" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/search/regularQuery.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/api/search/staticData.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/styles/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/styles/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sub/src/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/sub/src/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/action.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/search/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/search/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +22,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -59,7 +58,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/hidde/repos/tychomaps/src/app/styles",
+    "last_opened_file_path": "/Users/hidde/repos/tychomaps/src/app/api/search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -71,10 +70,13 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/search" />
       <recent name="$PROJECT_DIR$/src/app/styles" />
       <recent name="$PROJECT_DIR$/src/app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/app/api/search" />
+      <recent name="$PROJECT_DIR$/src/static" />
       <recent name="$PROJECT_DIR$/src/app" />
       <recent name="$PROJECT_DIR$/src/app/styles" />
     </key>
@@ -94,7 +96,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="5940000" />
+      <workItem from="1728642604521" duration="8731000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -184,7 +186,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728647023879</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Font and style fixes">
+      <option name="closed" value="true" />
+      <created>1728648807190</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1728648807190</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +210,7 @@
     <MESSAGE value="Add existing modules and replicate search module" />
     <MESSAGE value="Convert search call to typescript" />
     <MESSAGE value="Form handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="Form handling" />
+    <MESSAGE value="Font and style fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Font and style fixes" />
   </component>
 </project>

@@ -4,12 +4,17 @@ import { SearchStateResponse } from '@/app/types'
 
 export async function search (
   prevState: any, formData: FormData): Promise<SearchStateResponse> {
-  // return await new Promise(resolve => {
-  //   setTimeout(() => {
-  //     console.log('query:', formData.get('query'))
-      return{
+
+
+
+
+
+  return await new Promise(resolve => {
+    setTimeout(() => {
+      console.log('query:', formData.get('query'))
+      resolve({
         message: 'search : ' + formData.get('query'),
-      }
-    // }, 2000)
-  // })
+      })
+    }, 2000)
+  })
 }
