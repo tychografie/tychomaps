@@ -3,7 +3,12 @@ import path from 'path'
 import axios from 'axios'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
-import { PlaceDetail, SearchObject, SearchStateResponse } from '@/app/types'
+import {
+  PlaceDetail,
+  QueryInfo,
+  SearchObject,
+  SearchStateResponse,
+} from '@/app/types'
 
 const client = new MongoClient(process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true })
@@ -392,7 +397,7 @@ export const processor = async (
   return sortedPlaces
 }
 
-export async function getRecentSearches () {
+export async function getRecentSearches (): Promise<QueryInfo[]> {
   try {
     await client.connect()
     const database = client.db('tychomapsmongodb')
