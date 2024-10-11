@@ -28,35 +28,8 @@ export async function POST (req: NextRequest) {
     return NextResponse.json({ error: 'Method not allowed' }, { status: 405 })
   }
 
-  const ip = req.headers.get('x-forwarded-for')
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+  const ip = req.ip ?? '127.0.0.1'
 
-    const rl = new Ratelimit({
-      redis: kv,
-      limiter: Ratelimit.slidingWindow(3, '10s'),
-    })
-
-    const { success, limit, reset, remaining } = await rl.limit(
-      `ratelimit_${ip}`)
-
-    if (!success) {
-      console.log('Rate limit exceeded for IP:', ip)
-      return NextResponse.json(
-        { error: 'please be kind to the locals, you need them in your future' },
-        {
-          status: 429,
-          headers: {
-            'X-RateLimit-Limit': limit.toString(),
-            'X-RateLimit-Remaining': remaining.toString(),
-            'X-RateLimit-Reset': reset.toString(),
-          },
-        },
-      )
-    }
-  } else {
-    console.log(
-      'KV_REST_API_URL and KV_REST_API_TOKEN env vars not found, not rate limiting...')
-  }
 
   try {
     const response = await handleSearchRequest(await req.json(), ip)

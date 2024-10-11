@@ -4,6 +4,9 @@ import axios from 'axios'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import { SearchObject, SearchStateResponse } from '@/app/types'
+import { Ratelimit } from '@upstash/ratelimit'
+import { kv } from '@vercel/kv'
+import { NextResponse } from 'next/server'
 
 const client = new MongoClient(process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true })
@@ -459,7 +462,8 @@ export type SearchBody = {
 }
 export const handleSearchRequest = async (
   body: SearchBody, ip: string): Promise<SearchStateResponse> => {
-  // const body = await req.json()
+
+
   const { query, latitude, longitude, country, radius } = body
   const isLatLongMode = !!(latitude && longitude)
 
