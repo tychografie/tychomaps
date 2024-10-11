@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Search api route working">
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add existing modules and replicate search module">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/search/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/search/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
-      <workItem from="1728642604521" duration="1832000" />
+      <workItem from="1728642604521" duration="2743000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -151,7 +153,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728644100682</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Add existing modules and replicate search module">
+      <option name="closed" value="true" />
+      <created>1728644714690</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1728644714690</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +174,7 @@
     <MESSAGE value="rm next boiler" />
     <MESSAGE value="Fix fonts" />
     <MESSAGE value="Search api route working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Search api route working" />
+    <MESSAGE value="Add existing modules and replicate search module" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add existing modules and replicate search module" />
   </component>
 </project>

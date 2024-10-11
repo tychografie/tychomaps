@@ -1,24 +1,15 @@
-export const dynamic = 'force-dynamic' // defaults to auto
-// export async function POST (request: Request) {
-//
-//   console.log('post')
-//   return Response.json({
-//     form: JSON.stringify(await request.json()),
-//   })
-//
-// }
-
-const { Ratelimit } = require('@upstash/ratelimit')
-const fs = require('fs')
-const path = require('path')
-const axios = require('axios')
-const { MongoClient } = require('mongodb')
-const { kv } = require('@vercel/kv')
-const { v4: uuidv4 } = require('uuid')
+import fs from 'fs'
+import { Ratelimit } from '@upstash/ratelimit'
+import path from 'path'
+import axios from 'axios'
+import { MongoClient } from 'mongodb'
+import { kv } from '@vercel/kv'
+import { v4 as uuidv4 } from 'uuid'
 
 const client = new MongoClient(process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true })
 
+export const dynamic = 'force-dynamic' // defaults to auto
 const API_VERSION = '1.0.0'
 
 async function logSearchAndResults (
