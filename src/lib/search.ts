@@ -3,10 +3,12 @@ import path from 'path'
 import axios from 'axios'
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
-import { PlaceDetail, SearchObject, SearchStateResponse } from '@/app/types'
-import { Ratelimit } from '@upstash/ratelimit'
-import { kv } from '@vercel/kv'
-import { NextResponse } from 'next/server'
+import {
+  PlaceDetail,
+  QueryInfo,
+  SearchObject,
+  SearchStateResponse,
+} from '@/app/types'
 
 const client = new MongoClient(process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true })
@@ -134,7 +136,7 @@ export async function logSearchAndResults (
           timestamp: timestamp,
         },
       ],
-      places
+      places,
     }
     await resultsCollection.insertOne(resultEntry)
 
@@ -281,11 +283,8 @@ export const aiRequest = async (query, country, retryQuery = null) => {
   }
 }
 
-export const mapsRequest = async (mapsQuery, latitude, longitude, radius) => {
-  if (typeof mapsQuery !== 'string') {
-    console.error('mapsQuery is not a string:', mapsQuery)
-    throw new Error('Invalid mapsQuery: mapsQuery should be a string')
-  }
+export const mapsRequest = async (
+  mapsQuery: string, latitude: string, longitude: string, radius: number) => {
 
   const minRating = mapsQuery.toLowerCase().includes('club') ? 4.0 : 4.5
   const requestPayload = { textQuery: mapsQuery, minRating }
@@ -398,7 +397,7 @@ export const processor = async (
   return sortedPlaces
 }
 
-export async function getRecentSearches () {
+export async function getRecentSearches (): Promise<QueryInfo> {
   try {
     await client.connect()
     const database = client.db('tychomapsmongodb')
@@ -461,7 +460,6 @@ export type SearchBody = {
 }
 export const handleSearchRequest = async (
   body: SearchBody, ip: string): Promise<SearchStateResponse> => {
-
 
   const { query, latitude, longitude, country, radius } = body
   const isLatLongMode = !!(latitude && longitude)

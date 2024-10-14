@@ -40,3 +40,9 @@ export type SearchObject = {
   data: Data[];
   places: PlaceDetail[];
 };
+
+export type QueryInfo = {
+  originalQuery: string;
+  aiEmoji: string;
+  aiType: string;
+};
