@@ -1,17 +1,6 @@
 export default function Bologna() {
   return (
-    <main className="container mx-auto px-4 py-8 max-w-[1000px]">
-      <div className="text-sm mb-4">
-        <a href="/" className="hover:underline">
-          Home
-        </a>{" "}
-        &gt;{" "}
-        <a href="/italy" className="capitalize hover:underline">
-          italy
-        </a>{" "}
-        &gt;
-        <span>Bologna</span>
-      </div>
+    <div>
 
       <div className="bg-[#fbeed2] rounded-md p-6 mb-8">
         <h1 className="text-2xl mb-4 belanosima-regular">
@@ -57,7 +46,8 @@ export default function Bologna() {
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
-        <div className="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
+        <div
+          className="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
           <h2 className="text-2xl mb-4 belanosima-regular">Hidden bars</h2>
           <p className="mb-4">
             Discover Bologna's secret drinking spots, from historic taverns to
@@ -69,7 +59,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Aurum bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Aurum</span>
                 </div>
@@ -81,7 +72,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Smöll bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Smöll</span>
                 </div>
@@ -93,7 +85,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Il Mistico, Cocktail &amp; Wine bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     Il Mistico, Cocktail &amp; Wine
@@ -107,7 +100,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Enoteca Bar Des Arts bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Enoteca Bar Des Arts</span>
                 </div>
@@ -119,7 +113,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Aurum bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Aurum</span>
                 </div>
@@ -131,7 +126,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Smöll bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Smöll</span>
                 </div>
@@ -143,7 +139,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Il Mistico, Cocktail &amp; Wine bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     Il Mistico, Cocktail &amp; Wine
@@ -157,7 +154,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Enoteca Bar Des Arts bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Enoteca Bar Des Arts</span>
                 </div>
@@ -165,7 +163,8 @@ export default function Bologna() {
               </div>
             </a>
           </div>
-          <div className="absolute bottom-12 left-12 right-12 p-6 bg-white rounded-md shadow z-20">
+          <div
+            className="absolute bottom-12 left-12 right-12 p-6 bg-white rounded-md shadow z-20">
             <div className="flex items-center mb-2">
               <div className="relative flex -space-x-4">
                 <img
@@ -221,7 +220,8 @@ export default function Bologna() {
           </div>
         </div>
 
-        <div className="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
+        <div
+          className="bg-[#fbeed2] rounded-md p-6 md:w-1/2 relative overflow-hidden">
           <h2 className="text-2xl mb-4 belanosima-regular">
             Small restaurants
           </h2>
@@ -235,7 +235,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Radici Terra d’Amare bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Radici Terra d’Amare</span>
                 </div>
@@ -247,7 +248,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Ottovie bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Ottovie</span>
                 </div>
@@ -259,7 +261,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Il Posto - cucina, vino ed eventuali bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     Il Posto - cucina, vino ed eventuali
@@ -273,7 +276,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/La Svolta - Cucina di Ragione bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     La Svolta - Cucina di Ragione
@@ -287,7 +291,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Radici Terra d’Amare bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Radici Terra d’Amare</span>
                 </div>
@@ -299,7 +304,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Ottovie bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">Ottovie</span>
                 </div>
@@ -311,7 +317,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/Il Posto - cucina, vino ed eventuali bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     Il Posto - cucina, vino ed eventuali
@@ -325,7 +332,8 @@ export default function Bologna() {
               href="https://www.google.com/maps/search/La Svolta - Cucina di Ragione bologna"
               target="_blank"
             >
-              <div className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
+              <div
+                className="top-row hover:bg-neutral-950 flex justify-between p-5 rounded-md bg-neutral-800 text-white text-lg cursor-pointer mb-2">
                 <div className="flex items-center space-x-3">
                   <span className="place-name">
                     La Svolta - Cucina di Ragione
@@ -335,7 +343,8 @@ export default function Bologna() {
               </div>
             </a>
           </div>
-          <div className="absolute bottom-12 left-12 right-12 p-6 bg-white rounded-md shadow z-20">
+          <div
+            className="absolute bottom-12 left-12 right-12 p-6 bg-white rounded-md shadow z-20">
             <div className="flex items-center mb-2">
               <div className="relative flex -space-x-4">
                 <img
@@ -415,6 +424,6 @@ export default function Bologna() {
           Bologna continues to captivate both visitors and locals alike in 2024.
         </p>
       </section>
-    </main>
+    </div>
   )
 }
