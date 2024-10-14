@@ -6,13 +6,13 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {}
 
 export const buttonVariants = cva(
-  "rounded-md flex items-center justify-center gap-2 border transition-colors",
+  "rounded-md flex items-center justify-center gap-2 border transition-colors disabled:opacity-80 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
-        primary: "bg-orange text-black hover:bg-orange-dark border-transparent",
+        primary: "bg-orange text-black enabled:hover:bg-orange-dark border-transparent",
         outline:
-          "border border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-white",
+          "border border-gray-700 text-gray-700 enabled:hover:bg-gray-700 hover:text-white",
         clear: "",
       },
       size: {
@@ -31,6 +31,7 @@ export const Button = memo<ButtonProps>(
   ({ variant, size, className, ...props }) => {
     return (
       <button
+        disabled={props.disabled}
         className={buttonVariants({ variant, size, className })}
         {...props}
       >
