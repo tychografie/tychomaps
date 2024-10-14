@@ -48,7 +48,7 @@ export default function Home() {
     try {
       const res = await searchAction({ query }) // TODO:  add more params, conforming SearchBody
 
-      console.log(res.response)
+      console.log(res)
       setResponse(res.response) // typesafe
       setApiLoading(false)
     } catch (error) {

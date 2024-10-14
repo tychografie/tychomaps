@@ -1,5 +1,5 @@
 export type SearchStateResponse = {
-  message: string;
+  message?: string;
   error?: string;
   response?: SearchObject;
 }
