@@ -20,6 +20,7 @@ export default function Home() {
   const [location, setLocation] = useState<LocationWithAddress>()
   const [radius, _setRadius] = useState("500m")
   const [response, setResponse] = useState<SearchObject>()
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
 
   const handlePinClick = useCallback(async () => {
     setLocationLoading(true)
@@ -80,6 +81,7 @@ export default function Home() {
           🧢 We helped 405 people find 21199 local places
         </p>
       )}
+      <FeedbackBox open={isFeedbackOpen} />
     </div>
   )
 

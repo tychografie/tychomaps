@@ -55,6 +55,8 @@ export const ResultsBox = memo<ResultsBoxProps>((props) => {
     }
   }, [feedbackText])
 
+  Add popover for updates
+
   return (
     <div className="bg-orange-light w-full max-w-2xl flex flex-col text-purple p-6 rounded-lg">
       <h1>Locals love to go to...</h1>
