@@ -14,7 +14,9 @@ const config: Config = {
         "orange-light": "#F9EED5",
         orange: "#EEB053",
         "orange-dark": "#D99F3F",
-        "purple": "#4A044E"
+        "orange-washed": "#E3D5BE",
+        "purple": "#4A044E",
+        "indigo": "#2634aa",
       },
     },
   },

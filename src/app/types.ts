@@ -9,6 +9,20 @@ export type Location = {
   longitude: number;
 };
 
+export type LocationWithAddress = Location & {
+  address: string;
+  country: string;
+};
+
+export type SuccessResponse<T> = {
+  success: true;
+} & T
+
+export type ErrorResponse = {
+  success: false;
+  errorMessage?: string;
+}
+
 export type DisplayName = {
   text: string;
   languageCode: string;
