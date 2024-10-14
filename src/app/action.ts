@@ -2,10 +2,14 @@
 
 import { QueryInfo, SearchStateResponse } from "@/app/types"
 import { headers } from "next/headers"
-import { getRecentSearches, handleSearchRequest } from "@/lib/search"
+import {
+  getRecentSearches,
+  handleSearchRequest,
+  SearchBody,
+} from "@/lib/search"
 
 export async function searchAction(
-  searchBody,
+  searchBody: SearchBody,
 ): Promise<SearchStateResponse> {
   // const ip = request().ip
   const ip = headers().get("x-forwarded-for")
