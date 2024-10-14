@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Api loading = button disabled">
-      <change afterPath="$PROJECT_DIR$/src/app/posts/bologna-local-tips-2024/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/posts/dynamic_in_future" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Layout for posts" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -106,7 +101,7 @@
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
       <workItem from="1728642604521" duration="12619000" />
-      <workItem from="1728929440669" duration="1357000" />
+      <workItem from="1728929440669" duration="1584000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -356,14 +351,29 @@
       <option name="project" value="LOCAL" />
       <updated>1728930058093</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Add bologna scaffolding">
+      <option name="closed" value="true" />
+      <created>1728930840571</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930840571</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Layout for posts">
+      <option name="closed" value="true" />
+      <created>1728930998143</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930998143</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="move to sub" />
     <MESSAGE value="next init" />
     <MESSAGE value="pnpm is better" />
     <MESSAGE value="rm next boiler" />
@@ -387,6 +397,8 @@
     <MESSAGE value="Make it an actual server action" />
     <MESSAGE value="Button has disabled state" />
     <MESSAGE value="Api loading = button disabled" />
-    <option name="LAST_COMMIT_MESSAGE" value="Api loading = button disabled" />
+    <MESSAGE value="Add bologna scaffolding" />
+    <MESSAGE value="Layout for posts" />
+    <option name="LAST_COMMIT_MESSAGE" value="Layout for posts" />
   </component>
 </project>

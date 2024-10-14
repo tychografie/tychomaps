@@ -3,6 +3,12 @@ export default function PostLayout({
 }: {
   children: React.ReactNode
 }) {
+
+  const props = {
+    region: "Italy",
+    postName: "Bologna"
+  }
+
   // TODO: breadcrumbs via next
   return (
     <main className="container mx-auto px-4 py-8 max-w-[1000px]">
@@ -11,11 +17,11 @@ export default function PostLayout({
           Home
         </a>{" "}
         &gt;{" "}
-        <a href="/italy" className="capitalize hover:underline">
-          italy
+        <a href={`/${props.region.toLowerCase()}`} className="capitalize hover:underline">
+          {props.region}
         </a>{" "}
         &gt;
-        <span>Bologna</span>
+        <span>{props.postName}</span>
       </div>
       {children}
     </main>
