@@ -16,6 +16,7 @@ interface HeroBoxProps {
   onPinClick: () => void
   address?: string
   locationLoading: boolean
+  searchIsLoading: boolean
   radius: string
   setRadius: (e: ChangeEvent<HTMLSelectElement>) => void
   onClearLocation: () => void
@@ -172,8 +173,9 @@ export const HeroBox = memo<HeroBoxProps>(({ onSearch, ...props }) => {
             </button>
           </div>
         )}
-        <Button size="lg" className="mt-3">
+        <Button disabled={props.searchIsLoading} size="lg" className="mt-3">
           Search
+          {props.searchIsLoading ? <LoaderIcon className="size-5 text-indigo animate-spin" /> : null}
         </Button>
       </form>
     </div>
