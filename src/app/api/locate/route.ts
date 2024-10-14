@@ -1,3 +1,4 @@
+'use server'
 import { NextRequest, NextResponse } from "next/server"
 
 export const googleGeoCodeRequest: (lat: number, lon: number) => Promise<{
@@ -34,7 +35,7 @@ export const googleGeoCodeRequest: (lat: number, lon: number) => Promise<{
     address = `${street} in ${city}`
     country = countryComponent?.long_name
   }
-
+  console.log(results)
   return {
     latitude: lat,
     longitude: lon,
