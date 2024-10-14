@@ -9,8 +9,8 @@ import { HeroBox } from "../lib/components/HeroBox"
 import { ChangeEvent, useCallback, useState } from "react"
 import { getUserLocation } from "@/lib/utils/getUserLocation"
 import { ResultsBox } from "@/lib/components/ResultsBox"
-import { handleSearchRequest } from "@/lib/search"
 import { searchAction } from "@/app/action"
+import { FeedbackDialog } from "@/lib/components/FeedbackDialog"
 
 const initialState: SearchStateResponse = {
   message: "",
@@ -62,6 +62,46 @@ export default function Home() {
     }
   }, [])
 
+  const handleRatingSubmit = useCallback(async (rating: "-1" | "1") => {
+    try {
+      const data = { rating }
+      await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      console.log("Feedback submitted successfully:", data)
+      alert("Thank you for your feedback!")
+    } catch (error) {
+      console.error("Error submitting feedback:", error)
+      alert("Error submitting feedback. Please try again later.")
+    }
+  }, [])
+
+  const handleFeedbackSubmit = useCallback(async (feedbackText: string) => {
+    try {
+      const data = { feedbackText }
+      await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+      console.log("Feedback submitted successfully:", data)
+      alert("Thank you for your feedback!")
+    } catch (error) {
+      console.error("Error submitting feedback:", error)
+      alert("Error submitting feedback. Please try again later.")
+    }
+  }, [])
+
+  const handlePositiveFeedback = useCallback(() => {
+    handleRatingSubmit("1")
+  }, [handleRatingSubmit])
+
   return (
     <div className="h-[70vh] flex flex-col items-center gap-4">
       <HeroBox
@@ -74,13 +114,21 @@ export default function Home() {
         locationLoading={locationLoading}
       />
       {response ? (
-        <ResultsBox places={response.places} />
+        <ResultsBox
+          places={response.places}
+          setIsFeedbackOpen={setIsFeedbackOpen}
+          onPositiveFeedback={handlePositiveFeedback}
+        />
       ) : (
         <p className="text-sm text-purple">
           🧢 We helped 405 people find 21199 local places
         </p>
       )}
-      <FeedbackBox open={isFeedbackOpen} />
+      <FeedbackDialog
+        open={isFeedbackOpen}
+        setOpen={setIsFeedbackOpen}
+        onSubmit={handleFeedbackSubmit}
+      />
     </div>
   )
 
