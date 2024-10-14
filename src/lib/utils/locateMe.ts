@@ -4,6 +4,7 @@ export async function getUserLocation(): Promise<{
   address: string;
   country: string;
 } | undefined> {
+
   if (window.navigator.geolocation) {
     window.navigator.geolocation.getCurrentPosition(async (position) => {
       try {
