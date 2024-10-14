@@ -1,5 +1,6 @@
 import { ErrorResponse, Location, SuccessResponse } from "@/lib/types"
-import { googleGeoCodeRequest } from "@/app/api/locate/route"
+
+import { googleGeoCodeRequest } from "@/app/api/locate/googleGeoCodeRequest"
 
 export async function getUserLocation(): Promise<
   SuccessResponse<Location> | ErrorResponse

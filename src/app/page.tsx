@@ -26,7 +26,6 @@ export default function Home() {
   const handlePinClick = useCallback(async () => {
     setLocationLoading(true)
     const location = await getUserLocation()
-    console.log(location)
     if (location.success) {
       setLocation(location as LocationWithAddress)
     } else {
