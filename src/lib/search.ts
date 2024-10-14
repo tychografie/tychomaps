@@ -310,6 +310,7 @@ export const mapsRequest = async (
         headers: {
           'Content-Type': 'application/json',
           'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
+// MORE TYPE DETAILS FOR FUTURE REF   'X-Goog-FieldMask': 'places.displayName,places.type,places.primaryType,places.primaryTypeDisplayName,places.rating,places.userRatingCount,places.googleMapsUri,places.location',
           'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri,places.location',
         },
       },
