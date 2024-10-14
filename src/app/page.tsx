@@ -2,6 +2,7 @@
 import { useFormState, useFormStatus } from "react-dom"
 import { search } from "@/app/action"
 import { SearchStateResponse } from "@/app/types"
+import { HeroBox } from "../lib/components/HeroBox"
 
 const initialState: SearchStateResponse = {
   message: "",
@@ -10,6 +11,12 @@ export default function Home() {
   const [state, formAction, isPending] = useFormState<SearchStateResponse>(
     search,
     initialState,
+  )
+
+  return (
+    <div className="h-[70vh] flex items-center justify-center">
+      <HeroBox />
+    </div>
   )
 
   return (

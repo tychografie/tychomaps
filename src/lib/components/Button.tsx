@@ -6,7 +6,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {}
 
 export const buttonVariants = cva(
-  "rounded-md border px-3 py-2 transition-colors",
+  "rounded-md flex items-center font-display justify-center gap-2 border transition-colors",
   {
     variants: {
       variant: {
@@ -14,19 +14,26 @@ export const buttonVariants = cva(
         outline:
           "border border-gray-700 text-gray-700 hover:bg-gray-700 hover:text-white",
       },
+      size: {
+        md: "px-3 py-2",
+        lg: "px-6 py-4 text-xl",
+      },
     },
     defaultVariants: {
       variant: "primary",
+      size: "md",
     },
   },
 )
 
-export const Button = memo<ButtonProps>((props) => {
-  return (
-    <button className={buttonVariants({ variant: props.variant })}>
-      {props.children}
-    </button>
-  )
-})
+export const Button = memo<ButtonProps>(
+  ({ variant, size, className, ...props }) => {
+    return (
+      <button className={buttonVariants({ variant, size, className })}>
+        {props.children}
+      </button>
+    )
+  },
+)
 
 Button.displayName = "Button"

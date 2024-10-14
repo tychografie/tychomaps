@@ -12,6 +12,10 @@ h6,
   font-family: var(--font-belanosima-sans);
 }
 
+h1 {
+  @apply text-2xl;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

@@ -3,19 +3,10 @@ import { memo } from "react"
 import { Button } from "./Button"
 import { ButtonLink } from "./ButtonLink"
 import Link from "next/link"
-import { NavLink, NavLinkVariants } from "./NavLink"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@radix-ui/react-navigation-menu"
-import { ChevronDownIcon } from "lucide-react"
-import { NavSubLink } from "./NavSubLink"
-import { NavSub } from "./NavSub"
 import { Nav } from "./Nav"
+import { NavLink } from "./NavLink"
+import { NavSub } from "./NavSub"
+import { NavSubLink } from "./NavSubLink"
 
 export const Header = memo(() => {
   return (
@@ -43,7 +34,7 @@ export const Header = memo(() => {
       </div>
       <div className="flex items-center gap-2 md:gap-4">
         <ButtonLink variant="outline" href="/sign-in">
-          <span className="font-display hidden md:inline">Login</span>
+          <span className="hidden md:inline">Login</span>
           <img
             src="/img/icons/account.svg"
             alt="Login"
@@ -51,8 +42,8 @@ export const Header = memo(() => {
           />
         </ButtonLink>
         <Button>
-          <span className="font-display hidden md:inline">Get Premium</span>
-          <span className="font-display md:hidden">Premium</span>
+          <span className="hidden md:inline">Get Premium</span>
+          <span className="md:hidden">Premium</span>
         </Button>
       </div>
     </header>
