@@ -175,7 +175,7 @@ export const HeroBox = memo<HeroBoxProps>(({ onSearch, ...props }) => {
         )}
         <Button disabled={props.searchIsLoading} size="lg" className="mt-3">
           Search
-          {props.searchIsLoading ? <LoaderIcon className="size-5 text-indigo animate-spin" /> : null}
+          {props.searchIsLoading ? <LoaderIcon className="size-5 ml-1 text-indigo animate-spin" /> : null}
         </Button>
       </form>
     </div>
