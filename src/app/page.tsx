@@ -9,6 +9,8 @@ import { HeroBox } from "../lib/components/HeroBox"
 import { ChangeEvent, useCallback, useState } from "react"
 import { getUserLocation } from "@/lib/utils/getUserLocation"
 import { ResultsBox } from "@/lib/components/ResultsBox"
+import { handleSearchRequest } from "@/lib/search"
+import { searchAction } from "@/app/action"
 
 const initialState: SearchStateResponse = {
   message: "",
@@ -44,13 +46,10 @@ export default function Home() {
   const search = useCallback(async (query: string) => {
     setApiLoading(true)
     try {
-      const res = await fetch("/api/search", {
-        method: "POST",
-        body: JSON.stringify({
-          query,
-        }),
-      }).then((res) => res.json())
-      setResponse(res as SearchObject)
+      const res = await searchAction({ query }) // TODO:  add more params, conforming SearchBody
+
+      console.log(res.response)
+      setResponse(res.response) // typesafe
       setApiLoading(false)
     } catch (error) {
       console.error((error as { message?: string }).message)
@@ -83,39 +82,39 @@ export default function Home() {
     </div>
   )
 
-  const [state, formAction, isPending] = useFormState<SearchStateResponse>(
-    search,
-    initialState,
-  )
-
-  return (
-    <div className={"flex items-center justify-center min-h-screen"}>
-      <div className={"w-xl bg-amber-50 p-4"}>
-        {state.response ? state.response?.places.length : []}
-
-        {state.response?.places.map((place) => {
-          return <div>{place.name}</div>
-        })}
-
-        <h1 className={"p-12 text-center text-4xl"}>polomaps</h1>
-        {state ? state.message : "nostate"}
-        {isPending}
-        <form
-          onSubmit={(e) => (isPending ? e.preventDefault() : null)}
-          action={formAction}
-        >
-          <input
-            disabled={isPending}
-            type="text"
-            name={"query"}
-            placeholder={"nice place"}
-          />
-          <button disabled={isPending} type={"submit"}>
-            Search Lokal
-          </button>
-          {isPending ? "Loading" : ""}
-        </form>
-      </div>
-    </div>
-  )
+  // const [state, formAction, isPending] = useFormState<SearchStateResponse>(
+  //   search,
+  //   initialState,
+  // )
+  //
+  // return (
+  //   <div className={"flex items-center justify-center min-h-screen"}>
+  //     <div className={"w-xl bg-amber-50 p-4"}>
+  //       {state.response ? state.response?.places.length : []}
+  //
+  //       {state.response?.places.map((place) => {
+  //         return <div>{place.name}</div>
+  //       })}
+  //
+  //       <h1 className={"p-12 text-center text-4xl"}>polomaps</h1>
+  //       {state ? state.message : "nostate"}
+  //       {isPending}
+  //       <form
+  //         onSubmit={(e) => (isPending ? e.preventDefault() : null)}
+  //         action={formAction}
+  //       >
+  //         <input
+  //           disabled={isPending}
+  //           type="text"
+  //           name={"query"}
+  //           placeholder={"nice place"}
+  //         />
+  //         <button disabled={isPending} type={"submit"}>
+  //           Search Lokal
+  //         </button>
+  //         {isPending ? "Loading" : ""}
+  //       </form>
+  //     </div>
+  //   </div>
+  // )
 }
