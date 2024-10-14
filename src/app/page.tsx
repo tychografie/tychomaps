@@ -1,17 +1,11 @@
 "use client"
-import { useFormState } from "react-dom"
-import {
-  SearchStateResponse,
-  LocationWithAddress,
-  SearchObject,
-} from "@/app/types"
-import { HeroBox } from "../lib/components/HeroBox"
+import { LocationWithAddress, SearchObject } from "@/app/types"
+import { HeroBox } from "@/lib/components/HeroBox"
 import { ChangeEvent, useCallback, useState } from "react"
 import { getUserLocation } from "@/lib/utils/getUserLocation"
 import { ResultsBox } from "@/lib/components/ResultsBox"
 import { searchAction } from "@/app/action"
 import { FeedbackDialog } from "@/lib/components/FeedbackDialog"
-
 
 export default function Home() {
   const [apiLoading, setApiLoading] = useState(false)

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Make it an actual server action">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Api loading = button disabled">
+      <change afterPath="$PROJECT_DIR$/src/app/posts/bologna-local-tips-2024/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/posts/dynamic_in_future" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/components/HeroBox.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/components/HeroBox.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +20,7 @@
       <list>
         <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -71,6 +70,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/hidde/repos/tychomaps/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "/Users/hidde/repos/tychomaps/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
@@ -106,7 +106,7 @@
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
       <workItem from="1728642604521" duration="12619000" />
-      <workItem from="1728929440669" duration="332000" />
+      <workItem from="1728929440669" duration="1357000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -332,7 +332,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728926685070</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Button has disabled state">
+      <option name="closed" value="true" />
+      <created>1728930038927</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930038927</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Api loading = button disabled">
+      <option name="closed" value="true" />
+      <created>1728930046493</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930046493</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Api loading = button disabled">
+      <option name="closed" value="true" />
+      <created>1728930058093</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930058093</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,6 +385,8 @@
     <MESSAGE value="And verified working" />
     <MESSAGE value="Move location to server acc as well - save some lines, bytes and trees" />
     <MESSAGE value="Make it an actual server action" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make it an actual server action" />
+    <MESSAGE value="Button has disabled state" />
+    <MESSAGE value="Api loading = button disabled" />
+    <option name="LAST_COMMIT_MESSAGE" value="Api loading = button disabled" />
   </component>
 </project>
