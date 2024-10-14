@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add recent searches API and server action">
-      <change beforePath="$PROJECT_DIR$/src/app/action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/action.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/search.ts" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Move location to server acc as well - save some lines, bytes and trees">
+      <change beforePath="$PROJECT_DIR$/src/app/api/locate/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/locate/route.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,26 +21,31 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "hiddehs"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hiddehs&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:tychografie/tychomaps.git",
-    "accountId": "3eece01c-8654-44b9-bc67-7ea8fc351966"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:tychografie/tychomaps.git&quot;,
+    &quot;accountId&quot;: &quot;3eece01c-8654-44b9-bc67-7ea8fc351966&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2nHv1ntun6IQEOMAZUoW7OM0bZ2" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -56,7 +59,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "#16 on polonext",
     "last_opened_file_path": "/Users/hidde/repos/tychomaps/src/app/api/search",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -266,7 +269,47 @@
       <option name="project" value="LOCAL" />
       <updated>1728655906604</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="More types from gapi">
+      <option name="closed" value="true" />
+      <created>1728924876578</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1728924876578</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fix internal server action roundtrip to the moon">
+      <option name="closed" value="true" />
+      <created>1728925224969</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925224969</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fix internal server action roundtrip to the moon">
+      <option name="closed" value="true" />
+      <created>1728925314904</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925314904</updated>
+    </task>
+    <task id="LOCAL-00025" summary="And verified working">
+      <option name="closed" value="true" />
+      <created>1728925528465</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925528465</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Move location to server acc as well - save some lines, bytes and trees">
+      <option name="closed" value="true" />
+      <created>1728926317997</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1728926317997</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -290,6 +333,10 @@
     <MESSAGE value="Placedata array" />
     <MESSAGE value="Add recent searches action" />
     <MESSAGE value="Add recent searches API and server action" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add recent searches API and server action" />
+    <MESSAGE value="More types from gapi" />
+    <MESSAGE value="Fix internal server action roundtrip to the moon" />
+    <MESSAGE value="And verified working" />
+    <MESSAGE value="Move location to server acc as well - save some lines, bytes and trees" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move location to server acc as well - save some lines, bytes and trees" />
   </component>
 </project>
