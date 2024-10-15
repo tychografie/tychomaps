@@ -3,6 +3,7 @@ import localFont from "next/font/local"
 import "./styles/globals.css"
 import { Belanosima } from "next/font/google"
 import { Header } from "../lib/components/Header"
+import { Footer } from "@/lib/components/Footer"
 
 const favoritSans = localFont({
   src: "./fonts/Favorit-Regular.woff",
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )
