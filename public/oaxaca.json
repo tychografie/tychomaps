@@ -1,0 +1,2444 @@
+[
+    {
+      "location": "Jalatlaco",
+      "query": "musea",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0622366,
+              "longitude": -96.7256161
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11882519500107788942",
+            "userRatingCount": 1171,
+            "displayName": {
+              "text": "Museo de los Pintores Oaxaqueños",
+              "languageCode": "en"
+            },
+            "distance": 0.54,
+            "name": "Museo de los Pintores Oaxaqueños"
+          },
+          {
+            "location": {
+              "latitude": 17.0634467,
+              "longitude": -96.7269738
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=11425342337596752830",
+            "userRatingCount": 991,
+            "displayName": {
+              "text": "Museo de Arte Prehispánico de México Rufino Tamayo",
+              "languageCode": "en"
+            },
+            "distance": 0.62,
+            "name": "Museo de Arte Prehispánico de México Rufino Tamayo"
+          },
+          {
+            "location": {
+              "latitude": 17.068728399999998,
+              "longitude": -96.7369336
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=15794416234689642837",
+            "userRatingCount": 828,
+            "displayName": {
+              "text": "Museo Infantil de Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 1.7,
+            "name": "Museo Infantil de Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 16.958395499999998,
+              "longitude": -96.70802359999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=10447727938036967074",
+            "userRatingCount": 290,
+            "displayName": {
+              "text": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA",
+              "languageCode": "en"
+            },
+            "distance": 11.94,
+            "name": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  musea",
+          "aiQuery": "auténticos museos locales",
+          "aiEmoji": "🎨",
+          "aiType": "museum",
+          "modeisLatLong": "true"
+        },
+        "searchId": "32751086-a166-4d79-86dd-850e3d2de43e"
+      }
+    },
+    {
+      "location": "Jalatlaco",
+      "query": "restaurant",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0644547,
+              "longitude": -96.71907209999999
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=3281216849022039956",
+            "userRatingCount": 19,
+            "displayName": {
+              "text": "A Que Te Sabe Local",
+              "languageCode": "en"
+            },
+            "distance": 0.25,
+            "name": "A Que Te Sabe Local"
+          },
+          {
+            "location": {
+              "latitude": 17.062295799999998,
+              "longitude": -96.7236427
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=3264511385074708649",
+            "userRatingCount": 712,
+            "displayName": {
+              "text": "Ocote cocina",
+              "languageCode": "en"
+            },
+            "distance": 0.38,
+            "name": "Ocote cocina"
+          },
+          {
+            "location": {
+              "latitude": 17.0631368,
+              "longitude": -96.724961
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=15097461912718633507",
+            "userRatingCount": 185,
+            "displayName": {
+              "text": "NOIS: Restaurante & bar Oaxaca centro",
+              "languageCode": "en"
+            },
+            "distance": 0.43,
+            "name": "NOIS: Restaurante & bar Oaxaca centro"
+          },
+          {
+            "location": {
+              "latitude": 17.061224799999998,
+              "longitude": -96.72032109999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12796999992893747124",
+            "userRatingCount": 616,
+            "displayName": {
+              "text": "Café Rústiko",
+              "languageCode": "es"
+            },
+            "distance": 0.44,
+            "name": "Café Rústiko"
+          },
+          {
+            "location": {
+              "latitude": 17.065826899999998,
+              "longitude": -96.7255045
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=5425663317374504478",
+            "userRatingCount": 53,
+            "displayName": {
+              "text": "Totopo Güero",
+              "languageCode": "en"
+            },
+            "distance": 0.45,
+            "name": "Totopo Güero"
+          },
+          {
+            "location": {
+              "latitude": 17.0693691,
+              "longitude": -96.7218042
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14240860014089604292",
+            "userRatingCount": 110,
+            "displayName": {
+              "text": "La Abuela",
+              "languageCode": "es"
+            },
+            "distance": 0.49,
+            "name": "La Abuela"
+          },
+          {
+            "location": {
+              "latitude": 17.068497,
+              "longitude": -96.72435499999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=5600391141700397416",
+            "userRatingCount": 820,
+            "displayName": {
+              "text": "La Casa del Tío Güero",
+              "languageCode": "es"
+            },
+            "distance": 0.5,
+            "name": "La Casa del Tío Güero"
+          },
+          {
+            "location": {
+              "latitude": 17.0696642,
+              "longitude": -96.72306630000001
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=17002172358146069766",
+            "userRatingCount": 16,
+            "displayName": {
+              "text": "Coquina - Cocina tradicional y tepaches",
+              "languageCode": "es"
+            },
+            "distance": 0.55,
+            "name": "Coquina - Cocina tradicional y tepaches"
+          },
+          {
+            "location": {
+              "latitude": 17.05952,
+              "longitude": -96.7222666
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=7691774284378060658",
+            "userRatingCount": 672,
+            "displayName": {
+              "text": "Cafe Bistrot Epicuro - Restaurante italiano y pizzeria-",
+              "languageCode": "es"
+            },
+            "distance": 0.62,
+            "name": "Cafe Bistrot Epicuro - Restaurante italiano y pizzeria-"
+          },
+          {
+            "location": {
+              "latitude": 17.0624406,
+              "longitude": -96.72680799999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=6041010089609444621",
+            "userRatingCount": 413,
+            "displayName": {
+              "text": "Restaurante El Andariego Cocina Tradicional",
+              "languageCode": "es"
+            },
+            "distance": 0.64,
+            "name": "Restaurante El Andariego Cocina Tradicional"
+          },
+          {
+            "location": {
+              "latitude": 17.0627302,
+              "longitude": -96.7296222
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=11103765836512119699",
+            "userRatingCount": 469,
+            "displayName": {
+              "text": "Restaurante Taniperla Oaxaca",
+              "languageCode": "es"
+            },
+            "distance": 0.91,
+            "name": "Restaurante Taniperla Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 17.0620759,
+              "longitude": -96.72991619999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=5810998757590095936",
+            "userRatingCount": 488,
+            "displayName": {
+              "text": "El Quinque",
+              "languageCode": "es"
+            },
+            "distance": 0.96,
+            "name": "El Quinque"
+          },
+          {
+            "location": {
+              "latitude": 17.0632999,
+              "longitude": -96.7308614
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=18336952960095193620",
+            "userRatingCount": 254,
+            "displayName": {
+              "text": "Moogoñé - Cocina de época",
+              "languageCode": "es"
+            },
+            "distance": 1.02,
+            "name": "Moogoñé - Cocina de época"
+          },
+          {
+            "location": {
+              "latitude": 17.0683343,
+              "longitude": -96.7086904
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=10513929130460286850",
+            "userRatingCount": 14,
+            "displayName": {
+              "text": "Los Antojos de Teté.",
+              "languageCode": "en"
+            },
+            "distance": 1.4,
+            "name": "Los Antojos de Teté."
+          },
+          {
+            "location": {
+              "latitude": 17.0555487,
+              "longitude": -96.71242760000001
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=4112388652704250715",
+            "userRatingCount": 18,
+            "displayName": {
+              "text": "QUERREKE OAXACA",
+              "languageCode": "es"
+            },
+            "distance": 1.42,
+            "name": "QUERREKE OAXACA"
+          },
+          {
+            "location": {
+              "latitude": 17.075260699999998,
+              "longitude": -96.7392871
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=9277840134990423518",
+            "userRatingCount": 13,
+            "displayName": {
+              "text": "Comedor la esquina",
+              "languageCode": "es"
+            },
+            "distance": 2.22,
+            "name": "Comedor la esquina"
+          },
+          {
+            "location": {
+              "latitude": 17.066890900000004,
+              "longitude": -96.6961807
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=6267012769660356630",
+            "userRatingCount": 104,
+            "displayName": {
+              "text": "COMEDOR LOS NENÚFARES",
+              "languageCode": "es"
+            },
+            "distance": 2.69,
+            "name": "COMEDOR LOS NENÚFARES"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  restaurant",
+          "aiQuery": "restaurante pequeño local auténtico",
+          "aiEmoji": "🍽️",
+          "aiType": "restaurant",
+          "modeisLatLong": "true"
+        },
+        "searchId": "eaa1c4f4-051d-447d-af3e-947c7821ce9d"
+      }
+    },
+    {
+      "location": "Jalatlaco",
+      "query": "design shops",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0653413,
+              "longitude": -96.7210327
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=9680537557725981296",
+            "userRatingCount": 33,
+            "displayName": {
+              "text": "Habitáculo Diseño + Arte",
+              "languageCode": "en"
+            },
+            "distance": 0.05,
+            "name": "Habitáculo Diseño + Arte"
+          },
+          {
+            "location": {
+              "latitude": 17.063667199999998,
+              "longitude": -96.7221254
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=6563849747413689165",
+            "userRatingCount": 16,
+            "displayName": {
+              "text": "Dacanni",
+              "languageCode": "en"
+            },
+            "distance": 0.17,
+            "name": "Dacanni"
+          },
+          {
+            "location": {
+              "latitude": 17.064398399999998,
+              "longitude": -96.723924
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=15878849618663973499",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "¡Ay Güey! Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 0.28,
+            "name": "¡Ay Güey! Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 17.0646362,
+              "longitude": -96.7244321
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=5464594128041111635",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "Tienda Q",
+              "languageCode": "es"
+            },
+            "distance": 0.32,
+            "name": "Tienda Q"
+          },
+          {
+            "location": {
+              "latitude": 17.063554700000005,
+              "longitude": -96.7251958
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=12053843961561735022",
+            "userRatingCount": 19,
+            "displayName": {
+              "text": "Abarrote de Diseño",
+              "languageCode": "es"
+            },
+            "distance": 0.43,
+            "name": "Abarrote de Diseño"
+          },
+          {
+            "location": {
+              "latitude": 17.0616777,
+              "longitude": -96.7239479
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=1804870923120123870",
+            "userRatingCount": 14,
+            "displayName": {
+              "text": "Un Rincón De Mexico",
+              "languageCode": "es"
+            },
+            "distance": 0.46,
+            "name": "Un Rincón De Mexico"
+          },
+          {
+            "location": {
+              "latitude": 17.0675818,
+              "longitude": -96.7177744
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=11741872194076476255",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "Ezcarabajo Tienda de Diseño",
+              "languageCode": "es"
+            },
+            "distance": 0.48,
+            "name": "Ezcarabajo Tienda de Diseño"
+          },
+          {
+            "location": {
+              "latitude": 17.065037699999998,
+              "longitude": -96.7263612
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=8675878982336346954",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "MEXCHIC",
+              "languageCode": "en"
+            },
+            "distance": 0.53,
+            "name": "MEXCHIC"
+          },
+          {
+            "location": {
+              "latitude": 17.0802914,
+              "longitude": -96.7207028
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=4692594902978503611",
+            "userRatingCount": 11,
+            "displayName": {
+              "text": "Additivo al diseño",
+              "languageCode": "es"
+            },
+            "distance": 1.7,
+            "name": "Additivo al diseño"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  design shops",
+          "aiQuery": "tiendas de diseño independientes",
+          "aiEmoji": "🎨",
+          "aiType": "shop",
+          "modeisLatLong": "true"
+        },
+        "searchId": "dcd16847-d278-4374-9fd5-ebe1d1587fd5"
+      }
+    },
+    {
+      "location": "Jalatlaco",
+      "query": "cafe",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.063885799999998,
+              "longitude": -96.72106959999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12866748402643218098",
+            "userRatingCount": 109,
+            "displayName": {
+              "text": "Oa studio",
+              "languageCode": "en"
+            },
+            "distance": 0.13,
+            "name": "Oa studio"
+          },
+          {
+            "location": {
+              "latitude": 17.064127,
+              "longitude": -96.72033490000001
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=4248963478376992427",
+            "userRatingCount": 20,
+            "displayName": {
+              "text": "Pabilo Café",
+              "languageCode": "es"
+            },
+            "distance": 0.15,
+            "name": "Pabilo Café"
+          },
+          {
+            "location": {
+              "latitude": 17.0649217,
+              "longitude": -96.7198456
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=14284684759758929339",
+            "userRatingCount": 320,
+            "displayName": {
+              "text": "Cafeto & Baristas",
+              "languageCode": "es"
+            },
+            "distance": 0.17,
+            "name": "Cafeto & Baristas"
+          },
+          {
+            "location": {
+              "latitude": 17.0633736,
+              "longitude": -96.72166639999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=6326710920097782007",
+            "userRatingCount": 118,
+            "displayName": {
+              "text": "La ttertulia Café",
+              "languageCode": "es"
+            },
+            "distance": 0.18,
+            "name": "La ttertulia Café"
+          },
+          {
+            "location": {
+              "latitude": 17.067015599999998,
+              "longitude": -96.7200249
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=15476156708939430959",
+            "userRatingCount": 32,
+            "displayName": {
+              "text": "Café Viandante",
+              "languageCode": "es"
+            },
+            "distance": 0.27,
+            "name": "Café Viandante"
+          },
+          {
+            "location": {
+              "latitude": 17.066807,
+              "longitude": -96.7194045
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=1120095198714024640",
+            "userRatingCount": 74,
+            "displayName": {
+              "text": "Gattó",
+              "languageCode": "es"
+            },
+            "distance": 0.29,
+            "name": "Gattó"
+          },
+          {
+            "location": {
+              "latitude": 17.062397,
+              "longitude": -96.7213789
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=14908732232024155635",
+            "userRatingCount": 10,
+            "displayName": {
+              "text": "La Estación del Café",
+              "languageCode": "es"
+            },
+            "distance": 0.29,
+            "name": "La Estación del Café"
+          },
+          {
+            "location": {
+              "latitude": 17.0617433,
+              "longitude": -96.7215866
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=8465427706439133400",
+            "userRatingCount": 53,
+            "displayName": {
+              "text": "Café La Leyenda",
+              "languageCode": "es"
+            },
+            "distance": 0.36,
+            "name": "Café La Leyenda"
+          },
+          {
+            "location": {
+              "latitude": 17.065537499999998,
+              "longitude": -96.7249712
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11550825624023617660",
+            "userRatingCount": 1137,
+            "displayName": {
+              "text": "Casa Blasón",
+              "languageCode": "es"
+            },
+            "distance": 0.38,
+            "name": "Casa Blasón"
+          },
+          {
+            "location": {
+              "latitude": 17.0688146,
+              "longitude": -96.72131139999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=8391671165524855004",
+            "userRatingCount": 244,
+            "displayName": {
+              "text": "Café SL28",
+              "languageCode": "es"
+            },
+            "distance": 0.42,
+            "name": "Café SL28"
+          },
+          {
+            "location": {
+              "latitude": 17.061224799999998,
+              "longitude": -96.72032109999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12796999992893747124",
+            "userRatingCount": 616,
+            "displayName": {
+              "text": "Café Rústiko",
+              "languageCode": "es"
+            },
+            "distance": 0.44,
+            "name": "Café Rústiko"
+          },
+          {
+            "location": {
+              "latitude": 17.0660727,
+              "longitude": -96.72564109999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=16873309727968597328",
+            "userRatingCount": 428,
+            "displayName": {
+              "text": "Sagrado Filemón I Pan y Café",
+              "languageCode": "es"
+            },
+            "distance": 0.47,
+            "name": "Sagrado Filemón I Pan y Café"
+          },
+          {
+            "location": {
+              "latitude": 17.060580899999998,
+              "longitude": -96.72314929999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14607449780288815631",
+            "userRatingCount": 139,
+            "displayName": {
+              "text": "La Petrona Café Bistro",
+              "languageCode": "es"
+            },
+            "distance": 0.53,
+            "name": "La Petrona Café Bistro"
+          },
+          {
+            "location": {
+              "latitude": 17.0675269,
+              "longitude": -96.7170295
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=12092215237595948589",
+            "userRatingCount": 978,
+            "displayName": {
+              "text": "Café Blasón",
+              "languageCode": "en"
+            },
+            "distance": 0.54,
+            "name": "Café Blasón"
+          },
+          {
+            "location": {
+              "latitude": 17.069685700000004,
+              "longitude": -96.7237179
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=305923763783043572",
+            "userRatingCount": 317,
+            "displayName": {
+              "text": "Café \"El Volador\"",
+              "languageCode": "en"
+            },
+            "distance": 0.58,
+            "name": "Café \"El Volador\""
+          },
+          {
+            "location": {
+              "latitude": 17.0674366,
+              "longitude": -96.72645969999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=13815392056918572405",
+            "userRatingCount": 13,
+            "displayName": {
+              "text": "Café La Vida en un sorbo",
+              "languageCode": "fr"
+            },
+            "distance": 0.6,
+            "name": "Café La Vida en un sorbo"
+          },
+          {
+            "location": {
+              "latitude": 17.0633628,
+              "longitude": -96.7156179
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=9881965565452422328",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "Café Finca El Olivo",
+              "languageCode": "en"
+            },
+            "distance": 0.64,
+            "name": "Café Finca El Olivo"
+          },
+          {
+            "location": {
+              "latitude": 17.0604673,
+              "longitude": -96.7173036
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=426911917757137115",
+            "userRatingCount": 31,
+            "displayName": {
+              "text": "Expendio Café Finca Olivo",
+              "languageCode": "en"
+            },
+            "distance": 0.67,
+            "name": "Expendio Café Finca Olivo"
+          },
+          {
+            "location": {
+              "latitude": 17.0648435,
+              "longitude": -96.72982809999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=2866718812024746617",
+            "userRatingCount": 332,
+            "displayName": {
+              "text": "Café Caracol Púrpua",
+              "languageCode": "en"
+            },
+            "distance": 0.9,
+            "name": "Café Caracol Púrpua"
+          },
+          {
+            "location": {
+              "latitude": 17.0622932,
+              "longitude": -96.71208360000001
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=9586442619944377589",
+            "userRatingCount": 314,
+            "displayName": {
+              "text": "Amor del Cafe",
+              "languageCode": "es"
+            },
+            "distance": 1.04,
+            "name": "Amor del Cafe"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  cafe",
+          "aiQuery": "café acogedor",
+          "aiEmoji": "☕",
+          "aiType": "coffee place",
+          "modeisLatLong": "true"
+        },
+        "searchId": "a27c328e-1813-4dd8-816e-424e4ce435e6"
+      }
+    },
+    {
+      "location": "Xochimilco",
+      "query": "musea",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0634467,
+              "longitude": -96.7269738
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=11425342337596752830",
+            "userRatingCount": 991,
+            "displayName": {
+              "text": "Museo de Arte Prehispánico de México Rufino Tamayo",
+              "languageCode": "en"
+            },
+            "distance": 1.13,
+            "name": "Museo de Arte Prehispánico de México Rufino Tamayo"
+          },
+          {
+            "location": {
+              "latitude": 17.0622366,
+              "longitude": -96.7256161
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11882519500107788942",
+            "userRatingCount": 1171,
+            "displayName": {
+              "text": "Museo de los Pintores Oaxaqueños",
+              "languageCode": "en"
+            },
+            "distance": 1.17,
+            "name": "Museo de los Pintores Oaxaqueños"
+          },
+          {
+            "location": {
+              "latitude": 17.068728399999998,
+              "longitude": -96.7369336
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=15794416234689642837",
+            "userRatingCount": 828,
+            "displayName": {
+              "text": "Museo Infantil de Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 1.75,
+            "name": "Museo Infantil de Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 16.958395499999998,
+              "longitude": -96.70802359999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=10447727938036967074",
+            "userRatingCount": 290,
+            "displayName": {
+              "text": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA",
+              "languageCode": "en"
+            },
+            "distance": 12.67,
+            "name": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  musea",
+          "aiQuery": "auténticos museos locales",
+          "aiEmoji": "🎨",
+          "aiType": "museum",
+          "modeisLatLong": "true"
+        },
+        "searchId": "3be9e949-491a-41c3-a839-0e6ea50451cd"
+      }
+    },
+    {
+      "location": "Xochimilco",
+      "query": "restaurant",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0693691,
+              "longitude": -96.7218042
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14240860014089604292",
+            "userRatingCount": 110,
+            "displayName": {
+              "text": "La Abuela",
+              "languageCode": "es"
+            },
+            "distance": 0.28,
+            "name": "La Abuela"
+          },
+          {
+            "location": {
+              "latitude": 17.0743898,
+              "longitude": -96.7182066
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=17282709232505064093",
+            "userRatingCount": 369,
+            "displayName": {
+              "text": "La Cevicheria Oaxaca.",
+              "languageCode": "es"
+            },
+            "distance": 0.41,
+            "name": "La Cevicheria Oaxaca."
+          },
+          {
+            "location": {
+              "latitude": 17.068241099999998,
+              "longitude": -96.72326749999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=9128481934760766352",
+            "userRatingCount": 38,
+            "displayName": {
+              "text": "Ramen Republic",
+              "languageCode": "en"
+            },
+            "distance": 0.47,
+            "name": "Ramen Republic"
+          },
+          {
+            "location": {
+              "latitude": 17.068497,
+              "longitude": -96.72435499999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=5600391141700397416",
+            "userRatingCount": 820,
+            "displayName": {
+              "text": "La Casa del Tío Güero",
+              "languageCode": "es"
+            },
+            "distance": 0.52,
+            "name": "La Casa del Tío Güero"
+          },
+          {
+            "location": {
+              "latitude": 17.0654009,
+              "longitude": -96.7212898
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=16457922614893349996",
+            "userRatingCount": 981,
+            "displayName": {
+              "text": "El Olivo Gastrobar",
+              "languageCode": "en"
+            },
+            "distance": 0.7,
+            "name": "El Olivo Gastrobar"
+          },
+          {
+            "location": {
+              "latitude": 17.067168499999998,
+              "longitude": -96.72564340000001
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=5095763231827729784",
+            "userRatingCount": 127,
+            "displayName": {
+              "text": "Comedor Istmeño Casa Juchitán",
+              "languageCode": "es"
+            },
+            "distance": 0.72,
+            "name": "Comedor Istmeño Casa Juchitán"
+          },
+          {
+            "location": {
+              "latitude": 17.064986299999997,
+              "longitude": -96.72316359999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=2499854033085621835",
+            "userRatingCount": 589,
+            "displayName": {
+              "text": "El Destilado",
+              "languageCode": "en"
+            },
+            "distance": 0.79,
+            "name": "El Destilado"
+          },
+          {
+            "location": {
+              "latitude": 17.0658365,
+              "longitude": -96.72521189999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=2106786585350505567",
+            "userRatingCount": 160,
+            "displayName": {
+              "text": "Chirundo Cocina de Humo",
+              "languageCode": "es"
+            },
+            "distance": 0.8,
+            "name": "Chirundo Cocina de Humo"
+          },
+          {
+            "location": {
+              "latitude": 17.0649633,
+              "longitude": -96.72400909999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=16667073970569692715",
+            "userRatingCount": 454,
+            "displayName": {
+              "text": "ALAMBIQUE-Tradicional Restobar",
+              "languageCode": "es"
+            },
+            "distance": 0.82,
+            "name": "ALAMBIQUE-Tradicional Restobar"
+          },
+          {
+            "location": {
+              "latitude": 17.0643137,
+              "longitude": -96.7250225
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=3233616200470812498",
+            "userRatingCount": 1302,
+            "displayName": {
+              "text": "Levadura de Olla Restaurante",
+              "languageCode": "es"
+            },
+            "distance": 0.94,
+            "name": "Levadura de Olla Restaurante"
+          },
+          {
+            "location": {
+              "latitude": 17.0653826,
+              "longitude": -96.72702679999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=17867725345665941094",
+            "userRatingCount": 158,
+            "displayName": {
+              "text": "Labo Fermento",
+              "languageCode": "es"
+            },
+            "distance": 0.97,
+            "name": "Labo Fermento"
+          },
+          {
+            "location": {
+              "latitude": 17.0642317,
+              "longitude": -96.7259548
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=5290968037024714298",
+            "userRatingCount": 250,
+            "displayName": {
+              "text": "Tlayudas Las Ánimas",
+              "languageCode": "es"
+            },
+            "distance": 0.99,
+            "name": "Tlayudas Las Ánimas"
+          },
+          {
+            "location": {
+              "latitude": 17.062295799999998,
+              "longitude": -96.7236427
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=3264511385074708649",
+            "userRatingCount": 712,
+            "displayName": {
+              "text": "Ocote cocina",
+              "languageCode": "en"
+            },
+            "distance": 1.09,
+            "name": "Ocote cocina"
+          },
+          {
+            "location": {
+              "latitude": 17.0638312,
+              "longitude": -96.72829689999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=15866542208935123696",
+            "userRatingCount": 47,
+            "displayName": {
+              "text": "Liquen Oaxaca",
+              "languageCode": "es"
+            },
+            "distance": 1.18,
+            "name": "Liquen Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 17.0624406,
+              "longitude": -96.72680799999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=6041010089609444621",
+            "userRatingCount": 413,
+            "displayName": {
+              "text": "Restaurante El Andariego Cocina Tradicional",
+              "languageCode": "es"
+            },
+            "distance": 1.21,
+            "name": "Restaurante El Andariego Cocina Tradicional"
+          },
+          {
+            "location": {
+              "latitude": 17.0700099,
+              "longitude": -96.70499699999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=12910664944248552840",
+            "userRatingCount": 109,
+            "displayName": {
+              "text": "Adelita",
+              "languageCode": "es"
+            },
+            "distance": 1.69,
+            "name": "Adelita"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  restaurant",
+          "aiQuery": "restaurante local auténtico",
+          "aiEmoji": "🍽️",
+          "aiType": "restaurant",
+          "modeisLatLong": "true"
+        },
+        "searchId": "492af258-8366-4149-bc46-fb6ea77dec59"
+      }
+    },
+    {
+      "location": "Xochimilco",
+      "query": "design shops",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0688317,
+              "longitude": -96.7176851
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=13830028538667834739",
+            "userRatingCount": 36,
+            "displayName": {
+              "text": "Criptide",
+              "languageCode": "en"
+            },
+            "distance": 0.46,
+            "name": "Criptide"
+          },
+          {
+            "location": {
+              "latitude": 17.0675818,
+              "longitude": -96.7177744
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=11741872194076476255",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "Ezcarabajo Tienda de Diseño",
+              "languageCode": "es"
+            },
+            "distance": 0.56,
+            "name": "Ezcarabajo Tienda de Diseño"
+          },
+          {
+            "location": {
+              "latitude": 17.0653413,
+              "longitude": -96.7210327
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=9680537557725981296",
+            "userRatingCount": 33,
+            "displayName": {
+              "text": "Habitáculo Diseño + Arte",
+              "languageCode": "en"
+            },
+            "distance": 0.71,
+            "name": "Habitáculo Diseño + Arte"
+          },
+          {
+            "location": {
+              "latitude": 17.0646362,
+              "longitude": -96.7244321
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=5464594128041111635",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "Tienda Q",
+              "languageCode": "es"
+            },
+            "distance": 0.88,
+            "name": "Tienda Q"
+          },
+          {
+            "location": {
+              "latitude": 17.064398399999998,
+              "longitude": -96.723924
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=15878849618663973499",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "¡Ay Güey! Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 0.88,
+            "name": "¡Ay Güey! Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 17.063667199999998,
+              "longitude": -96.7221254
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=6563849747413689165",
+            "userRatingCount": 16,
+            "displayName": {
+              "text": "Dacanni",
+              "languageCode": "en"
+            },
+            "distance": 0.9,
+            "name": "Dacanni"
+          },
+          {
+            "location": {
+              "latitude": 17.065037699999998,
+              "longitude": -96.7263612
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=8675878982336346954",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "MEXCHIC",
+              "languageCode": "en"
+            },
+            "distance": 0.95,
+            "name": "MEXCHIC"
+          },
+          {
+            "location": {
+              "latitude": 17.0802914,
+              "longitude": -96.7207028
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=4692594902978503611",
+            "userRatingCount": 11,
+            "displayName": {
+              "text": "Additivo al diseño",
+              "languageCode": "es"
+            },
+            "distance": 0.96,
+            "name": "Additivo al diseño"
+          },
+          {
+            "location": {
+              "latitude": 17.063554700000005,
+              "longitude": -96.7251958
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=12053843961561735022",
+            "userRatingCount": 19,
+            "displayName": {
+              "text": "Abarrote de Diseño",
+              "languageCode": "es"
+            },
+            "distance": 1.02,
+            "name": "Abarrote de Diseño"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  design shops",
+          "aiQuery": "tiendas de diseño independientes",
+          "aiEmoji": "🎨",
+          "aiType": "shop",
+          "modeisLatLong": "true"
+        },
+        "searchId": "87cf58d6-a602-4274-9e39-964f5e04e2d5"
+      }
+    },
+    {
+      "location": "Xochimilco",
+      "query": "cafe",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0688146,
+              "longitude": -96.72131139999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=8391671165524855004",
+            "userRatingCount": 244,
+            "displayName": {
+              "text": "Café SL28",
+              "languageCode": "es"
+            },
+            "distance": 0.33,
+            "name": "Café SL28"
+          },
+          {
+            "location": {
+              "latitude": 17.0705723,
+              "longitude": -96.7239164
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=17987769504084963622",
+            "userRatingCount": 90,
+            "displayName": {
+              "text": "GATO CHATO",
+              "languageCode": "es"
+            },
+            "distance": 0.35,
+            "name": "GATO CHATO"
+          },
+          {
+            "location": {
+              "latitude": 17.069685700000004,
+              "longitude": -96.7237179
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=305923763783043572",
+            "userRatingCount": 317,
+            "displayName": {
+              "text": "Café \"El Volador\"",
+              "languageCode": "en"
+            },
+            "distance": 0.38,
+            "name": "Café \"El Volador\""
+          },
+          {
+            "location": {
+              "latitude": 17.0714223,
+              "longitude": -96.7246933
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=15614746856678101870",
+            "userRatingCount": 10,
+            "displayName": {
+              "text": "El rincón de Catarina",
+              "languageCode": "es"
+            },
+            "distance": 0.41,
+            "name": "El rincón de Catarina"
+          },
+          {
+            "location": {
+              "latitude": 17.0749121,
+              "longitude": -96.72341639999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=15271768301489777389",
+            "userRatingCount": 774,
+            "displayName": {
+              "text": "A.M. Siempre Cafe",
+              "languageCode": "en"
+            },
+            "distance": 0.45,
+            "name": "A.M. Siempre Cafe"
+          },
+          {
+            "location": {
+              "latitude": 17.067015599999998,
+              "longitude": -96.7200249
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=15476156708939430959",
+            "userRatingCount": 32,
+            "displayName": {
+              "text": "Café Viandante",
+              "languageCode": "es"
+            },
+            "distance": 0.53,
+            "name": "Café Viandante"
+          },
+          {
+            "location": {
+              "latitude": 17.066807,
+              "longitude": -96.7194045
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=1120095198714024640",
+            "userRatingCount": 74,
+            "displayName": {
+              "text": "Gattó",
+              "languageCode": "es"
+            },
+            "distance": 0.56,
+            "name": "Gattó"
+          },
+          {
+            "location": {
+              "latitude": 17.0675269,
+              "longitude": -96.7170295
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=12092215237595948589",
+            "userRatingCount": 978,
+            "displayName": {
+              "text": "Café Blasón",
+              "languageCode": "en"
+            },
+            "distance": 0.61,
+            "name": "Café Blasón"
+          },
+          {
+            "location": {
+              "latitude": 17.0683076,
+              "longitude": -96.72537729999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=18183124827331425113",
+            "userRatingCount": 22,
+            "displayName": {
+              "text": "Pataxte(café y diseño)",
+              "languageCode": "es"
+            },
+            "distance": 0.62,
+            "name": "Pataxte(café y diseño)"
+          },
+          {
+            "location": {
+              "latitude": 17.0669298,
+              "longitude": -96.72553719999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=13106272311542839394",
+            "userRatingCount": 99,
+            "displayName": {
+              "text": "nono café",
+              "languageCode": "es"
+            },
+            "distance": 0.73,
+            "name": "nono café"
+          },
+          {
+            "location": {
+              "latitude": 17.0649217,
+              "longitude": -96.7198456
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=14284684759758929339",
+            "userRatingCount": 320,
+            "displayName": {
+              "text": "Cafeto & Baristas",
+              "languageCode": "es"
+            },
+            "distance": 0.76,
+            "name": "Cafeto & Baristas"
+          },
+          {
+            "location": {
+              "latitude": 17.065968299999998,
+              "longitude": -96.71641400000001
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=3970967214238247650",
+            "userRatingCount": 34,
+            "displayName": {
+              "text": "De Maíz y Cacao",
+              "languageCode": "es"
+            },
+            "distance": 0.79,
+            "name": "De Maíz y Cacao"
+          },
+          {
+            "location": {
+              "latitude": 17.065537499999998,
+              "longitude": -96.7249712
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11550825624023617660",
+            "userRatingCount": 1137,
+            "displayName": {
+              "text": "Casa Blasón",
+              "languageCode": "es"
+            },
+            "distance": 0.82,
+            "name": "Casa Blasón"
+          },
+          {
+            "location": {
+              "latitude": 17.0633736,
+              "longitude": -96.72166639999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=6326710920097782007",
+            "userRatingCount": 118,
+            "displayName": {
+              "text": "La ttertulia Café",
+              "languageCode": "es"
+            },
+            "distance": 0.93,
+            "name": "La ttertulia Café"
+          },
+          {
+            "location": {
+              "latitude": 17.0617433,
+              "longitude": -96.7215866
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=8465427706439133400",
+            "userRatingCount": 53,
+            "displayName": {
+              "text": "Café La Leyenda",
+              "languageCode": "es"
+            },
+            "distance": 1.11,
+            "name": "Café La Leyenda"
+          },
+          {
+            "location": {
+              "latitude": 17.062362999999998,
+              "longitude": -96.717181
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=10037143270356906228",
+            "userRatingCount": 30,
+            "displayName": {
+              "text": "Cafeteria Salamandra",
+              "languageCode": "en"
+            },
+            "distance": 1.11,
+            "name": "Cafeteria Salamandra"
+          },
+          {
+            "location": {
+              "latitude": 17.061224799999998,
+              "longitude": -96.72032109999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12796999992893747124",
+            "userRatingCount": 616,
+            "displayName": {
+              "text": "Café Rústiko",
+              "languageCode": "es"
+            },
+            "distance": 1.17,
+            "name": "Café Rústiko"
+          },
+          {
+            "location": {
+              "latitude": 17.0601597,
+              "longitude": -96.719651
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=12730512720917667720",
+            "userRatingCount": 36,
+            "displayName": {
+              "text": "PARAtSO CAFÉ & BRUNCH",
+              "languageCode": "es"
+            },
+            "distance": 1.29,
+            "name": "PARAtSO CAFÉ & BRUNCH"
+          },
+          {
+            "location": {
+              "latitude": 17.081297300000003,
+              "longitude": -96.7283243
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=3455015584039224590",
+            "userRatingCount": 17,
+            "displayName": {
+              "text": "Café Terraza \"Sorbos de Vida\"",
+              "languageCode": "es"
+            },
+            "distance": 1.33,
+            "name": "Café Terraza \"Sorbos de Vida\""
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  cafe",
+          "aiQuery": "cafetería local acogedora",
+          "aiEmoji": "☕️",
+          "aiType": "coffee place",
+          "modeisLatLong": "true"
+        },
+        "searchId": "2e7e35f2-7905-45b0-928b-680b9064394f"
+      }
+    },
+    {
+      "location": "Centro Histórico",
+      "query": "musea",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0622366,
+              "longitude": -96.7256161
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11882519500107788942",
+            "userRatingCount": 1171,
+            "displayName": {
+              "text": "Museo de los Pintores Oaxaqueños",
+              "languageCode": "en"
+            },
+            "distance": 0.27,
+            "name": "Museo de los Pintores Oaxaqueños"
+          },
+          {
+            "location": {
+              "latitude": 17.0634467,
+              "longitude": -96.7269738
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=11425342337596752830",
+            "userRatingCount": 991,
+            "displayName": {
+              "text": "Museo de Arte Prehispánico de México Rufino Tamayo",
+              "languageCode": "en"
+            },
+            "distance": 0.43,
+            "name": "Museo de Arte Prehispánico de México Rufino Tamayo"
+          },
+          {
+            "location": {
+              "latitude": 17.068728399999998,
+              "longitude": -96.7369336
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=15794416234689642837",
+            "userRatingCount": 828,
+            "displayName": {
+              "text": "Museo Infantil de Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 1.56,
+            "name": "Museo Infantil de Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 16.958395499999998,
+              "longitude": -96.70802359999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=10447727938036967074",
+            "userRatingCount": 290,
+            "displayName": {
+              "text": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA",
+              "languageCode": "en"
+            },
+            "distance": 11.43,
+            "name": "MUSEO ESTATAL DE ARTE POPULAR DE OAXACA"
+          },
+          {
+            "location": {
+              "latitude": 19.4369174,
+              "longitude": -99.13187119999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=11140961883375289988",
+            "userRatingCount": 74,
+            "displayName": {
+              "text": "Museo de Sitio de la Secretaría de Educación Pública",
+              "languageCode": "es"
+            },
+            "distance": 366.64,
+            "name": "Museo de Sitio de la Secretaría de Educación Pública"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  musea",
+          "aiQuery": "auténticos museos locales",
+          "aiEmoji": "🎨",
+          "aiType": "museum",
+          "modeisLatLong": "true"
+        },
+        "searchId": "fd1e1ce7-c40c-469b-84b5-ea065bd0b138"
+      }
+    },
+    {
+      "location": "Centro Histórico",
+      "query": "restaurant",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0624406,
+              "longitude": -96.72680799999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=6041010089609444621",
+            "userRatingCount": 413,
+            "displayName": {
+              "text": "Restaurante El Andariego Cocina Tradicional",
+              "languageCode": "es"
+            },
+            "distance": 0.32,
+            "name": "Restaurante El Andariego Cocina Tradicional"
+          },
+          {
+            "location": {
+              "latitude": 17.062295799999998,
+              "longitude": -96.7236427
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=3264511385074708649",
+            "userRatingCount": 712,
+            "displayName": {
+              "text": "Ocote cocina",
+              "languageCode": "en"
+            },
+            "distance": 0.35,
+            "name": "Ocote cocina"
+          },
+          {
+            "location": {
+              "latitude": 17.05952,
+              "longitude": -96.7222666
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=7691774284378060658",
+            "userRatingCount": 672,
+            "displayName": {
+              "text": "Cafe Bistrot Epicuro - Restaurante italiano y pizzeria-",
+              "languageCode": "es"
+            },
+            "distance": 0.36,
+            "name": "Cafe Bistrot Epicuro - Restaurante italiano y pizzeria-"
+          },
+          {
+            "location": {
+              "latitude": 17.0631368,
+              "longitude": -96.724961
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=15097461912718633507",
+            "userRatingCount": 185,
+            "displayName": {
+              "text": "NOIS: Restaurante & bar Oaxaca centro",
+              "languageCode": "en"
+            },
+            "distance": 0.38,
+            "name": "NOIS: Restaurante & bar Oaxaca centro"
+          },
+          {
+            "location": {
+              "latitude": 17.063512900000003,
+              "longitude": -96.72800110000001
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=8080914142487257159",
+            "userRatingCount": 449,
+            "displayName": {
+              "text": "Terraza Istmo",
+              "languageCode": "es"
+            },
+            "distance": 0.49,
+            "name": "Terraza Istmo"
+          },
+          {
+            "location": {
+              "latitude": 17.0620759,
+              "longitude": -96.72991619999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=5810998757590095936",
+            "userRatingCount": 488,
+            "displayName": {
+              "text": "El Quinque",
+              "languageCode": "es"
+            },
+            "distance": 0.52,
+            "name": "El Quinque"
+          },
+          {
+            "location": {
+              "latitude": 17.061224799999998,
+              "longitude": -96.72032109999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12796999992893747124",
+            "userRatingCount": 616,
+            "displayName": {
+              "text": "Café Rústiko",
+              "languageCode": "es"
+            },
+            "distance": 0.58,
+            "name": "Café Rústiko"
+          },
+          {
+            "location": {
+              "latitude": 17.065826899999998,
+              "longitude": -96.7255045
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=5425663317374504478",
+            "userRatingCount": 53,
+            "displayName": {
+              "text": "Totopo Güero",
+              "languageCode": "en"
+            },
+            "distance": 0.67,
+            "name": "Totopo Güero"
+          },
+          {
+            "location": {
+              "latitude": 17.0632999,
+              "longitude": -96.7308614
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=18336952960095193620",
+            "userRatingCount": 254,
+            "displayName": {
+              "text": "Moogoñé - Cocina de época",
+              "languageCode": "es"
+            },
+            "distance": 0.68,
+            "name": "Moogoñé - Cocina de época"
+          },
+          {
+            "location": {
+              "latitude": 17.0661854,
+              "longitude": -96.7263526
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14844037007705600684",
+            "userRatingCount": 597,
+            "displayName": {
+              "text": "Kintaro Restaurante Japonés",
+              "languageCode": "es"
+            },
+            "distance": 0.71,
+            "name": "Kintaro Restaurante Japonés"
+          },
+          {
+            "location": {
+              "latitude": 17.062962199999998,
+              "longitude": -96.71912189999999
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=12148123646489400645",
+            "userRatingCount": 756,
+            "displayName": {
+              "text": "Telaseu Korean BBQ & Steakhouse",
+              "languageCode": "en"
+            },
+            "distance": 0.77,
+            "name": "Telaseu Korean BBQ & Steakhouse"
+          },
+          {
+            "location": {
+              "latitude": 17.0644547,
+              "longitude": -96.71907209999999
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=3281216849022039956",
+            "userRatingCount": 19,
+            "displayName": {
+              "text": "A Que Te Sabe Local",
+              "languageCode": "en"
+            },
+            "distance": 0.87,
+            "name": "A Que Te Sabe Local"
+          },
+          {
+            "location": {
+              "latitude": 17.068497,
+              "longitude": -96.72435499999999
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=5600391141700397416",
+            "userRatingCount": 820,
+            "displayName": {
+              "text": "La Casa del Tío Güero",
+              "languageCode": "es"
+            },
+            "distance": 0.98,
+            "name": "La Casa del Tío Güero"
+          },
+          {
+            "location": {
+              "latitude": 17.064650399999998,
+              "longitude": -96.717295
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=11730703909278582646",
+            "userRatingCount": 105,
+            "displayName": {
+              "text": "Nanita",
+              "languageCode": "en"
+            },
+            "distance": 1.03,
+            "name": "Nanita"
+          },
+          {
+            "location": {
+              "latitude": 17.0693691,
+              "longitude": -96.7218042
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14240860014089604292",
+            "userRatingCount": 110,
+            "displayName": {
+              "text": "La Abuela",
+              "languageCode": "es"
+            },
+            "distance": 1.14,
+            "name": "La Abuela"
+          },
+          {
+            "location": {
+              "latitude": 17.0555487,
+              "longitude": -96.71242760000001
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=4112388652704250715",
+            "userRatingCount": 18,
+            "displayName": {
+              "text": "QUERREKE OAXACA",
+              "languageCode": "es"
+            },
+            "distance": 1.48,
+            "name": "QUERREKE OAXACA"
+          },
+          {
+            "location": {
+              "latitude": 17.075260699999998,
+              "longitude": -96.7392871
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=9277840134990423518",
+            "userRatingCount": 13,
+            "displayName": {
+              "text": "Comedor la esquina",
+              "languageCode": "es"
+            },
+            "distance": 2.25,
+            "name": "Comedor la esquina"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  restaurant",
+          "aiQuery": "restaurante pequeño local auténtico",
+          "aiEmoji": "🍽️",
+          "aiType": "restaurant",
+          "modeisLatLong": "true"
+        },
+        "searchId": "92cea00d-b5a2-4cbb-8fea-8aff2aa76eda"
+      }
+    },
+    {
+      "location": "Centro Histórico",
+      "query": "design shops",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0616777,
+              "longitude": -96.7239479
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=1804870923120123870",
+            "userRatingCount": 14,
+            "displayName": {
+              "text": "Un Rincón De Mexico",
+              "languageCode": "es"
+            },
+            "distance": 0.27,
+            "name": "Un Rincón De Mexico"
+          },
+          {
+            "location": {
+              "latitude": 17.064398399999998,
+              "longitude": -96.723924
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=15878849618663973499",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "¡Ay Güey! Oaxaca",
+              "languageCode": "en"
+            },
+            "distance": 0.54,
+            "name": "¡Ay Güey! Oaxaca"
+          },
+          {
+            "location": {
+              "latitude": 17.0646362,
+              "longitude": -96.7244321
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=5464594128041111635",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "Tienda Q",
+              "languageCode": "es"
+            },
+            "distance": 0.55,
+            "name": "Tienda Q"
+          },
+          {
+            "location": {
+              "latitude": 17.063667199999998,
+              "longitude": -96.7221254
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=6563849747413689165",
+            "userRatingCount": 16,
+            "displayName": {
+              "text": "Dacanni",
+              "languageCode": "en"
+            },
+            "distance": 0.57,
+            "name": "Dacanni"
+          },
+          {
+            "location": {
+              "latitude": 17.0653413,
+              "longitude": -96.7210327
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=9680537557725981296",
+            "userRatingCount": 33,
+            "displayName": {
+              "text": "Habitáculo Diseño + Arte",
+              "languageCode": "en"
+            },
+            "distance": 0.78,
+            "name": "Habitáculo Diseño + Arte"
+          },
+          {
+            "location": {
+              "latitude": 17.0675818,
+              "longitude": -96.7177744
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=11741872194076476255",
+            "userRatingCount": 12,
+            "displayName": {
+              "text": "Ezcarabajo Tienda de Diseño",
+              "languageCode": "es"
+            },
+            "distance": 1.2,
+            "name": "Ezcarabajo Tienda de Diseño"
+          },
+          {
+            "location": {
+              "latitude": 17.0688317,
+              "longitude": -96.7176851
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=13830028538667834739",
+            "userRatingCount": 36,
+            "displayName": {
+              "text": "Criptide",
+              "languageCode": "en"
+            },
+            "distance": 1.31,
+            "name": "Criptide"
+          },
+          {
+            "location": {
+              "latitude": 17.0802914,
+              "longitude": -96.7207028
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=4692594902978503611",
+            "userRatingCount": 11,
+            "displayName": {
+              "text": "Additivo al diseño",
+              "languageCode": "es"
+            },
+            "distance": 2.34,
+            "name": "Additivo al diseño"
+          },
+          {
+            "location": {
+              "latitude": 19.5562404,
+              "longitude": -99.1346679
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=3983150340299287976",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "Tienda de Diseño Tikva",
+              "languageCode": "es"
+            },
+            "distance": 376.46,
+            "name": "Tienda de Diseño Tikva"
+          },
+          {
+            "location": {
+              "latitude": 4.655702799999999,
+              "longitude": -74.0587816
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=1090252292923424010",
+            "userRatingCount": 116,
+            "displayName": {
+              "text": "LaPercha",
+              "languageCode": "es"
+            },
+            "distance": 2828.43,
+            "name": "LaPercha"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  design shops",
+          "aiQuery": "tiendas de diseño independiente",
+          "aiEmoji": "🎨",
+          "aiType": "shop",
+          "modeisLatLong": "true"
+        },
+        "searchId": "910a4da7-3d2d-4ffd-8cbc-7fc50e1ae332"
+      }
+    },
+    {
+      "location": "Centro Histórico",
+      "query": "cafe",
+      "data": {
+        "places": [
+          {
+            "location": {
+              "latitude": 17.0581647,
+              "longitude": -96.72464520000001
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=1150418281177726528",
+            "userRatingCount": 92,
+            "displayName": {
+              "text": "Cafe LA SOLEDAD",
+              "languageCode": "es"
+            },
+            "distance": 0.21,
+            "name": "Cafe LA SOLEDAD"
+          },
+          {
+            "location": {
+              "latitude": 17.060580899999998,
+              "longitude": -96.72314929999999
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=14607449780288815631",
+            "userRatingCount": 139,
+            "displayName": {
+              "text": "La Petrona Café Bistro",
+              "languageCode": "es"
+            },
+            "distance": 0.27,
+            "name": "La Petrona Café Bistro"
+          },
+          {
+            "location": {
+              "latitude": 17.0614629,
+              "longitude": -96.72212669999999
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=7750607880993095914",
+            "userRatingCount": 139,
+            "displayName": {
+              "text": "Cafeto Cacao",
+              "languageCode": "es"
+            },
+            "distance": 0.41,
+            "name": "Cafeto Cacao"
+          },
+          {
+            "location": {
+              "latitude": 17.063405799999998,
+              "longitude": -96.7279291
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=17974992777523766308",
+            "userRatingCount": 43,
+            "displayName": {
+              "text": "Café Bien",
+              "languageCode": "es"
+            },
+            "distance": 0.47,
+            "name": "Café Bien"
+          },
+          {
+            "location": {
+              "latitude": 17.0617433,
+              "longitude": -96.7215866
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=8465427706439133400",
+            "userRatingCount": 53,
+            "displayName": {
+              "text": "Café La Leyenda",
+              "languageCode": "es"
+            },
+            "distance": 0.48,
+            "name": "Café La Leyenda"
+          },
+          {
+            "location": {
+              "latitude": 17.062397,
+              "longitude": -96.7213789
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=14908732232024155635",
+            "userRatingCount": 10,
+            "displayName": {
+              "text": "La Estación del Café",
+              "languageCode": "es"
+            },
+            "distance": 0.53,
+            "name": "La Estación del Café"
+          },
+          {
+            "location": {
+              "latitude": 17.0581201,
+              "longitude": -96.72060019999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=109031978323159636",
+            "userRatingCount": 91,
+            "displayName": {
+              "text": "Sorbo Café de especialidad",
+              "languageCode": "es"
+            },
+            "distance": 0.56,
+            "name": "Sorbo Café de especialidad"
+          },
+          {
+            "location": {
+              "latitude": 17.061224799999998,
+              "longitude": -96.72032109999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12796999992893747124",
+            "userRatingCount": 616,
+            "displayName": {
+              "text": "Café Rústiko",
+              "languageCode": "es"
+            },
+            "distance": 0.58,
+            "name": "Café Rústiko"
+          },
+          {
+            "location": {
+              "latitude": 17.0633736,
+              "longitude": -96.72166639999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=6326710920097782007",
+            "userRatingCount": 118,
+            "displayName": {
+              "text": "La ttertulia Café",
+              "languageCode": "es"
+            },
+            "distance": 0.58,
+            "name": "La ttertulia Café"
+          },
+          {
+            "location": {
+              "latitude": 17.0601597,
+              "longitude": -96.719651
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=12730512720917667720",
+            "userRatingCount": 36,
+            "displayName": {
+              "text": "PARAtSO CAFÉ & BRUNCH",
+              "languageCode": "es"
+            },
+            "distance": 0.63,
+            "name": "PARAtSO CAFÉ & BRUNCH"
+          },
+          {
+            "location": {
+              "latitude": 17.065537499999998,
+              "longitude": -96.7249712
+            },
+            "rating": 4.5,
+            "googleMapsUri": "https://maps.google.com/?cid=11550825624023617660",
+            "userRatingCount": 1137,
+            "displayName": {
+              "text": "Casa Blasón",
+              "languageCode": "es"
+            },
+            "distance": 0.64,
+            "name": "Casa Blasón"
+          },
+          {
+            "location": {
+              "latitude": 17.063885799999998,
+              "longitude": -96.72106959999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=12866748402643218098",
+            "userRatingCount": 109,
+            "displayName": {
+              "text": "Oa studio",
+              "languageCode": "en"
+            },
+            "distance": 0.66,
+            "name": "Oa studio"
+          },
+          {
+            "location": {
+              "latitude": 17.0655352,
+              "longitude": -96.7281051
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=11635782636114376565",
+            "userRatingCount": 84,
+            "displayName": {
+              "text": "Espacio Luvina",
+              "languageCode": "es"
+            },
+            "distance": 0.69,
+            "name": "Espacio Luvina"
+          },
+          {
+            "location": {
+              "latitude": 17.0669298,
+              "longitude": -96.72553719999999
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=13106272311542839394",
+            "userRatingCount": 99,
+            "displayName": {
+              "text": "nono café",
+              "languageCode": "es"
+            },
+            "distance": 0.79,
+            "name": "nono café"
+          },
+          {
+            "location": {
+              "latitude": 17.0525392,
+              "longitude": -96.72470899999999
+            },
+            "rating": 4.8,
+            "googleMapsUri": "https://maps.google.com/?cid=91709112561646016",
+            "userRatingCount": 25,
+            "displayName": {
+              "text": "CAFÉ LOCAL CENTRO",
+              "languageCode": "en"
+            },
+            "distance": 0.81,
+            "name": "CAFÉ LOCAL CENTRO"
+          },
+          {
+            "location": {
+              "latitude": 17.0649217,
+              "longitude": -96.7198456
+            },
+            "rating": 4.7,
+            "googleMapsUri": "https://maps.google.com/?cid=14284684759758929339",
+            "userRatingCount": 320,
+            "displayName": {
+              "text": "Cafeto & Baristas",
+              "languageCode": "es"
+            },
+            "distance": 0.84,
+            "name": "Cafeto & Baristas"
+          },
+          {
+            "location": {
+              "latitude": 17.062362999999998,
+              "longitude": -96.717181
+            },
+            "rating": 4.6,
+            "googleMapsUri": "https://maps.google.com/?cid=10037143270356906228",
+            "userRatingCount": 30,
+            "displayName": {
+              "text": "Cafeteria Salamandra",
+              "languageCode": "en"
+            },
+            "distance": 0.94,
+            "name": "Cafeteria Salamandra"
+          },
+          {
+            "location": {
+              "latitude": 17.0639446,
+              "longitude": -96.7334492
+            },
+            "rating": 5,
+            "googleMapsUri": "https://maps.google.com/?cid=16124862902861958600",
+            "userRatingCount": 20,
+            "displayName": {
+              "text": "Cafetería la luz de maria",
+              "languageCode": "es"
+            },
+            "distance": 0.95,
+            "name": "Cafetería la luz de maria"
+          },
+          {
+            "location": {
+              "latitude": 17.067015599999998,
+              "longitude": -96.7200249
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=15476156708939430959",
+            "userRatingCount": 32,
+            "displayName": {
+              "text": "Café Viandante",
+              "languageCode": "es"
+            },
+            "distance": 1,
+            "name": "Café Viandante"
+          },
+          {
+            "location": {
+              "latitude": 17.066807,
+              "longitude": -96.7194045
+            },
+            "rating": 4.9,
+            "googleMapsUri": "https://maps.google.com/?cid=1120095198714024640",
+            "userRatingCount": 74,
+            "displayName": {
+              "text": "Gattó",
+              "languageCode": "es"
+            },
+            "distance": 1.02,
+            "name": "Gattó"
+          }
+        ],
+        "aiResponse": {
+          "originalQuery": "modeisLatLong:Mexico  cafe",
+          "aiQuery": "cafetería local acogedora",
+          "aiEmoji": "☕",
+          "aiType": "coffee place",
+          "modeisLatLong": "true"
+        },
+        "searchId": "6642619a-0029-495b-aabd-ab603b251898"
+      }
+    }
+  ]
