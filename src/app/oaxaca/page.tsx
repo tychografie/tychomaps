@@ -87,6 +87,9 @@ export default function Component() {
     useState(true)
   const [debugLog, setDebugLog] = useState([])
   const [showSearchBox, setShowSearchBox] = useState(false)
+  const [searchLoading, setSearchLoading] = useState(false)
+
+  const isBrowser = typeof window !== 'undefined';
 
   const addDebugLog = useCallback((message) => {
     setDebugLog((prev) => [...prev, `${new Date().toISOString()}: ${message}`])
@@ -223,56 +226,59 @@ export default function Component() {
     }))
   }, [])
 
-  const handleCustomSearch = useCallback(async () => {
-    const query = `${searchTerm} in Oaxaca`
-    addDebugLog(`Performing custom search: ${query}`)
-    setLoading(true)
+  const handleCustomSearch = useCallback(async (e) => {
+    e.preventDefault();
+    const query = `${searchTerm} in Oaxaca`;
+    addDebugLog(`Performing custom search: ${query}`);
+    setSearchLoading(true);
 
     try {
-      const response = await searchAction({ query })
-      const data = response.response
-      if (!data) return
-      addDebugLog(
-        `Received custom search data: ${JSON.stringify(data).substring(
-          0,
-          100,
-        )}...`,
-      )
+      const responseData = await searchAction({ query });
+      addDebugLog(`Raw response data: ${JSON.stringify(responseData)}`);
 
-      const newCategoryId = `custom-${Date.now()}`
+      if (!responseData || !responseData.response) {
+        throw new Error('Invalid response format');
+      }
+
+      const data = responseData.response;
+      addDebugLog(`Processed response data: ${JSON.stringify(data)}`);
+
+      const newCategoryId = `custom-${Date.now()}`;
       const newCategory = {
         id: newCategoryId,
-        label: data.aiResponse.aiQuery,
-        toggleLabel: data.aiResponse.aiQuery,
-        icon: data.aiResponse.aiEmoji,
+        label: data.aiResponse?.aiType || "Custom Search",
+        toggleLabel: data.aiResponse?.aiType || "Custom",
+        icon: data.aiResponse?.aiEmoji || "🔍",
         description: `Custom search results for "${searchTerm}"`,
         color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
         textColor: "#FFFFFF",
-      }
+      };
 
-      const newPlaces = data.places.map((place) => ({
-        id: `${newCategoryId}-${place.name}`,
-        name: place.displayName.text,
+      addDebugLog(`New category: ${JSON.stringify(newCategory)}`);
+
+      const newPlaces = Array.isArray(data.places) ? data.places.map((place) => ({
+        id: `${newCategoryId}-${place.name || place.displayName?.text}`,
+        name: place.name || place.displayName?.text,
         rating: place.rating,
         review: `${place.userRatingCount} reviews`,
         reviewer: "Google",
-        lat: place.location.latitude,
-        lng: place.location.longitude,
-        url: place.googleMapsUri,
+        lat: place.location?.latitude || place.lat,
+        lng: place.location?.longitude || place.lng,
+        url: place.googleMapsUri || place.url,
         neighborhood: "custom",
-      }))
+      })) : [];
 
-      setCategories((prev) => [...prev, newCategory])
-      setPlaces((prev) => ({ ...prev, [newCategoryId]: newPlaces }))
-      setActiveFilters((prev) => [...prev, newCategoryId])
-      setLoading(false)
-      addDebugLog(`Added new category and places for custom search`)
+      setCategories((prev) => [...prev, newCategory]);
+      setPlaces((prev) => ({ ...prev, [newCategoryId]: newPlaces }));
+      setActiveFilters((prev) => [...prev, newCategoryId]);
+      addDebugLog(`Added new category and ${newPlaces.length} places for custom search`);
     } catch (error) {
-      setError(error.message)
-      setLoading(false)
-      addDebugLog(`Error in custom search: ${error.message}`)
+      setError(error.message);
+      addDebugLog(`Error in custom search: ${error.message}`);
+    } finally {
+      setSearchLoading(false);
     }
-  }, [searchTerm, addDebugLog])
+  }, [searchTerm, addDebugLog, searchAction, setCategories, setPlaces, setActiveFilters, setError, setSearchLoading]);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
@@ -416,27 +422,28 @@ export default function Component() {
           </p>
 
           <div className="flex">
-            {showSearchBox && (
-              <>
-                <div className="relative flex-grow mr-2  mb-6">
-                  <input
-                    type="text"
-                    placeholder="Search places"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md"
-                  />
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                </div>
-                <button
-                  className="h-full px-4 py-2.5 bg-[#1f2937] text-white rounded-md shadow text-sm font-medium whitespace-nowrap"
-                  onClick={handleCustomSearch}
-                >
-                  <Plus className="w-4 h-4 inline mr-1" />
-                  Add to map
-                </button>
-              </>
-            )}
+          {showSearchBox && (
+  <form onSubmit={handleCustomSearch} className="flex mb-6">
+    <div className="relative flex-grow mr-2">
+      <input
+        type="text"
+        placeholder="Search places"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md"
+        disabled={searchLoading}
+      />
+      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+    </div>
+    <button
+      type="submit"
+      className="px-4 py-2 bg-blue-500 text-white rounded-md"
+      disabled={searchLoading}
+    >
+      {searchLoading ? 'Searching...' : 'Search'}
+    </button>
+  </form>
+)}
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
