@@ -1,4 +1,5 @@
-"use client"
+'use client'
+
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import dynamic from "next/dynamic"
 import { Building, Coffee, Plus, Search, Store, Utensils } from "lucide-react"
@@ -20,8 +21,8 @@ const Marker = dynamic(
   { ssr: false },
 )
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
-  ssr: false,
-})
+  ssr: false },
+)
 const Polygon = dynamic(
   () => import("react-leaflet").then((mod) => mod.Polygon),
   { ssr: false },
@@ -278,13 +279,13 @@ export default function Component() {
     } finally {
       setSearchLoading(false);
     }
-  }, [searchTerm, addDebugLog, searchAction, setCategories, setPlaces, setActiveFilters, setError, setSearchLoading]);
+  }, [searchTerm, addDebugLog, searchAction]);
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
 
   return (
-    <div className="relative h-screen w-screen">
+    <div className="relative min-h-min w-full">
       <style jsx global>{`
         @font-face {
           font-family: "Moranga";
@@ -304,101 +305,142 @@ export default function Component() {
           height: 100%;
           width: 100%;
         }
+        @media (max-width: 768px) {
+          .responsive-sidebar {
+            width: 100% !important;
+            height: auto !important;
+            overflow-y: visible;
+            position: relative !important;
+            background: rgba(255, 251, 245, 0.9) !important;
+          }
+          .responsive-content {
+            padding: 1rem !important;
+          }
+          .responsive-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .mobile-map {
+            height: 50vh !important;
+          }
+        }
       `}</style>
 
-      <MapContainer
-        center={[17.0628849, -96.7509703]}
-        zoom={14}
-        style={{ height: "100%", width: "100%", backgroundColor: "#FFFBF5" }}
-        zoomControl={false}
-      >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        />
-        {Object.entries(neighborhoodPolygons).map(
-          ([neighborhoodId, polygons]) => {
-            const neighborhood = neighborhoods.find(
-              (n) => n.id === neighborhoodId,
-            )
-            return polygons.map((polygon, index) => (
-              <Polygon
-                key={`${neighborhoodId}-${index}`}
-                positions={polygon}
-                pathOptions={{
-                  fillColor: neighborhood.color,
-                  fillOpacity: 0.2,
-                  weight: 2,
-                  color: neighborhood.color,
-                }}
-              >
-                <Popup>{neighborhood.name}</Popup>
-              </Polygon>
-            ))
-          },
-        )}
-        {Object.entries(filteredPlaces).flatMap(
-          ([categoryId, categoryPlaces]) =>
-            categoryPlaces.map((place) => {
-              const category = categories.find((c) => c.id === categoryId)
-              const Icon = category.icon
-              const iconSvg =
-                typeof Icon === "string"
-                  ? Icon
-                  : renderToStaticMarkup(
-                      <Icon className="w-8 h-8 text-white" />,
-                    )
-              return (
-                <Marker
-                  key={place.id}
-                  position={[place.lat, place.lng]}
-                  icon={L.divIcon({
-                    html: `
-                    <div style="background-color: ${category.color}; color: white; width: 24px; padding: 4px; height: 24px; display: flex; justify-content: center; align-items: center; border-radius: 50%;">
-                      ${iconSvg}
-                    </div>
-                  `,
-                    className: "custom-icon",
-                    iconSize: [30, 30],
-                    iconAnchor: [15, 0],
-                  })}
-                >
-                  <Popup>
-                    <div style={{ color: category.color }}>
-                      <a
-                        href={place.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-semibold hover:underline"
-                      >
-                        {place.name}
-                      </a>
-                      <div className="flex items-center mt-1">
-                        <span className="text-yellow-500">
-                          ★ {place.rating}
-                        </span>
-                        <span className="ml-2 text-xs">{place.review}</span>
+      <div className="md:hidden px-4 py-6 bg-[#FFFBF5]">
+        <p className="text-sm text-gray-600">OCTOBER 2024</p>
+        <h1 className="text-4xl font-['Moranga'] text-[#1f2937] mt-2">
+          <span className="font-normal">Hidden gems in </span>
+          <span className="font-bold">Oaxaca</span>
+        </h1>
+        <div className="flex items-center mt-4">
+          <img
+            src="/img/miguel.jpeg?height=40&width=40"
+            alt="User"
+            className="object-cover w-10 h-10 rounded-full mr-2"
+          />
+          <span className="text-sm text-gray-700">
+            Miguel, José and Alejandro
+          </span>
+        </div>
+      </div>
+
+      <div className="mobile-map md:h-screen w-full">
+        <MapContainer
+          center={[17.0628849, -96.7509703]}
+          zoom={14}
+          style={{ height: "100%", width: "100%", backgroundColor: "#FFFBF5" }}
+          zoomControl={false}
+        >
+          <TileLayer
+            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          />
+          {Object.entries(neighborhoodPolygons).map(
+            ([neighborhoodId, polygons]) => 
+              polygons.map((polygon, index) => {
+                const neighborhood = neighborhoods.find(
+                  (n) =>   n.id === neighborhoodId,
+                )
+                return (
+                  <Polygon
+                    
+                    key={`${neighborhoodId}-${index}`}
+                    positions={polygon}
+                    pathOptions={{
+                      fillColor: neighborhood.color,
+                      fillOpacity: 0.2,
+                      weight: 2,
+                      color: neighborhood.color,
+                    }}
+                  >
+                    <Popup>{neighborhood.name}</Popup>
+                  </Polygon>
+                )
+              }),
+          )}
+          {Object.entries(filteredPlaces).flatMap(
+            ([categoryId, categoryPlaces]) =>
+              categoryPlaces.map((place) => {
+                const category = categories.find((c) => c.id === categoryId)
+                const Icon = category.icon
+                const iconSvg =
+                  typeof Icon === "string"
+                    ? Icon
+                    : renderToStaticMarkup(
+                        <Icon className="w-8 h-8 text-white" />,
+                      )
+                return (
+                  <Marker
+                    key={place.id}
+                    position={[place.lat, place.lng]}
+                    icon={L.divIcon({
+                      html: `
+                      <div style="background-color: ${category.color}; color: white; width: 24px; padding: 4px; height: 24px; display: flex; 
+                      justify-content: center; align-items: center; border-radius: 50%;">
+                        ${iconSvg}
                       </div>
-                    </div>
-                  </Popup>
-                </Marker>
-              )
-            }),
-        )}
-      </MapContainer>
+                    `,
+                      className: "custom-icon",
+                      iconSize: [30, 30],
+                      iconAnchor: [15, 0],
+                    })}
+                  >
+                    <Popup>
+                      <div style={{ color: category.color }}>
+                        <a
+                          href={place.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold hover:underline"
+                        >
+                          {place.name}
+                        </a>
+                        <div className="flex items-center mt-1">
+                          <span className="text-yellow-500">
+                            ★ {place.rating}
+                          </span>
+                          <span className="ml-2 text-xs">{place.review}</span>
+                        </div>
+                      </div>
+                    </Popup>
+                  </Marker>
+                )
+              }),
+          )}
+        </MapContainer>
+      </div>
 
       <div
-        className="absolute top-0 left-0 w-1/2 h-full overflow-y-auto p-20"
+        className="absolute top-0 left-0 w-1/2 h-full overflow-y-auto sm:p-0 md:p-20 responsive-sidebar"
         style={{
           background:
             "linear-gradient(90deg, rgba(255, 251, 245, 0.9) 0%, rgba(255, 251, 245, 0.8) 80%, rgba(255, 251, 245, 0) 100%)",
           zIndex: 1000,
         }}
       >
-        <div className="max-w-lg">
-          <div className="mb-2">
+        <div className="max-w-lg responsive-content">
+          <div className="mb-6 hidden md:block">
             <p className="text-sm text-gray-600">OCTOBER 2024</p>
-            <h1 className="text-6xl font-['Moranga'] text-[#1f2937]">
+            <h1 className="text-4xl md:text-6xl font-['Moranga'] text-[#1f2937]">
               <span className="font-normal">Hidden gems in </span>
               <span className="font-bold">Oaxaca</span>
             </h1>
@@ -414,39 +456,39 @@ export default function Component() {
             </div>
           </div>
 
-          <p className="mb-4 text-sm text-[#1f2937]">
+          <p className="mb-6 text-sm text-[#1f2937]">
             ¡Bienvenidos a Oaxaca, amigos! We're about to take you on a journey
             through the soul of our beloved city. Forget the tourist traps -
             we're talking about the real Oaxaca, where the magic happens in
             hidden corners and local hangouts.
           </p>
 
-          <div className="flex">
-          {showSearchBox && (
-  <form onSubmit={handleCustomSearch} className="flex mb-6">
-    <div className="relative flex-grow mr-2">
-      <input
-        type="text"
-        placeholder="Search places"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md"
-        disabled={searchLoading}
-      />
-      <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-    </div>
-    <button
-      type="submit"
-      className="px-4 py-2 bg-blue-500 text-white rounded-md"
-      disabled={searchLoading}
-    >
-      {searchLoading ? 'Searching...' : 'Search'}
-    </button>
-  </form>
-)}
+          <div className="flex flex-wrap mb-6">
+            {showSearchBox && (
+              <form onSubmit={handleCustomSearch} className="flex w-full mb-4">
+                <div className="relative flex-grow mr-2">
+                  <input
+                    type="text"
+                    placeholder="Search places"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-md"
+                    disabled={searchLoading}
+                  />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                </div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  disabled={searchLoading}
+                >
+                  {searchLoading ? 'Searching...' : 'Search'}
+                </button>
+              </form>
+            )}
           </div>
 
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-8">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -468,7 +510,7 @@ export default function Component() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-6 responsive-grid">
             {categories
               .filter((category) => activeFilters.includes(category.id))
               .map((category) => (
@@ -550,6 +592,17 @@ export default function Component() {
                   </div>
                 </div>
               ))}
+            {/* New "Add custom" block */}
+            <div
+              className="rounded-lg overflow-hidden shadow bg-gray-800 text-white cursor-pointer transition-all duration-200 hover:bg-gray-700"
+              onClick={() => setShowSearchBox(!showSearchBox)}
+            >
+              <div className="p-4 h-full flex flex-col items-center justify-center">
+                <Plus className="w-12 h-12 mb-4" />
+                <h2 className="text-lg font-['Moranga'] font-medium mb-2">Add custom</h2>
+                <p className="text-xs text-center">Market, Hikes, Nature, Breakfast</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
