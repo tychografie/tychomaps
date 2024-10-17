@@ -10,7 +10,7 @@ import { NavSubLink } from "./NavSubLink"
 
 export const Header = memo(() => {
   return (
-    <header className="flex justify-between items-center text-md px-6 py-6">
+    <header className="flex justify-between items-center text-md px-6 py-6 bg-transparent">
       <div className="flex items-center gap-2">
         <Link href="/">
           <img

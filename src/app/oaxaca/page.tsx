@@ -194,15 +194,13 @@ export default function Component() {
     const filtered = {}
     Object.entries(places).forEach(([category, categoryPlaces]) => {
       if (activeFilters.includes(category)) {
-        filtered[category] = categoryPlaces.filter((place) =>
-          activeNeighborhoods.includes(
-            place.neighborhood.toLowerCase().replace(" ", "-"),
-          ),
-        )
+        filtered[category] = categoryPlaces
       }
     })
     return filtered
   }, [places, activeFilters, activeNeighborhoods])
+
+  console.log("filtered places", filteredPlaces)
 
   const toggleFilter = useCallback((categoryId) => {
     setActiveFilters((prev) =>
@@ -235,6 +233,7 @@ export default function Component() {
 
     try {
       const responseData = await searchAction({ query });
+      console.log(responseData)
       addDebugLog(`Raw response data: ${JSON.stringify(responseData)}`);
 
       if (!responseData || !responseData.response) {
@@ -257,6 +256,8 @@ export default function Component() {
 
       addDebugLog(`New category: ${JSON.stringify(newCategory)}`);
 
+      console.log("places", data.places)
+
       const newPlaces = Array.isArray(data.places) ? data.places.map((place) => ({
         id: `${newCategoryId}-${place.name || place.displayName?.text}`,
         name: place.name || place.displayName?.text,
@@ -268,6 +269,8 @@ export default function Component() {
         url: place.googleMapsUri || place.url,
         neighborhood: "custom",
       })) : [];
+
+      console.log("new places", newPlaces)
 
       setCategories((prev) => [...prev, newCategory]);
       setPlaces((prev) => ({ ...prev, [newCategoryId]: newPlaces }));

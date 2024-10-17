@@ -562,6 +562,7 @@ export const handleSearchRequest = async (
       }
     }
 
+
     try {
       const aiResult = await aiRequest(
         query,

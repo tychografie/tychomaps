@@ -94,7 +94,7 @@ export default function Home() {
   }, [handleRatingSubmit])
 
   return (
-    <div className="h-[70vh] flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4">
       <HeroBox
         address={location?.address}
         radius={radius}
