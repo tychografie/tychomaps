@@ -1,24 +1,21 @@
-'use server'
+"use server"
 
-import { QueryInfo, SearchStateResponse } from '@/app/types'
-import { headers } from 'next/headers'
-import { getRecentSearches, handleSearchRequest } from '@/lib/search'
+import { QueryInfo, SearchStateResponse } from "@/app/types"
+import { headers } from "next/headers"
+import {
+  getRecentSearches,
+  handleSearchRequest,
+  SearchBody,
+} from "@/lib/search"
 
-export async function search (
-  prevState: any, formData: FormData): Promise<SearchStateResponse> {
+export async function searchAction(
+  searchBody: SearchBody,
+): Promise<SearchStateResponse> {
   // const ip = request().ip
-  const ip = headers().get('x-forwarded-for')
-  const response = await handleSearchRequest({ query: formData.get('query') },
-    ip)
-  console.log(response)
-  return {
-    message: 'query: ' + formData.get('query'),
-    error: null,
-    response: response,
-  }
+  const ip = headers().get("x-forwarded-for")
+  return await handleSearchRequest(searchBody, ip)
 }
 
-export async function recentSearches (): Promise<QueryInfo[]> {
+export async function recentSearches(): Promise<QueryInfo[]> {
   return await getRecentSearches()
-
 }
