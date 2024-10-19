@@ -7,6 +7,8 @@ import { renderToStaticMarkup } from "react-dom/server"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { searchAction } from "@/app/action"
+import { Database } from "../../../database.types"
+import { createClient } from "@supabase/supabase-js"
 
 const MapContainer = dynamic(
   () => import("react-leaflet").then((mod) => mod.MapContainer),
@@ -358,14 +360,14 @@ export default function Component() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
           />
           {Object.entries(neighborhoodPolygons).map(
-            ([neighborhoodId, polygons]) => 
+            ([neighborhoodId, polygons]) =>
               polygons.map((polygon, index) => {
                 const neighborhood = neighborhoods.find(
                   (n) =>   n.id === neighborhoodId,
                 )
                 return (
                   <Polygon
-                    
+
                     key={`${neighborhoodId}-${index}`}
                     positions={polygon}
                     pathOptions={{

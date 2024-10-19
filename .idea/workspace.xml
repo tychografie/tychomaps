@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Layout for posts">
-      <change afterPath="$PROJECT_DIR$/src/lib/components/Footer.tsx" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add footer and fix oaxaca">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/oaxaca/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/oaxaca/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +107,10 @@
       <updated>1728642603373</updated>
       <workItem from="1728642604521" duration="12619000" />
       <workItem from="1728929440669" duration="3174000" />
-      <workItem from="1728995939516" duration="364000" />
+      <workItem from="1728995939516" duration="796000" />
+      <workItem from="1728998984576" duration="149000" />
+      <workItem from="1728999537039" duration="2095000" />
+      <workItem from="1729348406538" duration="997000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -382,14 +384,21 @@
       <option name="project" value="LOCAL" />
       <updated>1728931684942</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Add footer and fix oaxaca">
+      <option name="closed" value="true" />
+      <created>1728996406769</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1728996406769</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="next init" />
     <MESSAGE value="pnpm is better" />
     <MESSAGE value="rm next boiler" />
     <MESSAGE value="Fix fonts" />
@@ -414,7 +423,8 @@
     <MESSAGE value="Api loading = button disabled" />
     <MESSAGE value="Add bologna scaffolding" />
     <MESSAGE value="Layout for posts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Layout for posts" />
+    <MESSAGE value="Add footer and fix oaxaca" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add footer and fix oaxaca" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -422,7 +432,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/app/page.tsx</url>
           <line>51</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
