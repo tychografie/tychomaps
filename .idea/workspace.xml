@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add recent searches API and server action">
-      <change beforePath="$PROJECT_DIR$/src/app/action.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/action.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lib/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/search.ts" afterDir="false" />
+    <list default="true" id="c5101218-1b00-4025-b0b4-e57d17a15beb" name="Changes" comment="Add footer and fix oaxaca">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pnpm-lock.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/oaxaca/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/oaxaca/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,30 +20,36 @@
       <list>
         <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "hiddehs"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;hiddehs&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:tychografie/tychomaps.git",
-    "accountId": "3eece01c-8654-44b9-bc67-7ea8fc351966"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:tychografie/tychomaps.git&quot;,
+    &quot;accountId&quot;: &quot;3eece01c-8654-44b9-bc67-7ea8fc351966&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="2nHv1ntun6IQEOMAZUoW7OM0bZ2" />
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
@@ -53,20 +60,22 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/hidde/repos/tychomaps/src/app/api/search",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/hidde/repos/tychomaps/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#16 on polonext&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hidde/repos/tychomaps/src/app/api/search&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/hidde/repos/tychomaps/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/hidde/repos/tychomaps/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app/api/search" />
@@ -97,6 +106,11 @@
       <option name="presentableId" value="Default" />
       <updated>1728642603373</updated>
       <workItem from="1728642604521" duration="12619000" />
+      <workItem from="1728929440669" duration="3174000" />
+      <workItem from="1728995939516" duration="796000" />
+      <workItem from="1728998984576" duration="149000" />
+      <workItem from="1728999537039" duration="2095000" />
+      <workItem from="1729348406538" duration="997000" />
     </task>
     <task id="LOCAL-00001" summary="next init">
       <option name="closed" value="true" />
@@ -266,15 +280,125 @@
       <option name="project" value="LOCAL" />
       <updated>1728655906604</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="More types from gapi">
+      <option name="closed" value="true" />
+      <created>1728924876578</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1728924876578</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fix internal server action roundtrip to the moon">
+      <option name="closed" value="true" />
+      <created>1728925224969</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925224969</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fix internal server action roundtrip to the moon">
+      <option name="closed" value="true" />
+      <created>1728925314904</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925314904</updated>
+    </task>
+    <task id="LOCAL-00025" summary="And verified working">
+      <option name="closed" value="true" />
+      <created>1728925528465</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1728925528465</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Move location to server acc as well - save some lines, bytes and trees">
+      <option name="closed" value="true" />
+      <created>1728926317997</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1728926317997</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Make it an actual server action">
+      <option name="closed" value="true" />
+      <created>1728926636804</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1728926636804</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Make it an actual server action">
+      <option name="closed" value="true" />
+      <created>1728926685070</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1728926685070</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Button has disabled state">
+      <option name="closed" value="true" />
+      <created>1728930038927</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930038927</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Api loading = button disabled">
+      <option name="closed" value="true" />
+      <created>1728930046493</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930046493</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Api loading = button disabled">
+      <option name="closed" value="true" />
+      <created>1728930058093</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930058093</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Add bologna scaffolding">
+      <option name="closed" value="true" />
+      <created>1728930840571</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930840571</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Layout for posts">
+      <option name="closed" value="true" />
+      <created>1728930998143</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1728930998143</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Layout for posts">
+      <option name="closed" value="true" />
+      <created>1728931684942</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1728931684942</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Add footer and fix oaxaca">
+      <option name="closed" value="true" />
+      <created>1728996406769</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1728996406769</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="move to sub" />
-    <MESSAGE value="next init" />
     <MESSAGE value="pnpm is better" />
     <MESSAGE value="rm next boiler" />
     <MESSAGE value="Fix fonts" />
@@ -290,6 +414,27 @@
     <MESSAGE value="Placedata array" />
     <MESSAGE value="Add recent searches action" />
     <MESSAGE value="Add recent searches API and server action" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add recent searches API and server action" />
+    <MESSAGE value="More types from gapi" />
+    <MESSAGE value="Fix internal server action roundtrip to the moon" />
+    <MESSAGE value="And verified working" />
+    <MESSAGE value="Move location to server acc as well - save some lines, bytes and trees" />
+    <MESSAGE value="Make it an actual server action" />
+    <MESSAGE value="Button has disabled state" />
+    <MESSAGE value="Api loading = button disabled" />
+    <MESSAGE value="Add bologna scaffolding" />
+    <MESSAGE value="Layout for posts" />
+    <MESSAGE value="Add footer and fix oaxaca" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add footer and fix oaxaca" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/app/page.tsx</url>
+          <line>51</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
