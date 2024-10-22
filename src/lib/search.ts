@@ -4,6 +4,7 @@ import axios from "axios"
 import { MongoClient } from "mongodb"
 import { v4 as uuidv4 } from "uuid"
 import {
+  MapRequestCounts,
   PlaceDetail,
   QueryInfo,
   SearchObject,
@@ -246,7 +247,7 @@ export const aiRequest = async (query, country, retryQuery = null) => {
   try {
     const aiResponse = await axios.post(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" +
-        process.env.GOOGLE_MAPS_API_KEY,
+      process.env.GOOGLE_MAPS_API_KEY,
       {
         contents: [
           {
@@ -368,9 +369,9 @@ export const calculateDistance = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos((lat1 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
+    Math.cos((lat2 * Math.PI) / 180) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2)
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
   const distance = R * c // Distance in km
   return Math.round(distance * 100) / 100 // Round to 2 decimal places
@@ -423,12 +424,12 @@ export const processor = async (
     throw new Error("No places found")
   }
 
-  let filteredPlaces = mapsResponse.places.filter((place) => {
+  const filteredPlaces = mapsResponse.places.filter((place) => {
     const reviewCount = place.userRatingCount || 0
     return reviewCount >= 10 && reviewCount <= 1500
   })
 
-  let sortedPlaces = filteredPlaces.map((place) => ({
+  const sortedPlaces = filteredPlaces.map((place) => ({
     ...place,
     name: place.displayName?.text || "Unknown",
     rating: place.rating || 0,
@@ -457,7 +458,7 @@ export const processor = async (
   return sortedPlaces
 }
 
-export async function getRecentSearches(): Promise<QueryInfo> {
+export async function getRecentSearches(): Promise<QueryInfo[]> {
   try {
     await client.connect()
     const database = client.db("tychomapsmongodb")
@@ -680,6 +681,47 @@ export const handleSearchRequest = async (
       response: undefined,
       message: e.toString(),
       error: e,
+    }
+  }
+}
+
+export async function getMapRequestCounts(): Promise<MapRequestCounts> {
+  try {
+    await client.connect()
+    const db = client.db("tychomapsmongodb")
+    const usersCount = await db.collection('searches').aggregate([
+      { $group: { _id: '$ip' } },
+      { $group: { _id: null, count: { $sum: 1 } } }
+    ], { maxTimeMS: 60000, allowDiskUse: true }).toArray();
+
+    const totalUsers = usersCount.length > 0 ? usersCount[0].count : 0;
+
+    const result = await db.collection('searches').aggregate([
+      {
+        $group: {
+          _id: null,
+          totalMapsRequests: {
+            $sum: '$resultCount'
+          }
+        }
+      }
+    ]).toArray();
+    if (result.length > 0) {
+      return {
+        totalMapsRequests: result[0].totalMapsRequests,
+        totalUsers
+      }
+    } else {
+      return {
+        totalMapsRequests: 0,
+        totalUsers
+      }
+    }
+  } catch (err) {
+    console.error('Error getting map requests:', err)
+    return {
+      totalMapsRequests: 0,
+      totalUsers: 0
     }
   }
 }

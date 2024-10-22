@@ -6,11 +6,12 @@ import { Button } from "./Button"
 interface ResultsBoxProps {
   places: PlaceDetail[]
   onPositiveFeedback: () => void
+  onNegativeFeedback: () => void
   setIsFeedbackOpen: (open: boolean) => void
 }
 
 export const ResultsBox = memo<ResultsBoxProps>(
-  ({ setIsFeedbackOpen, onPositiveFeedback, ...props }) => {
+  ({ setIsFeedbackOpen, onPositiveFeedback, onNegativeFeedback, ...props }) => {
     const [moreIndex, setMoreIndex] = useState(0)
     const [feedbackSubmitted, setFeedbackSubmitted] = useState(false)
 
@@ -23,10 +24,10 @@ export const ResultsBox = memo<ResultsBoxProps>(
 
     const getAirbnbPhotoUrl = (place: PlaceDetail) => {
       if (place.photos && place.photos.length > 0) {
-        const photoReference = place.photos[0].name.split('/').pop()
+        const photoReference = place.photos[0].name.split("/").pop()
         return `https://www.airbnb.nl/google_place_photo?photoreference=${photoReference}&maxwidth=640&maxheight=640&id_type=ACP_ID&poi_id=t-g-${place.id}`
       }
-      return '/placeholder-image.jpg'
+      return "/placeholder-image.jpg"
     }
 
     const handlePositiveFeedback = useCallback(() => {
@@ -35,43 +36,43 @@ export const ResultsBox = memo<ResultsBoxProps>(
     }, [onPositiveFeedback])
 
     const handleNegativeFeedback = useCallback(() => {
+      onNegativeFeedback()
       setIsFeedbackOpen(true)
-      setFeedbackSubmitted(true)
-    }, [setIsFeedbackOpen])
+    }, [onNegativeFeedback, setIsFeedbackOpen])
 
     return (
       <div className="bg-orange-light w-full max-w-2xl flex flex-col text-purple p-6 rounded-lg">
-        <h1>Locals love to go to...</h1>
+        <h2>Locals love to go to...</h2>
         <div className="mt-4 flex flex-col space-y-2">
-      {props.places.slice(0, resultsShown).map((place) => (
-        <a
-          key={place.id}
-          href={place.googleMapsUri}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center w-full bg-gray-900 hover:bg-gray-950 text-white rounded-lg"
-        >
-          <img 
-            src={getAirbnbPhotoUrl(place)} 
-            alt={place.name} 
-            className="w-16 h-16 object-cover rounded-l-lg"
-          />
-          <div className="flex-grow flex justify-between items-center px-4 py-2">
-            <span className="text-lg">{place.name}</span>
-            <span className="flex items-center gap-1">
-              <StarIcon className="w-5 h-5 fill-white" />
-              {place.rating}
-            </span>
-          </div>
-        </a>
-      ))}
-      {moreResultsAvailable > 0 && (
-        <Button size="lg" onClick={showMore}>
-          Load {Math.min(moreResultsAvailable, 5)} more result
-          {moreResultsAvailable > 1 ? "s" : ""}
-        </Button>
-      )}
-    </div>
+          {props.places.slice(0, resultsShown).map((place) => (
+            <a
+              key={place.id}
+              href={place.googleMapsUri}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center w-full bg-gray-900 hover:bg-gray-950 text-white rounded-lg"
+            >
+              <img
+                src={getAirbnbPhotoUrl(place)}
+                alt={place.name}
+                className="w-16 h-16 object-cover rounded-l-lg"
+              />
+              <div className="flex-grow flex justify-between items-center px-4 py-2">
+                <span className="text-lg">{place.name}</span>
+                <span className="flex items-center gap-1">
+                  <StarIcon className="w-5 h-5 fill-white" />
+                  {place.rating}
+                </span>
+              </div>
+            </a>
+          ))}
+          {moreResultsAvailable > 0 && (
+            <Button size="lg" onClick={showMore}>
+              Load {Math.min(moreResultsAvailable, 5)} more result
+              {moreResultsAvailable > 1 ? "s" : ""}
+            </Button>
+          )}
+        </div>
         {feedbackSubmitted ? (
           <p className="mt-4">Thank you for your feedback!</p>
         ) : (

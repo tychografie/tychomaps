@@ -64,3 +64,8 @@ export type QueryInfo = {
   aiEmoji: string
   aiType: string
 }
+
+export type MapRequestCounts = {
+  totalMapsRequests: number
+  totalUsers: number
+}

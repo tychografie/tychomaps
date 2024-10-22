@@ -1,29 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 import { memo } from "react"
-import { Header } from "@/lib/components/Header"
+import Link from "next/link"
 
 export const Footer = memo(() => {
   return (
     <footer className="w-full bg-gray-900 text-white py-12 px-4">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start">
         <div className="flex flex-col items-center md:items-start mb-8 md:mb-0">
-          <a href="/">
+          <Link href="/">
             <img
               src="/img/polo-maps.svg"
               alt="Polomaps Logo"
               className="w-32 mb-4 filter brightness-0 invert"
             />
-          </a>
+          </Link>
           <div className="flex flex-col space-y-2 mb-2 text-center md:text-left">
-            <a href="/privacy-policy" className="text-sm hover:underline">
+            <Link href="/privacy-policy" className="text-sm hover:underline">
               Privacy Policy
-            </a>
-            <a href="/terms-of-service" className="text-sm hover:underline">
+            </Link>
+            <Link href="/terms-of-service" className="text-sm hover:underline">
               Terms of Service
-            </a>
-            <a href="/refund-policy" className="text-sm hover:underline">
+            </Link>
+            <Link href="/refund-policy" className="text-sm hover:underline">
               Refund Policy
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col items-center md:items-end">
@@ -56,4 +56,3 @@ export const Footer = memo(() => {
 })
 
 Footer.displayName = "Footer"
-

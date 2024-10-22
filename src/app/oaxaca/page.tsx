@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { useCallback, useEffect, useMemo, useState } from "react"
 import dynamic from "next/dynamic"
@@ -6,7 +6,7 @@ import { Building, Coffee, Plus, Search, Store, Utensils } from "lucide-react"
 import { renderToStaticMarkup } from "react-dom/server"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
-import { searchAction } from "@/app/action"
+import { searchAction } from "@/app/server-actions"
 import { Database } from "../../../database.types"
 import { createClient } from "@supabase/supabase-js"
 
@@ -23,8 +23,8 @@ const Marker = dynamic(
   { ssr: false },
 )
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
-  ssr: false },
-)
+  ssr: false,
+})
 const Polygon = dynamic(
   () => import("react-leaflet").then((mod) => mod.Polygon),
   { ssr: false },
@@ -92,7 +92,7 @@ export default function Component() {
   const [showSearchBox, setShowSearchBox] = useState(false)
   const [searchLoading, setSearchLoading] = useState(false)
 
-  const isBrowser = typeof window !== 'undefined';
+  const isBrowser = typeof window !== "undefined"
 
   const addDebugLog = useCallback((message) => {
     setDebugLog((prev) => [...prev, `${new Date().toISOString()}: ${message}`])
@@ -227,64 +227,71 @@ export default function Component() {
     }))
   }, [])
 
-  const handleCustomSearch = useCallback(async (e) => {
-    e.preventDefault();
-    const query = `${searchTerm} in Oaxaca`;
-    addDebugLog(`Performing custom search: ${query}`);
-    setSearchLoading(true);
+  const handleCustomSearch = useCallback(
+    async (e) => {
+      e.preventDefault()
+      const query = `${searchTerm} in Oaxaca`
+      addDebugLog(`Performing custom search: ${query}`)
+      setSearchLoading(true)
 
-    try {
-      const responseData = await searchAction({ query });
-      console.log(responseData)
-      addDebugLog(`Raw response data: ${JSON.stringify(responseData)}`);
+      try {
+        const responseData = await searchAction({ query })
+        console.log(responseData)
+        addDebugLog(`Raw response data: ${JSON.stringify(responseData)}`)
 
-      if (!responseData || !responseData.response) {
-        throw new Error('Invalid response format');
+        if (!responseData || !responseData.response) {
+          throw new Error("Invalid response format")
+        }
+
+        const data = responseData.response
+        addDebugLog(`Processed response data: ${JSON.stringify(data)}`)
+
+        const newCategoryId = `custom-${Date.now()}`
+        const newCategory = {
+          id: newCategoryId,
+          label: data.aiResponse?.aiType || "Custom Search",
+          toggleLabel: data.aiResponse?.aiType || "Custom",
+          icon: data.aiResponse?.aiEmoji || "🔍",
+          description: `Custom search results for "${searchTerm}"`,
+          color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+          textColor: "#FFFFFF",
+        }
+
+        addDebugLog(`New category: ${JSON.stringify(newCategory)}`)
+
+        console.log("places", data.places)
+
+        const newPlaces = Array.isArray(data.places)
+          ? data.places.map((place) => ({
+              id: `${newCategoryId}-${place.name || place.displayName?.text}`,
+              name: place.name || place.displayName?.text,
+              rating: place.rating,
+              review: `${place.userRatingCount} reviews`,
+              reviewer: "Google",
+              lat: place.location?.latitude || place.lat,
+              lng: place.location?.longitude || place.lng,
+              url: place.googleMapsUri || place.url,
+              neighborhood: "custom",
+            }))
+          : []
+
+        console.log("new places", newPlaces)
+
+        setCategories((prev) => [...prev, newCategory])
+        setPlaces((prev) => ({ ...prev, [newCategoryId]: newPlaces }))
+        setActiveFilters((prev) => [...prev, newCategoryId])
+        addDebugLog(
+          `Added new category and ${newPlaces.length} places for custom search`,
+        )
+      } catch (error) {
+        setError(error.message)
+        addDebugLog(`Error in custom search: ${error.message}`)
+      } finally {
+        setSearchLoading(false)
       }
-
-      const data = responseData.response;
-      addDebugLog(`Processed response data: ${JSON.stringify(data)}`);
-
-      const newCategoryId = `custom-${Date.now()}`;
-      const newCategory = {
-        id: newCategoryId,
-        label: data.aiResponse?.aiType || "Custom Search",
-        toggleLabel: data.aiResponse?.aiType || "Custom",
-        icon: data.aiResponse?.aiEmoji || "🔍",
-        description: `Custom search results for "${searchTerm}"`,
-        color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        textColor: "#FFFFFF",
-      };
-
-      addDebugLog(`New category: ${JSON.stringify(newCategory)}`);
-
-      console.log("places", data.places)
-
-      const newPlaces = Array.isArray(data.places) ? data.places.map((place) => ({
-        id: `${newCategoryId}-${place.name || place.displayName?.text}`,
-        name: place.name || place.displayName?.text,
-        rating: place.rating,
-        review: `${place.userRatingCount} reviews`,
-        reviewer: "Google",
-        lat: place.location?.latitude || place.lat,
-        lng: place.location?.longitude || place.lng,
-        url: place.googleMapsUri || place.url,
-        neighborhood: "custom",
-      })) : [];
-
-      console.log("new places", newPlaces)
-
-      setCategories((prev) => [...prev, newCategory]);
-      setPlaces((prev) => ({ ...prev, [newCategoryId]: newPlaces }));
-      setActiveFilters((prev) => [...prev, newCategoryId]);
-      addDebugLog(`Added new category and ${newPlaces.length} places for custom search`);
-    } catch (error) {
-      setError(error.message);
-      addDebugLog(`Error in custom search: ${error.message}`);
-    } finally {
-      setSearchLoading(false);
-    }
-  }, [searchTerm, addDebugLog, searchAction]);
+    },
+    [searchTerm, addDebugLog, searchAction],
+  )
 
   if (loading) return <div>Loading...</div>
   if (error) return <div>Error: {error}</div>
@@ -363,11 +370,10 @@ export default function Component() {
             ([neighborhoodId, polygons]) =>
               polygons.map((polygon, index) => {
                 const neighborhood = neighborhoods.find(
-                  (n) =>   n.id === neighborhoodId,
+                  (n) => n.id === neighborhoodId,
                 )
                 return (
                   <Polygon
-
                     key={`${neighborhoodId}-${index}`}
                     positions={polygon}
                     pathOptions={{
@@ -487,7 +493,7 @@ export default function Component() {
                   className="px-4 py-2 bg-blue-500 text-white rounded-md"
                   disabled={searchLoading}
                 >
-                  {searchLoading ? 'Searching...' : 'Search'}
+                  {searchLoading ? "Searching..." : "Search"}
                 </button>
               </form>
             )}
@@ -604,8 +610,12 @@ export default function Component() {
             >
               <div className="p-4 h-full flex flex-col items-center justify-center">
                 <Plus className="w-12 h-12 mb-4" />
-                <h2 className="text-lg font-['Moranga'] font-medium mb-2">Add custom</h2>
-                <p className="text-xs text-center">Market, Hikes, Nature, Breakfast</p>
+                <h2 className="text-lg font-['Moranga'] font-medium mb-2">
+                  Add custom
+                </h2>
+                <p className="text-xs text-center">
+                  Market, Hikes, Nature, Breakfast
+                </p>
               </div>
             </div>
           </div>

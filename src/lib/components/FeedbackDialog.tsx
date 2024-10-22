@@ -5,11 +5,11 @@ import { Button } from "./Button"
 interface FeedbackDialogProps {
   open: boolean
   setOpen: (open: boolean) => void
-  onSubmit: (rating?: "-1" | "1", text?: string) => void
+  onSubmit: (text: string) => void
 }
 
 export const FeedbackDialog = memo<FeedbackDialogProps>(
-  ({ onSubmit, setOpen, ...props }) => {
+  ({ setOpen, onSubmit, ...props }) => {
     const handleSubmit = useCallback(
       (e: FormEvent) => {
         e.preventDefault()

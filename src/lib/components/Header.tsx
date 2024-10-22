@@ -7,6 +7,7 @@ import { Nav } from "./Nav"
 import { NavLink } from "./NavLink"
 import { NavSub } from "./NavSub"
 import { NavSubLink } from "./NavSubLink"
+import { PremiumDialog } from "./PremiumDialog"
 
 export const Header = memo(() => {
   return (
@@ -41,10 +42,12 @@ export const Header = memo(() => {
             className="md:hidden size-5"
           />
         </ButtonLink>
-        <Button>
-          <span className="hidden md:inline">Get Premium</span>
-          <span className="md:hidden">Premium</span>
-        </Button>
+        <PremiumDialog>
+          <Button>
+            <span className="hidden md:inline">Get Premium</span>
+            <span className="md:hidden">Premium</span>
+          </Button>
+        </PremiumDialog>
       </div>
     </header>
   )
