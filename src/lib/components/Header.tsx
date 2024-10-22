@@ -3,23 +3,15 @@ import { memo } from "react"
 import { Button } from "./Button"
 import { ButtonLink } from "./ButtonLink"
 import Link from "next/link"
-import { NavLink, NavLinkVariants } from "./NavLink"
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@radix-ui/react-navigation-menu"
-import { ChevronDownIcon } from "lucide-react"
-import { NavSubLink } from "./NavSubLink"
-import { NavSub } from "./NavSub"
 import { Nav } from "./Nav"
+import { NavLink } from "./NavLink"
+import { NavSub } from "./NavSub"
+import { NavSubLink } from "./NavSubLink"
+import { PremiumDialog } from "./PremiumDialog"
 
 export const Header = memo(() => {
   return (
-    <header className="flex justify-between items-center text-md px-6 py-6">
+    <header className="flex justify-between items-center text-md px-6 py-6 bg-transparent">
       <div className="flex items-center gap-2">
         <Link href="/">
           <img
@@ -43,17 +35,19 @@ export const Header = memo(() => {
       </div>
       <div className="flex items-center gap-2 md:gap-4">
         <ButtonLink variant="outline" href="/sign-in">
-          <span className="font-display hidden md:inline">Login</span>
+          <span className="hidden md:inline">Login</span>
           <img
             src="/img/icons/account.svg"
             alt="Login"
             className="md:hidden size-5"
           />
         </ButtonLink>
-        <Button>
-          <span className="font-display hidden md:inline">Get Premium</span>
-          <span className="font-display md:hidden">Premium</span>
-        </Button>
+        <PremiumDialog>
+          <Button>
+            <span className="hidden md:inline">Get Premium</span>
+            <span className="md:hidden">Premium</span>
+          </Button>
+        </PremiumDialog>
       </div>
     </header>
   )
