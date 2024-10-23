@@ -219,7 +219,7 @@ const mapsRequest = async (mapsQuery, latitude, longitude, radius) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-Goog-Api-Key': process.env.GOOGLE_MAPS_API_KEY,
-                    'X-Goog-FieldMask': 'places.displayName,places.rating,places.userRatingCount,places.googleMapsUri,places.location'
+                    'X-Goog-FieldMask': 'places.displayName,places.photos,places.rating,places.userRatingCount,places.googleMapsUri,places.location'
                 }
             }
         );
