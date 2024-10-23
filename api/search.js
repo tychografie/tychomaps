@@ -306,7 +306,7 @@ async function getRecentSearches() {
         const resultsCollection = database.collection('search_results');
 
         const recentSearches = await resultsCollection.find({
-            "data.0.resultCount": { $gte: 5 },  // Only include searches with 5 or more results
+            "data.0.resultCount": { $gte: 5 },  // Only include searches with 5 or more results!
             $or: [
                 { "data.0.modeisLatLong": { $ne: true } },  // Include where modeisLatLong is not true
                 { "data.0.modeisLatLong": { $exists: false } }  // Include where modeisLatLong doesn't exist
